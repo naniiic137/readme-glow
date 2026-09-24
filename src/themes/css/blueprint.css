@@ -1,0 +1,599 @@
+/* Blueprint — a technical drawing: gridded sheet with a double frame, a title
+   block for the H1, numbered sections, dimension lines, callouts and FIG. labels. */
+
+.t-blueprint {
+  --bp-line: rgba(255, 255, 255, 0.62);
+  --bp-hair: rgba(255, 255, 255, 0.24);
+  --bp-major: rgba(255, 255, 255, 0.13);
+  --bp-minor: rgba(255, 255, 255, 0.055);
+  --bp-sheet: rgba(11, 58, 134, 0.62);
+  --bp-shade: rgba(2, 16, 48, 0.5);
+  counter-reset: bp-fig bp-detail bp-slide;
+}
+.t-blueprint.mode-light {
+  --bp-line: rgba(11, 58, 134, 0.62);
+  --bp-hair: rgba(11, 58, 134, 0.22);
+  --bp-major: rgba(31, 95, 209, 0.16);
+  --bp-minor: rgba(31, 95, 209, 0.07);
+  --bp-sheet: rgba(244, 246, 250, 0.78);
+  --bp-shade: rgba(11, 58, 134, 0.06);
+}
+.t-blueprint.hs-theme {
+  counter-reset: bp-fig bp-detail bp-slide bp-sec;
+}
+
+/* ---------------------------------------------------------------- drawing sheet */
+.t-blueprint.bg-theme .rg-backdrop {
+  background-image:
+    linear-gradient(var(--bp-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-major) 1px, transparent 1px),
+    linear-gradient(var(--bp-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-minor) 1px, transparent 1px);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: 50% 0;
+}
+.t-blueprint.bg-theme .rg-backdrop-inner {
+  background: radial-gradient(120% 100% at 50% 40%, transparent 50%, var(--bp-shade));
+}
+.t-blueprint:is(.layout-document, .layout-docs, .layout-magazine) .rg-body {
+  position: relative;
+  margin-block: clamp(18px, 4vw, 52px);
+  background: var(--bp-sheet);
+  border: 1.5px solid var(--bp-line);
+  outline: 1px solid var(--bp-hair);
+  outline-offset: 7px;
+}
+.t-blueprint:is(.layout-document, .layout-docs, .layout-magazine) .rg-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 7px;
+  background: repeating-linear-gradient(90deg, var(--bp-line) 0 1px, transparent 1px 100px);
+  pointer-events: none;
+}
+.t-blueprint:is(.layout-document, .layout-docs, .layout-magazine) .rg-body::after {
+  content: 'DWG. README \00a0\2014\00a0 SHEET 1 OF 1';
+  position: absolute;
+  bottom: 0;
+  inset-inline-end: 0;
+  padding: 0.5em 1em;
+  font: 500 0.64em/1.2 var(--rg-font-mono);
+  letter-spacing: 0.2em;
+  color: var(--rg-muted);
+  border-top: 1.5px solid var(--bp-line);
+  border-inline-start: 1.5px solid var(--bp-line);
+}
+@media (max-width: 640px) {
+  .t-blueprint:is(.layout-document, .layout-docs, .layout-magazine) .rg-body {
+    margin: 14px;
+    outline-offset: 4px;
+  }
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-blueprint .rg-body :is(h1, h2, h3) {
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+.t-blueprint .rg-body h1 {
+  font-size: clamp(1.8em, 1.3em + 2vw, 2.55em);
+  line-height: 1.08;
+  letter-spacing: 0.02em;
+}
+.t-blueprint.hs-theme .rg-body h1 {
+  width: fit-content;
+  min-width: min(100%, 9em);
+  max-width: 100%;
+  padding: 1.05em 0.75em 0.5em;
+  border: 2px solid var(--rg-heading);
+  box-shadow: 5px 5px 0 var(--bp-hair);
+}
+.t-blueprint.hs-theme .rg-body h1::before,
+.t-blueprint.hs-theme .rg-body h1::after {
+  position: absolute;
+  top: 1.2em;
+  font: 500 0.24em/1 var(--rg-font-mono);
+  letter-spacing: 0.24em;
+  color: var(--rg-muted);
+}
+.t-blueprint.hs-theme .rg-body h1::before {
+  content: 'TITLE';
+  inset-inline-start: 3.1em;
+}
+.t-blueprint.hs-theme .rg-body h1::after {
+  content: 'REV. A';
+  inset-inline-end: 3.1em;
+}
+.t-blueprint.hs-theme .rg-body [align='center'] > h1,
+.t-blueprint.hs-theme.layout-landing .rg-intro h1,
+.t-blueprint.hs-theme.layout-slides .rg-slide-title h1 {
+  margin-inline: auto;
+}
+.t-blueprint .rg-body h2 {
+  font-size: 1.55em;
+  margin-top: 2.3em;
+}
+.t-blueprint.hs-theme .rg-body h2 {
+  counter-increment: bp-sec;
+  padding-bottom: 0.6em;
+}
+.t-blueprint.hs-theme .rg-body h2::before {
+  content: 'SEC\00a0' counter(bp-sec, decimal-leading-zero) '\00a0\2014';
+  display: block;
+  margin-bottom: 0.5em;
+  font: 500 0.46em/1 var(--rg-font-mono);
+  letter-spacing: 0.24em;
+  color: var(--rg-link);
+}
+.t-blueprint.hs-theme .rg-body h2::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 9px;
+  border-inline: 1px solid var(--bp-line);
+  background: linear-gradient(var(--bp-line), var(--bp-line)) center / 100% 1px no-repeat;
+}
+.t-blueprint .rg-body h3 {
+  font-size: 1.18em;
+  letter-spacing: 0.06em;
+}
+.t-blueprint.hs-theme .rg-body h3::before {
+  content: '';
+  display: inline-block;
+  width: 0.5em;
+  height: 0.5em;
+  margin-inline-end: 0.6em;
+  vertical-align: 0.12em;
+  border: 1.5px solid var(--rg-link);
+  transform: rotate(45deg);
+}
+.t-blueprint .rg-body :is(h4, h5, h6) {
+  font-family: var(--rg-font-mono);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.t-blueprint .rg-body h4 {
+  font-size: 0.92em;
+}
+.t-blueprint .rg-body h5 {
+  font-size: 0.84em;
+}
+.t-blueprint .rg-body h6 {
+  font-size: 0.78em;
+}
+
+/* ---------------------------------------------------------------- text */
+.t-blueprint .rg-body a {
+  text-decoration-style: dashed;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.26em;
+  text-decoration-color: color-mix(in srgb, var(--rg-link) 70%, transparent);
+}
+.t-blueprint .rg-body a:hover {
+  text-decoration-style: solid;
+  background: color-mix(in srgb, var(--rg-link) 12%, transparent);
+}
+.t-blueprint .rg-body :not(pre) > code {
+  border: 1px solid var(--bp-hair);
+  border-radius: 0;
+}
+.t-blueprint .rg-body mark {
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- lists */
+.t-blueprint .rg-body ul:not(.contains-task-list) {
+  list-style: none;
+  padding-inline-start: 1.65em;
+}
+.t-blueprint .rg-body ul:not(.contains-task-list) > li {
+  position: relative;
+}
+.t-blueprint .rg-body ul:not(.contains-task-list) > li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -1.3em;
+  top: 0.5em;
+  width: 0.72em;
+  height: 0.72em;
+  background: var(--rg-link);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='3.2' fill='none' stroke='black' stroke-width='1.3'/%3E%3Cpath d='M6 0v12M0 6h12' stroke='black' stroke-width='1.3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Ccircle cx='6' cy='6' r='3.2' fill='none' stroke='black' stroke-width='1.3'/%3E%3Cpath d='M6 0v12M0 6h12' stroke='black' stroke-width='1.3'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.t-blueprint .rg-body ul ul:not(.contains-task-list) > li::before {
+  top: 0.66em;
+  width: 0.42em;
+  height: 0.42em;
+  background: none;
+  border: 1.5px solid var(--rg-link);
+  -webkit-mask: none;
+  mask: none;
+}
+.t-blueprint .rg-body ol {
+  list-style-type: decimal-leading-zero;
+  padding-inline-start: 2.2em;
+}
+.t-blueprint .rg-body ol > li::marker {
+  font-family: var(--rg-font-mono);
+  font-size: 0.86em;
+  font-weight: 500;
+  color: var(--rg-link);
+}
+.t-blueprint .rg-body .task-list-item > input[type='checkbox'],
+.t-blueprint .rg-body .task-list-item > p > input[type='checkbox'] {
+  border: 1.5px solid var(--rg-link);
+  border-radius: 0;
+  background: transparent;
+}
+.rg-doc.t-blueprint .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-blueprint .rg-body .task-list-item > p > input[type='checkbox']:checked,
+.rg-doc.t-blueprint.mode-dark .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-blueprint.mode-dark .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  background: var(--rg-link)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%230b3a86' stroke-width='2.4' stroke-linecap='square' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E")
+    center / 86% no-repeat;
+}
+.rg-doc.t-blueprint.mode-light .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-blueprint.mode-light .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='white' stroke-width='2.4' stroke-linecap='square' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------- notes & callouts */
+.t-blueprint .rg-body blockquote {
+  padding: 0.85em 1.2em;
+  color: var(--rg-text);
+  background: color-mix(in srgb, var(--rg-bg-alt) 55%, transparent);
+  border: 1px dashed var(--bp-line);
+  border-inline-start: 3px solid var(--rg-link);
+}
+.t-blueprint .rg-body blockquote::before {
+  content: 'NOTE:';
+  display: block;
+  margin-bottom: 0.4em;
+  font: 600 0.72em/1.2 var(--rg-font-mono);
+  letter-spacing: 0.22em;
+  color: var(--rg-link);
+}
+.t-blueprint .rg-body .markdown-alert {
+  position: relative;
+  padding: 1em 1.2em;
+  border: 1.5px solid var(--rg-alert-color);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--rg-alert-color) 7%, var(--rg-bg));
+}
+.t-blueprint .rg-body .markdown-alert-title {
+  display: flex;
+  width: fit-content;
+  margin-top: calc(-1em / 0.74);
+  margin-inline-start: calc(-1.2em / 0.74);
+  margin-bottom: 1em;
+  padding: 0.35em 0.9em;
+  gap: 0.6em;
+  font: 600 0.74em/1.3 var(--rg-font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rg-bg);
+  background: var(--rg-alert-color);
+}
+@media (min-width: 900px) {
+  .t-blueprint .rg-body .markdown-alert::before {
+    content: '';
+    position: absolute;
+    top: 0.95em;
+    inset-inline-end: 100%;
+    width: 1.6em;
+    height: 1.5px;
+    background: var(--rg-alert-color);
+  }
+  .t-blueprint .rg-body .markdown-alert::after {
+    content: '';
+    position: absolute;
+    top: calc(0.95em - 3px);
+    inset-inline-end: calc(100% + 1.6em);
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rg-alert-color);
+  }
+}
+
+/* ---------------------------------------------------------------- code */
+.t-blueprint .rg-body .rg-code {
+  border: 1.5px solid var(--bp-line);
+  border-radius: 0;
+}
+.t-blueprint .rg-body .rg-code-head {
+  font-family: var(--rg-font-mono);
+  font-size: 0.72em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.t-blueprint .rg-body .rg-code.has-file .rg-code-head {
+  background: color-mix(in srgb, var(--rg-code-text) 7%, var(--rg-code-bg));
+  border-bottom: 1px dashed color-mix(in srgb, var(--rg-code-text) 30%, transparent);
+}
+.t-blueprint .rg-body .rg-code-file {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.04em;
+}
+.t-blueprint .rg-body .rg-code-file .rg-icon {
+  display: none;
+}
+.t-blueprint .rg-body .rg-code-file::before {
+  content: 'FILE\00a0';
+  letter-spacing: 0.18em;
+  opacity: 0.6;
+}
+.t-blueprint .rg-body .rg-copy {
+  border-radius: 0;
+  font-family: var(--rg-font-mono);
+  text-transform: uppercase;
+}
+.t-blueprint .rg-body pre {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-attachment: local;
+}
+
+/* ---------------------------------------------------------------- spec tables */
+.t-blueprint .rg-body .rg-table-wrap {
+  background: color-mix(in srgb, var(--rg-bg) 55%, transparent);
+  border: 1.5px solid var(--bp-line);
+  border-radius: 0;
+}
+.t-blueprint .rg-body th,
+.t-blueprint .rg-body td {
+  border: 1px solid var(--bp-hair);
+}
+.t-blueprint .rg-body tr > :first-child {
+  border-inline-start: 0;
+}
+.t-blueprint .rg-body tr > :last-child {
+  border-inline-end: 0;
+}
+.t-blueprint .rg-body thead tr:first-child > th {
+  border-top: 0;
+}
+.t-blueprint .rg-body tbody tr:last-child > td {
+  border-bottom: 0;
+}
+.t-blueprint .rg-body th {
+  font-family: var(--rg-font-mono);
+  font-size: 0.74em;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--rg-link) 10%, transparent);
+  border-bottom: 1.5px solid var(--bp-line);
+}
+.t-blueprint .rg-body tbody tr:nth-child(even) {
+  background: none;
+}
+.t-blueprint .rg-body tbody tr:hover {
+  background: color-mix(in srgb, var(--rg-link) 7%, transparent);
+}
+
+/* ---------------------------------------------------------------- figures */
+.t-blueprint .rg-body .rg-figure {
+  --bp-m: var(--bp-line);
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: 16px;
+  counter-increment: bp-fig;
+  background:
+    linear-gradient(var(--bp-m), var(--bp-m)) left top / 16px 1.5px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) left top / 1.5px 16px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) right top / 16px 1.5px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) right top / 1.5px 16px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) left bottom / 16px 1.5px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) left bottom / 1.5px 16px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) right bottom / 16px 1.5px no-repeat,
+    linear-gradient(var(--bp-m), var(--bp-m)) right bottom / 1.5px 16px no-repeat;
+}
+.t-blueprint .rg-body .rg-figure img,
+.t-blueprint .rg-body .rg-figure video,
+.t-blueprint.layout-landing .rg-body .rg-intro .rg-figure img {
+  border: 1px solid var(--bp-hair);
+  border-radius: 0;
+  box-shadow: none;
+}
+.t-blueprint .rg-body .rg-caption {
+  font-family: var(--rg-font-mono);
+  font-size: 0.72em;
+  font-style: normal;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.t-blueprint .rg-body .rg-caption::before {
+  content: 'FIG.\00a0' counter(bp-fig, decimal-leading-zero) '\00a0\2014\00a0';
+  color: var(--rg-link);
+}
+.t-blueprint .rg-body .rg-badges img {
+  mix-blend-mode: luminosity;
+  transition: mix-blend-mode 0.2s;
+}
+.t-blueprint .rg-body .rg-badges a:hover img,
+.t-blueprint .rg-body .rg-badges img:hover {
+  mix-blend-mode: normal;
+}
+
+/* ---------------------------------------------------------------- dimension line & details */
+.t-blueprint .rg-body hr {
+  position: relative;
+  height: 11px;
+  margin: 3em 0;
+  overflow: visible;
+  border: 0;
+  border-inline: 1px solid var(--bp-line);
+  background: linear-gradient(var(--bp-line), var(--bp-line)) center / 100% 1px no-repeat;
+}
+.t-blueprint .rg-body hr::before,
+.t-blueprint .rg-body hr::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 9px;
+  height: 7px;
+  margin-top: -3.5px;
+  background: var(--bp-line);
+}
+.t-blueprint .rg-body hr::before {
+  inset-inline-start: 1px;
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+}
+.t-blueprint .rg-body hr::after {
+  inset-inline-end: 1px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.t-blueprint .rg-body hr:dir(rtl)::before,
+.t-blueprint .rg-body hr:dir(rtl)::after {
+  transform: scaleX(-1);
+}
+.t-blueprint .rg-body details {
+  background: transparent;
+  border: 1px dashed var(--bp-line);
+  border-radius: 0;
+}
+.t-blueprint .rg-body summary {
+  margin-inline: -1.163em;
+  padding-inline: 1.163em;
+  font-family: var(--rg-font-mono);
+  font-size: 0.86em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 0;
+}
+.rg-doc.t-blueprint .rg-body details > summary::before {
+  content: '+';
+  display: inline-grid;
+  place-items: center;
+  width: 1.35em;
+  height: 1.35em;
+  margin-inline-end: 0.75em;
+  vertical-align: 0.02em;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--rg-link);
+  border: 1px solid var(--rg-link);
+  transform: none;
+}
+.rg-doc.t-blueprint .rg-body details[open] > summary::before {
+  content: '\2212';
+}
+.t-blueprint .rg-body details[open] > summary {
+  border-bottom: 1px dashed var(--bp-hair);
+  border-radius: 0;
+}
+.t-blueprint .rg-body kbd {
+  background: transparent;
+  border: 1px solid var(--bp-line);
+  border-radius: 0;
+  box-shadow: 2px 2px 0 var(--bp-hair);
+}
+.t-blueprint .rg-body .footnotes {
+  border-top: 1px dashed var(--bp-line);
+  font-family: var(--rg-font-mono);
+  font-size: 0.8em;
+}
+.t-blueprint .rg-body .rg-mermaid {
+  background: color-mix(in srgb, var(--rg-bg) 55%, transparent);
+  border: 1px dashed var(--bp-line);
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-blueprint .rg-toc {
+  font-family: var(--rg-font-mono);
+}
+.t-blueprint .rg-toc-title {
+  font-family: var(--rg-font-mono);
+  letter-spacing: 0.24em;
+}
+.t-blueprint .rg-toc a {
+  font-size: 0.92em;
+  border-inline-start: 1px solid var(--bp-hair);
+}
+.t-blueprint .rg-toc a.is-active {
+  color: var(--rg-heading);
+  background: color-mix(in srgb, var(--rg-link) 13%, transparent);
+  border-inline-start: 3px double var(--rg-link);
+}
+
+/* ---------------------------------------------------------------- landing */
+.t-blueprint.layout-landing .rg-body .rg-intro h1 {
+  font-size: clamp(2em, 1.2em + 3.4vw, 3.6em);
+  letter-spacing: 0.02em;
+}
+.t-blueprint.layout-landing .rg-section {
+  position: relative;
+  counter-increment: bp-detail;
+  background: var(--bp-sheet);
+  border: 1.5px solid var(--bp-line);
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--bp-hair);
+}
+.t-blueprint.layout-landing .rg-section::before {
+  content: 'DETAIL\00a0' counter(bp-detail, upper-alpha);
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  padding: 0.45em 0.9em;
+  font: 500 0.64em/1.2 var(--rg-font-mono);
+  letter-spacing: 0.22em;
+  color: var(--rg-muted);
+  border-bottom: 1.5px solid var(--bp-line);
+  border-inline-start: 1.5px solid var(--bp-line);
+}
+.t-blueprint.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  background: transparent;
+  border: 1px dashed var(--bp-line);
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- slides & magazine */
+.t-blueprint.layout-slides .rg-slide {
+  counter-increment: bp-slide;
+}
+.t-blueprint.layout-slides .rg-slide::before {
+  content: '';
+  position: absolute;
+  inset: clamp(10px, 2.4vw, 24px);
+  border: 1.5px solid var(--bp-line);
+  outline: 1px solid var(--bp-hair);
+  outline-offset: 5px;
+  pointer-events: none;
+}
+.t-blueprint.layout-slides .rg-slide::after {
+  content: 'SHEET\00a0' counter(bp-slide, decimal-leading-zero);
+  position: absolute;
+  top: clamp(10px, 2.4vw, 24px);
+  inset-inline-end: clamp(10px, 2.4vw, 24px);
+  width: auto;
+  padding: 0.45em 0.9em;
+  font: 500 0.6em/1.2 var(--rg-font-mono);
+  letter-spacing: 0.22em;
+  color: var(--rg-muted);
+  border-bottom: 1.5px solid var(--bp-line);
+  border-inline-start: 1.5px solid var(--bp-line);
+}
+.t-blueprint.layout-slides .rg-body .rg-slide-title h1 {
+  font-size: clamp(2em, 1.2em + 3.4vw, 3.8em);
+}
+.t-blueprint .rg-slides-progress > span {
+  background: var(--rg-link);
+}
+.t-blueprint .rg-slides-ui button {
+  border-radius: 0;
+}
+.t-blueprint.layout-magazine .rg-section {
+  column-rule: 1px dashed var(--bp-line);
+}
+.t-blueprint.layout-magazine .rg-body .rg-section > h2 + p::first-letter {
+  font-weight: 600;
+  color: var(--rg-link);
+}

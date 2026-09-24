@@ -1,0 +1,257 @@
+/* Aurora — a slowly drifting gradient mesh behind frosted-glass content. */
+
+.t-aurora {
+  --au-glass: rgba(20, 21, 48, 0.58);
+  --au-glass-border: rgba(255, 255, 255, 0.09);
+  --au-glow-1: #2dd4bf;
+  --au-glow-2: #8b5cf6;
+  --au-glow-3: #ec4899;
+  --au-glow-4: #38bdf8;
+}
+.t-aurora.mode-light {
+  --au-glass: rgba(255, 255, 255, 0.66);
+  --au-glass-border: rgba(80, 70, 180, 0.14);
+  --au-glow-1: #5eead4;
+  --au-glow-2: #c4b5fd;
+  --au-glow-3: #f9a8d4;
+  --au-glow-4: #7dd3fc;
+}
+
+/* ---------------------------------------------------------------- backdrop */
+.t-aurora.bg-theme .rg-backdrop {
+  background:
+    radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--au-glow-2) 22%, transparent), transparent 60%),
+    var(--rg-bg);
+}
+.t-aurora.bg-theme .rg-backdrop-inner::before,
+.t-aurora.bg-theme .rg-backdrop-inner::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  filter: blur(70px) saturate(130%);
+  opacity: 0.75;
+  will-change: transform;
+}
+.t-aurora.bg-theme .rg-backdrop-inner::before {
+  background:
+    radial-gradient(28% 32% at 18% 22%, var(--au-glow-1), transparent 70%),
+    radial-gradient(30% 34% at 82% 18%, var(--au-glow-2), transparent 70%),
+    radial-gradient(26% 30% at 60% 78%, var(--au-glow-3), transparent 70%);
+  animation: au-drift 26s ease-in-out infinite alternate;
+}
+.t-aurora.bg-theme .rg-backdrop-inner::after {
+  background:
+    radial-gradient(24% 28% at 30% 70%, var(--au-glow-4), transparent 70%),
+    radial-gradient(22% 26% at 88% 62%, var(--au-glow-1), transparent 70%);
+  opacity: 0.5;
+  animation: au-drift-2 34s ease-in-out infinite alternate;
+}
+.t-aurora.mode-dark.bg-theme .rg-backdrop-inner::before {
+  opacity: 0.42;
+}
+.t-aurora.mode-dark.bg-theme .rg-backdrop-inner::after {
+  opacity: 0.3;
+}
+@keyframes au-drift {
+  0% {
+    transform: translate3d(-4%, -2%, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 4%, 0) rotate(8deg) scale(1.08);
+  }
+  100% {
+    transform: translate3d(6%, -3%, 0) rotate(-6deg) scale(1.02);
+  }
+}
+@keyframes au-drift-2 {
+  0% {
+    transform: translate3d(4%, 3%, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(-5%, -4%, 0) scale(0.95);
+  }
+}
+
+/* ---------------------------------------------------------------- glass body */
+.t-aurora .rg-body {
+  position: relative;
+}
+.t-aurora.layout-document .rg-body,
+.t-aurora.layout-docs .rg-body {
+  margin-block: clamp(12px, 4vw, 48px);
+  background: var(--au-glass);
+  border: 1px solid var(--au-glass-border);
+  border-radius: 28px;
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 40px 120px -40px rgba(0, 0, 0, 0.55);
+}
+.t-aurora.mode-light.layout-document .rg-body,
+.t-aurora.mode-light.layout-docs .rg-body {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 40px 100px -50px rgba(60, 40, 160, 0.35);
+}
+@media (max-width: 640px) {
+  .t-aurora.layout-document .rg-body,
+  .t-aurora.layout-docs .rg-body {
+    margin: 10px;
+    border-radius: 20px;
+  }
+}
+.t-aurora.layout-landing .rg-section,
+.t-aurora.layout-magazine .rg-body {
+  background: var(--au-glass);
+  border-color: var(--au-glass-border);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+.t-aurora.layout-magazine .rg-body {
+  border: 1px solid var(--au-glass-border);
+  border-radius: 28px;
+  margin-block: 32px;
+}
+.t-aurora .rg-toc a.is-active {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--rg-accent) 22%, transparent), transparent);
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-aurora .rg-body :is(h1, h2, h3, h4) {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.t-aurora.hs-theme .rg-body h1 {
+  background: linear-gradient(100deg, var(--rg-heading) 10%, var(--au-glow-4) 45%, var(--rg-accent) 75%, var(--au-glow-3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.06em;
+}
+.t-aurora.mode-light.hs-theme .rg-body h1 {
+  background-image: linear-gradient(100deg, var(--rg-heading) 10%, #4338ca 50%, #7c3aed 75%, #be185d);
+}
+.t-aurora.hs-theme .rg-body h2 {
+  padding-bottom: 0.45em;
+}
+.t-aurora.hs-theme .rg-body h2::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 0;
+  width: 3.2em;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--au-glow-1), var(--rg-accent), var(--au-glow-3));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--rg-accent) 70%, transparent);
+}
+.t-aurora .rg-body h3 {
+  color: color-mix(in srgb, var(--rg-heading) 88%, var(--rg-accent));
+}
+
+/* ---------------------------------------------------------------- text */
+.t-aurora .rg-body a:not(.rg-anchor) {
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--au-glow-1), var(--rg-accent)) no-repeat 0 100% / 100% 1px;
+  padding-bottom: 1px;
+  transition: background-size 0.25s ease, color 0.2s ease;
+}
+.t-aurora .rg-body a:not(.rg-anchor):hover {
+  background-size: 100% 2px;
+}
+.t-aurora .rg-body :is(.rg-badges, .rg-figure) a,
+.t-aurora .rg-body a:has(> img) {
+  background: none;
+}
+.t-aurora .rg-body li::marker {
+  color: var(--au-glow-1);
+}
+.t-aurora.mode-light .rg-body li::marker {
+  color: var(--rg-accent);
+}
+.t-aurora .rg-body hr {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--au-glow-1), var(--rg-accent), var(--au-glow-3), transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--rg-accent) 60%, transparent);
+}
+.t-aurora .rg-body blockquote {
+  color: var(--rg-text);
+  padding: 0.9em 1.3em;
+  background: color-mix(in srgb, var(--rg-surface) 55%, transparent);
+  border: 1px solid var(--au-glass-border);
+  border-inline-start: 3px solid transparent;
+  border-image: linear-gradient(180deg, var(--au-glow-1), var(--rg-accent), var(--au-glow-3)) 1;
+  border-image-slice: 0 0 0 1;
+  font-style: italic;
+}
+.t-aurora .rg-body .markdown-alert {
+  border: 1px solid color-mix(in srgb, var(--rg-alert-color) 38%, transparent);
+  border-inline-start-width: 1px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--rg-alert-color) 10%, color-mix(in srgb, var(--rg-surface) 60%, transparent));
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02) inset, 0 12px 40px -18px color-mix(in srgb, var(--rg-alert-color) 60%, transparent);
+  padding: 1em 1.2em;
+}
+
+/* ---------------------------------------------------------------- code */
+.t-aurora .rg-body .rg-code {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(139, 92, 246, 0.12);
+}
+.t-aurora .rg-body .rg-code.has-file .rg-code-head::before {
+  content: '';
+  flex: none;
+  width: 44px;
+  height: 10px;
+  margin-inline-end: 4px;
+  background:
+    radial-gradient(circle at 5px 5px, #ff6b8b 4px, transparent 4.5px),
+    radial-gradient(circle at 22px 5px, #fcd34d 4px, transparent 4.5px),
+    radial-gradient(circle at 39px 5px, #6ee7b7 4px, transparent 4.5px);
+}
+.t-aurora .rg-body :not(pre) > code {
+  border: 1px solid color-mix(in srgb, var(--rg-inline-code-text) 22%, transparent);
+}
+
+/* ---------------------------------------------------------------- tables */
+.t-aurora .rg-body .rg-table-wrap {
+  border-color: var(--au-glass-border);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--rg-surface) 50%, transparent);
+}
+.t-aurora .rg-body th {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--au-glow-2) 22%, transparent), color-mix(in srgb, var(--au-glow-1) 14%, transparent));
+  font-size: 0.82em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.t-aurora .rg-body td,
+.t-aurora .rg-body th {
+  border-bottom-color: var(--au-glass-border);
+}
+.t-aurora .rg-body tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.025);
+}
+.t-aurora.mode-light .rg-body tbody tr:nth-child(even) {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+/* ---------------------------------------------------------------- media */
+.t-aurora .rg-body .rg-figure img {
+  border-radius: 18px;
+  border: 1px solid var(--au-glass-border);
+  box-shadow: 0 30px 80px -30px color-mix(in srgb, var(--au-glow-2) 55%, transparent), 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+.t-aurora .rg-body details {
+  background: color-mix(in srgb, var(--rg-surface) 55%, transparent);
+  border-color: var(--au-glass-border);
+  border-radius: 16px;
+}
+.t-aurora .rg-body kbd {
+  background: color-mix(in srgb, var(--rg-surface) 80%, transparent);
+  border-color: var(--au-glass-border);
+  box-shadow: 0 2px 0 color-mix(in srgb, var(--rg-accent) 40%, transparent);
+  border-bottom-width: 1px;
+}
+.t-aurora .rg-body .rg-mermaid {
+  background: color-mix(in srgb, var(--rg-surface) 55%, transparent);
+  border-color: var(--au-glass-border);
+}

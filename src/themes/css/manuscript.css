@@ -1,0 +1,567 @@
+/* Manuscript — an illuminated page: aged parchment, iron-gall ink, red rubrics and gold leaf. */
+
+.t-manuscript {
+  --ms-gold: #b8860b;
+  --ms-gold-leaf: #e8c66c;
+  --ms-gold-line: color-mix(in srgb, #b8860b 68%, transparent);
+  --ms-rule: color-mix(in srgb, var(--rg-accent) 42%, transparent);
+  --ms-ink-soft: color-mix(in srgb, var(--rg-text) 34%, transparent);
+  --ms-vellum: color-mix(in srgb, #fcf5e2 45%, transparent);
+  --ms-deco: 'Cinzel Decorative', 'Cinzel Variable', Georgia, serif;
+}
+
+/* ---------------------------------------------------------------- parchment */
+.t-manuscript.bg-theme .rg-backdrop {
+  background-color: var(--rg-bg);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .24 0 0 0 0 .1 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.008' numOctaves='3' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .33 0 0 0 0 .12 0 0 0 .24 -.05'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E"),
+    radial-gradient(520px 360px at 14% 8%, rgba(160, 110, 40, 0.1), transparent 70%),
+    radial-gradient(600px 420px at 88% 40%, rgba(150, 100, 30, 0.08), transparent 70%),
+    radial-gradient(640px 440px at 76% 96%, rgba(160, 110, 40, 0.09), transparent 70%);
+}
+.t-manuscript.bg-theme .rg-backdrop-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 78% 72% at 50% 50%, transparent 52%, rgba(120, 76, 22, 0.15) 84%, rgba(84, 48, 12, 0.3) 100%);
+}
+
+/* ---------------------------------------------------------------- the folio */
+.t-manuscript.layout-document .rg-body,
+.t-manuscript.layout-docs .rg-body {
+  position: relative;
+  margin-block: clamp(18px, 4vw, 48px);
+  padding-inline: clamp(26px, 6vw, 68px);
+  background: var(--ms-vellum);
+  border: 1px solid var(--ms-rule);
+  outline: 1px solid var(--ms-gold-line);
+  outline-offset: -7px;
+  box-shadow: 0 30px 60px -42px rgba(80, 45, 10, 0.5);
+}
+.t-manuscript.layout-document .rg-body::before,
+.t-manuscript.layout-docs .rg-body::before,
+.t-manuscript.layout-document .rg-body::after,
+.t-manuscript.layout-docs .rg-body::after {
+  position: absolute;
+  left: 50%;
+  padding: 0 0.45em;
+  font-size: 1.3em;
+  line-height: 1;
+  color: var(--rg-accent);
+  background: var(--rg-bg);
+}
+.t-manuscript.layout-document .rg-body::before,
+.t-manuscript.layout-docs .rg-body::before {
+  content: '\2766';
+  top: 0;
+  translate: -50% -55%;
+}
+.t-manuscript.layout-document .rg-body::after,
+.t-manuscript.layout-docs .rg-body::after {
+  content: '\2619\2002\2767';
+  bottom: 0;
+  translate: -50% 50%;
+  font-size: 1.1em;
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-manuscript .rg-body :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.28;
+}
+.t-manuscript .rg-body h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.t-manuscript .rg-body h2 {
+  font-size: 1.45em;
+  letter-spacing: 0.06em;
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-body h3 {
+  font-family: var(--rg-font-body);
+  font-size: 1.32em;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+.t-manuscript .rg-body h3::first-letter {
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-body h4 {
+  font-family: var(--rg-font-body);
+  font-size: 1.16em;
+  font-style: italic;
+  letter-spacing: 0.01em;
+}
+.t-manuscript .rg-body h5 {
+  font-size: 0.9em;
+  letter-spacing: 0.12em;
+}
+.t-manuscript .rg-body h6 {
+  font-size: 0.78em;
+  letter-spacing: 0.2em;
+  text-transform: none;
+}
+.t-manuscript.hs-theme .rg-body h1 {
+  padding-bottom: 0.45em;
+  text-align: center;
+  background: linear-gradient(var(--ms-gold-line), var(--ms-gold-line)) center bottom / 4.5em 1px no-repeat;
+}
+.t-manuscript.hs-theme .rg-body h1::before,
+.t-manuscript.hs-theme .rg-body h1::after {
+  font-family: var(--rg-font-body);
+  font-size: 0.6em;
+  font-weight: 400;
+  color: var(--rg-accent);
+  vertical-align: 0.2em;
+}
+.t-manuscript.hs-theme .rg-body h1::before {
+  content: '\2619';
+  margin-inline-end: 0.5em;
+}
+.t-manuscript.hs-theme .rg-body h1::after {
+  content: '\2767';
+  margin-inline-start: 0.5em;
+}
+.t-manuscript.hs-theme .rg-body h1:dir(rtl)::before {
+  content: '\2767';
+}
+.t-manuscript.hs-theme .rg-body h1:dir(rtl)::after {
+  content: '\2619';
+}
+.t-manuscript.hs-theme .rg-body h1 > .rg-anchor {
+  position: absolute;
+  inset-inline-end: 0;
+  top: 50%;
+  margin: -0.35em 0 0;
+}
+.t-manuscript.hs-theme .rg-body h2 {
+  padding-bottom: 0.4em;
+  background:
+    linear-gradient(var(--ms-rule), var(--ms-rule)) 0 100% / 100% 1px no-repeat,
+    linear-gradient(var(--ms-gold-line), var(--ms-gold-line)) 0 calc(100% - 3px) / 100% 1px no-repeat;
+}
+.t-manuscript.hs-theme .rg-body h2::before {
+  content: '\2767';
+  margin-inline-end: 0.4em;
+  font-family: var(--rg-font-body);
+  font-size: 0.92em;
+  font-weight: 400;
+  color: var(--ms-gold);
+}
+.t-manuscript.hs-theme .rg-body h2:dir(rtl)::before {
+  display: inline-block;
+  scale: -1 1;
+}
+
+/* ---------------------------------------------------------------- the illuminated capital */
+.t-manuscript:not(.layout-landing):not(.layout-slides) .rg-body > h1 + p:not(.rg-badges, .rg-figure):dir(ltr)::first-letter,
+.t-manuscript:not(.layout-landing):not(.layout-slides) .rg-body > h1 + .rg-badges + p:not(.rg-figure):dir(ltr)::first-letter,
+.t-manuscript:not(.layout-landing):not(.layout-slides) .rg-body > [align='center']:first-child + p:not(.rg-badges, .rg-figure):dir(ltr)::first-letter,
+.t-manuscript:not(.layout-landing):not(.layout-slides) .rg-intro > h1 + p:not(.rg-badges, .rg-figure):dir(ltr)::first-letter,
+.t-manuscript:not(.layout-landing):not(.layout-slides) .rg-intro > h1 + .rg-badges + p:not(.rg-figure):dir(ltr)::first-letter,
+.t-manuscript:not(.layout-landing):not(.layout-slides) .rg-intro > [align='center']:first-child + p:not(.rg-badges, .rg-figure):dir(ltr)::first-letter,
+.t-manuscript.layout-magazine .rg-body .rg-section > h2 + p:dir(ltr)::first-letter {
+  float: left;
+  margin: 0.05em 0.14em 0 0;
+  padding: 0.12em 0.13em 0.02em;
+  font-family: var(--ms-deco);
+  font-size: 3.9em;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 0.86;
+  color: var(--ms-gold-leaf);
+  text-shadow: 0 1px 0 #6a4a05, 0 0 12px rgba(232, 198, 108, 0.35);
+  background:
+    radial-gradient(circle, rgba(255, 224, 150, 0.2) 0.8px, transparent 1.3px) 0 0 / 7px 7px,
+    radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--rg-accent) 70%, #ffffff), transparent 60%),
+    linear-gradient(135deg, var(--rg-accent), color-mix(in srgb, var(--rg-accent) 72%, #000000));
+  border: 3px double var(--ms-gold);
+  box-shadow: 0 0 0 1px var(--rg-accent), 2px 4px 10px rgba(80, 45, 10, 0.3);
+}
+
+/* ---------------------------------------------------------------- text */
+.t-manuscript .rg-body {
+  font-variant-numeric: oldstyle-nums;
+}
+/* Paragraphs contain their illuminated initial, so a short one never lets the next block wrap. */
+.t-manuscript .rg-body p:not(.rg-badges, .rg-figure, .markdown-alert-title) {
+  display: flow-root;
+}
+@media (min-width: 760px) {
+  .t-manuscript .rg-body > p,
+  .t-manuscript .rg-body > .rg-section > p {
+    text-align: justify;
+    hyphens: auto;
+  }
+}
+.t-manuscript .rg-body strong,
+.t-manuscript .rg-body b {
+  font-weight: 650;
+}
+.t-manuscript .rg-body a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: color-mix(in srgb, var(--rg-link) 40%, transparent);
+}
+.t-manuscript .rg-body a:hover {
+  text-decoration-color: var(--ms-gold);
+  text-decoration-thickness: 2px;
+}
+.t-manuscript .rg-body mark {
+  border-radius: 1px;
+  box-shadow: 0 1px 0 var(--ms-gold);
+}
+.t-manuscript .rg-body ul:not(.contains-task-list) {
+  list-style-type: '\2767\2002';
+}
+.t-manuscript .rg-body ul ul:not(.contains-task-list) {
+  list-style-type: '\00B6\2002';
+}
+.t-manuscript .rg-body ul > li::marker {
+  font-family: var(--rg-font-body);
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-body ol {
+  padding-inline-start: 2.1em;
+  list-style-type: lower-roman;
+}
+.t-manuscript .rg-body ol ol {
+  list-style-type: lower-alpha;
+}
+.t-manuscript .rg-body ol > li::marker {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-body .footnotes ol {
+  list-style-type: decimal;
+}
+.t-manuscript .rg-body .task-list-item > input[type='checkbox'],
+.t-manuscript .rg-body .task-list-item > p > input[type='checkbox'] {
+  top: 0.36em;
+  border: 1.5px solid var(--ms-ink-soft);
+  border-radius: 1px;
+  background-color: var(--ms-vellum);
+}
+.t-manuscript .rg-body hr {
+  position: relative;
+  height: 1.6em;
+  margin: 2.6em 0;
+  overflow: visible;
+  background:
+    linear-gradient(90deg, transparent, var(--ms-gold-line)) left center / calc(50% - 1.8em) 1px no-repeat,
+    linear-gradient(90deg, var(--ms-gold-line), transparent) right center / calc(50% - 1.8em) 1px no-repeat;
+}
+.t-manuscript .rg-body hr::after {
+  content: '\2042';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  font-family: var(--rg-font-body);
+  font-size: 1.45em;
+  line-height: 1;
+  color: var(--rg-accent);
+}
+
+/* ---------------------------------------------------------------- marginalia & alerts */
+.t-manuscript .rg-body blockquote {
+  position: relative;
+  margin-block: 1.6em;
+  padding-block: 0.1em;
+  padding-inline: 2.2em 0.4em;
+  border: 0;
+  font-size: 1.02em;
+  font-style: italic;
+  color: var(--rg-muted);
+}
+.t-manuscript .rg-body blockquote::before {
+  content: '\261E';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.05em;
+  font-size: 1.35em;
+  font-style: normal;
+  line-height: 1.2;
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-body blockquote:dir(rtl)::before {
+  content: '\261C';
+}
+.t-manuscript .rg-body blockquote :is(em, i) {
+  font-style: normal;
+}
+.t-manuscript .rg-body .markdown-alert {
+  --ms-c: var(--rg-alert-color);
+  padding: 1.15em 1.45em 1.2em;
+  border: 1px solid color-mix(in srgb, var(--ms-c) 55%, transparent);
+  border-radius: 0;
+  outline: 1px solid color-mix(in srgb, var(--ms-c) 28%, transparent);
+  outline-offset: -5px;
+  background:
+    linear-gradient(var(--ms-c), var(--ms-c)) top 6px left 6px / 13px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) top 6px left 6px / 2px 13px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) top 6px right 6px / 13px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) top 6px right 6px / 2px 13px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 6px left 6px / 13px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 6px left 6px / 2px 13px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 6px right 6px / 13px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 6px right 6px / 2px 13px no-repeat,
+    color-mix(in srgb, var(--ms-c) 6%, var(--rg-surface));
+}
+.t-manuscript[dir='rtl'] .rg-body .markdown-alert,
+.t-manuscript .rg-body .markdown-alert[dir='rtl'] {
+  border-radius: 0;
+}
+.t-manuscript .rg-body .markdown-alert-title {
+  font-family: var(--rg-font-heading);
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------- code */
+.t-manuscript .rg-body .rg-code {
+  border: 1px solid var(--rg-border);
+  box-shadow: inset 0 2px 10px rgba(90, 60, 20, 0.16), 0 1px 0 rgba(255, 250, 235, 0.7);
+}
+.t-manuscript .rg-body .rg-code-head {
+  font-family: var(--rg-font-heading);
+  letter-spacing: 0.08em;
+  border-bottom: 1px dashed color-mix(in srgb, var(--rg-code-text) 22%, transparent);
+}
+.t-manuscript .rg-body .rg-code.has-file .rg-code-head::before {
+  content: '\2766';
+  font-family: var(--rg-font-body);
+  font-size: 1.25em;
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-body .rg-code-file {
+  letter-spacing: 0;
+}
+.t-manuscript .rg-body .rg-code-lang {
+  font-weight: 700;
+  color: color-mix(in srgb, var(--rg-accent) 80%, var(--rg-code-text));
+}
+.t-manuscript .rg-body .rg-copy {
+  border-radius: 1px;
+}
+.t-manuscript .rg-body pre {
+  font-size: 0.78em;
+  line-height: 1.66;
+  font-variant-numeric: normal;
+}
+.t-manuscript .rg-body :not(pre) > code {
+  padding: 0.1em 0.35em;
+  font-size: 0.8em;
+  border: 1px solid color-mix(in srgb, var(--rg-text) 14%, transparent);
+  border-radius: 2px;
+}
+.t-manuscript .rg-body kbd {
+  font-size: 0.72em;
+  border-color: var(--ms-ink-soft);
+  border-bottom-width: 2px;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------- tables */
+.t-manuscript .rg-body .rg-table-wrap {
+  border: 0;
+  border-radius: 0;
+}
+.t-manuscript .rg-body table {
+  border-block: 3px double color-mix(in srgb, var(--rg-text) 72%, transparent);
+}
+.t-manuscript .rg-body th {
+  font-family: var(--rg-font-heading);
+  font-size: 0.76em;
+  letter-spacing: 0.1em;
+  color: var(--rg-accent);
+  background: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--rg-text) 55%, transparent);
+}
+.t-manuscript .rg-body td {
+  border-bottom-color: color-mix(in srgb, var(--rg-border) 65%, transparent);
+}
+.t-manuscript .rg-body tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--rg-bg-alt) 38%, transparent);
+}
+
+/* ---------------------------------------------------------------- miniatures */
+.t-manuscript .rg-body .rg-figure img,
+.t-manuscript.layout-landing .rg-body .rg-intro .rg-figure img {
+  padding: 5px;
+  background: var(--rg-surface);
+  border: 3px double var(--ms-gold);
+  border-radius: 1px;
+  outline: 1px solid var(--ms-rule);
+  outline-offset: 3px;
+  box-shadow: 0 18px 34px -22px rgba(80, 45, 10, 0.6);
+}
+.t-manuscript .rg-body .rg-caption {
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+}
+.t-manuscript .rg-body .rg-badges {
+  gap: 7px;
+  padding-block: 0.6em;
+  border-block: 3px double var(--ms-gold-line);
+}
+.t-manuscript .rg-body .rg-badges img {
+  filter: sepia(0.3) saturate(0.85);
+  transition: filter 0.2s ease;
+}
+.t-manuscript .rg-body .rg-badges a:hover img {
+  filter: none;
+}
+.t-manuscript .rg-body details {
+  padding: 0.1em 1.2em;
+  background: color-mix(in srgb, var(--rg-surface) 70%, transparent);
+  border-radius: var(--rg-radius);
+  outline: 1px solid color-mix(in srgb, var(--rg-border) 60%, transparent);
+  outline-offset: -4px;
+}
+.t-manuscript .rg-body summary {
+  margin-inline: -1.2em;
+  padding: 0.65em 1.2em;
+  font-family: var(--rg-font-heading);
+  font-size: 0.88em;
+  letter-spacing: 0.08em;
+}
+.t-manuscript .rg-body summary::before,
+.t-manuscript[dir='rtl'] .rg-body summary::before,
+.t-manuscript .rg-body [dir='rtl'] summary::before {
+  content: '\2767';
+  width: auto;
+  height: auto;
+  margin-inline-end: 0.55em;
+  font-family: var(--rg-font-body);
+  font-size: 1.15em;
+  color: var(--rg-accent);
+  border: 0;
+  transform: none;
+  vertical-align: -0.02em;
+}
+.t-manuscript .rg-body details[open] > summary::before {
+  transform: rotate(90deg);
+}
+.t-manuscript .rg-body details[open] > summary {
+  border-bottom-color: var(--ms-rule);
+}
+.t-manuscript .rg-body .rg-mermaid {
+  background: var(--ms-vellum);
+}
+.t-manuscript .rg-body .footnotes {
+  border-top: 1px solid var(--ms-gold-line);
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-manuscript .rg-toc-title {
+  letter-spacing: 0.16em;
+  color: var(--rg-accent);
+}
+.t-manuscript .rg-toc a {
+  position: relative;
+  border-inline-start-width: 1px;
+}
+.t-manuscript .rg-toc a.is-active {
+  font-style: italic;
+  color: var(--rg-accent);
+  background: none;
+  border-inline-start-color: var(--rg-accent);
+}
+.t-manuscript .rg-toc a.is-active::before {
+  content: '\00B6';
+  position: absolute;
+  inset-inline-start: -1em;
+  font-style: normal;
+  color: var(--rg-accent);
+}
+
+/* ---------------------------------------------------------------- landing */
+.t-manuscript.layout-landing .rg-body .rg-intro h1 {
+  letter-spacing: 0.06em;
+  line-height: 1.12;
+}
+.t-manuscript.layout-landing .rg-body .rg-intro > p:not(.rg-badges):not(.rg-figure) {
+  font-style: italic;
+}
+.t-manuscript.layout-landing .rg-body .rg-intro .rg-badges {
+  padding-inline: 1.2em;
+}
+.t-manuscript.layout-landing .rg-body .rg-section {
+  --ms-c: var(--ms-gold);
+  background:
+    linear-gradient(var(--ms-c), var(--ms-c)) top 12px left 12px / 16px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) top 12px left 12px / 2px 16px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) top 12px right 12px / 16px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) top 12px right 12px / 2px 16px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 12px left 12px / 16px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 12px left 12px / 2px 16px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 12px right 12px / 16px 2px no-repeat,
+    linear-gradient(var(--ms-c), var(--ms-c)) bottom 12px right 12px / 2px 16px no-repeat,
+    var(--ms-vellum);
+  border: 1px solid var(--ms-rule);
+  border-radius: var(--rg-radius);
+  outline: 1px solid var(--ms-gold-line);
+  outline-offset: -7px;
+  box-shadow: 0 26px 50px -38px rgba(80, 45, 10, 0.55);
+}
+.t-manuscript.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  background: color-mix(in srgb, var(--rg-surface) 80%, transparent);
+  border-radius: var(--rg-radius);
+}
+
+/* ---------------------------------------------------------------- slides & magazine */
+.t-manuscript.layout-slides .rg-body .rg-slide::before {
+  content: '';
+  position: absolute;
+  inset: clamp(10px, 2.4vh, 24px);
+  border: 1px solid var(--ms-rule);
+  outline: 1px solid var(--ms-gold-line);
+  outline-offset: -6px;
+  pointer-events: none;
+}
+.t-manuscript .rg-slides-progress {
+  background: color-mix(in srgb, var(--ms-gold) 25%, transparent);
+}
+.t-manuscript .rg-slides-progress > span {
+  background: var(--rg-accent);
+}
+.t-manuscript.layout-magazine .rg-body .rg-intro {
+  border-bottom: 3px double var(--ms-rule);
+}
+@media (min-width: 880px) {
+  .t-manuscript.layout-magazine .rg-body .rg-section {
+    column-rule-color: var(--ms-gold-line);
+  }
+  .t-manuscript.layout-magazine .rg-body .rg-section > h2 {
+    border-top-color: var(--ms-gold-line);
+  }
+}
+
+/* ---------------------------------------------------------------- small screens */
+@media (max-width: 600px) {
+  .t-manuscript .rg-body h1 {
+    font-size: 1.8em;
+  }
+  .t-manuscript .rg-body h2 {
+    font-size: 1.3em;
+  }
+  .t-manuscript.layout-document .rg-body,
+  .t-manuscript.layout-docs .rg-body {
+    margin: 22px 10px;
+    padding-inline: 22px;
+  }
+  .t-manuscript:not(.layout-landing):not(.layout-slides) .rg-body > h1 + p:not(.rg-badges, .rg-figure):dir(ltr)::first-letter,
+  .t-manuscript:not(.layout-landing):not(.layout-slides) .rg-body > h1 + .rg-badges + p:not(.rg-figure):dir(ltr)::first-letter,
+  .t-manuscript:not(.layout-landing):not(.layout-slides) .rg-intro > h1 + p:not(.rg-badges, .rg-figure):dir(ltr)::first-letter,
+  .t-manuscript:not(.layout-landing):not(.layout-slides) .rg-intro > h1 + .rg-badges + p:not(.rg-figure):dir(ltr)::first-letter {
+    font-size: 3.2em;
+  }
+}

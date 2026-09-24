@@ -1,0 +1,490 @@
+/* Synthwave — outrun neon: a striped sunset on the horizon, an endless grid
+   rolling towards you, chrome titles and glowing panels. */
+
+.t-synthwave {
+  --sy-cyan: #2de2e6;
+  --sy-orange: #ff9a3c;
+  --sy-yellow: #ffe66d;
+  --sy-violet: #8b2fc9;
+  --sy-horizon: 64%;
+  --sy-panel: rgba(21, 10, 48, 0.86);
+  --sy-panel-deep: rgba(13, 6, 32, 0.72);
+  --sy-line: color-mix(in srgb, var(--rg-accent) 40%, transparent);
+  --sy-neon: 0 0 3px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in srgb, var(--rg-accent) 85%, transparent),
+    0 0 32px color-mix(in srgb, var(--rg-accent) 50%, transparent);
+  --sy-neon-cyan: 0 0 3px rgba(255, 255, 255, 0.4), 0 0 12px rgba(45, 226, 230, 0.8), 0 0 28px rgba(45, 226, 230, 0.4);
+}
+
+/* ---------------------------------------------------------------- the scene */
+.t-synthwave.bg-theme .rg-backdrop-inner {
+  container-type: size;
+  background:
+    linear-gradient(180deg, transparent calc(var(--sy-horizon) - 3px), #ff7ac6 calc(var(--sy-horizon) - 3px), #ff7ac6 var(--sy-horizon), transparent var(--sy-horizon)),
+    radial-gradient(42% 26% at 50% var(--sy-horizon), rgba(255, 46, 151, 0.5), transparent 72%),
+    radial-gradient(70% 40% at 50% var(--sy-horizon), rgba(139, 47, 201, 0.35), transparent 75%),
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.85) 0 1px, transparent 1.6px) 0 0 / 137px 109px,
+    radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.5) 0 0.8px, transparent 1.3px) 0 0 / 83px 71px,
+    radial-gradient(circle at 40% 80%, rgba(45, 226, 230, 0.75) 0 1px, transparent 1.6px) 0 0 / 211px 173px,
+    linear-gradient(180deg, #08031a 0%, #140a2e 32%, #2b0b4f 52%, #54136c var(--sy-horizon), #140a2e 100%);
+}
+/* The sun: a banded gradient disc resting on the horizon. */
+.t-synthwave.bg-theme .rg-backdrop-inner::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: calc(100% - var(--sy-horizon));
+  width: 44vmin;
+  width: min(46cqw, 52cqh);
+  aspect-ratio: 1;
+  margin-inline: auto;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #fff27a 0%, #ffc04a 30%, #ff7a5c 55%, #ff2e97 78%, #b81fc4 100%);
+  -webkit-mask: linear-gradient(180deg, #000 0 48%, transparent 48% 51%, #000 51% 59%, transparent 59% 63%, #000 63% 70%, transparent 70% 75%, #000 75% 81%, transparent 81% 87%, #000 87% 92%, transparent 92%);
+  mask: linear-gradient(180deg, #000 0 48%, transparent 48% 51%, #000 51% 59%, transparent 59% 63%, #000 63% 70%, transparent 70% 75%, #000 75% 81%, transparent 81% 87%, #000 87% 92%, transparent 92%);
+  opacity: 0.92;
+}
+/* The floor: an opaque ground plane in perspective, with neon grid lines. */
+.t-synthwave.bg-theme .rg-backdrop-inner::after {
+  content: '';
+  position: absolute;
+  top: var(--sy-horizon);
+  left: -50%;
+  width: 200%;
+  height: 520px;
+  transform-origin: 50% 0;
+  transform: perspective(520px) rotateX(60deg);
+  background:
+    linear-gradient(180deg, #1a0838 0%, rgba(26, 8, 56, 0) 34%),
+    linear-gradient(90deg, rgba(255, 46, 151, 0.75) 2px, transparent 2px) 50% 0 / 48px 48px,
+    linear-gradient(180deg, rgba(255, 46, 151, 0.75) 2px, transparent 2px) 0 0 / 48px 48px,
+    linear-gradient(180deg, #1a0838, #12062a 60%, #0d0620);
+  animation: sy-floor 3.2s linear infinite;
+}
+@keyframes sy-floor {
+  to {
+    background-position: 0 0, 50% 0, 0 48px, 0 0;
+  }
+}
+
+/* ---------------------------------------------------------------- panels */
+.t-synthwave:is(.layout-document, .layout-docs, .layout-magazine) .rg-body,
+.t-synthwave.layout-landing .rg-section {
+  position: relative;
+  background: linear-gradient(180deg, var(--sy-panel), rgba(15, 7, 36, 0.9));
+  border: 1px solid var(--sy-line);
+  box-shadow: inset 0 0 0 1px rgba(45, 226, 230, 0.08), 0 0 34px -6px color-mix(in srgb, var(--rg-accent) 42%, transparent),
+    0 0 120px -30px rgba(45, 226, 230, 0.3);
+}
+.t-synthwave:is(.layout-document, .layout-docs, .layout-magazine) .rg-body {
+  margin-block: clamp(14px, 4vw, 52px);
+  border-radius: 18px;
+}
+.t-synthwave:is(.layout-document, .layout-docs, .layout-magazine) .rg-body::before,
+.t-synthwave.layout-landing .rg-section::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  inset-inline: 14%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sy-cyan), var(--rg-accent), transparent);
+  box-shadow: 0 0 14px var(--rg-accent);
+}
+@media (max-width: 640px) {
+  .t-synthwave:is(.layout-document, .layout-docs, .layout-magazine) .rg-body {
+    margin: 10px;
+    border-radius: 14px;
+  }
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-synthwave .rg-body :is(h1, h2, h3, h4) {
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  line-height: 1.18;
+}
+.t-synthwave .rg-body h1 {
+  font-size: clamp(1.9em, 1.3em + 2.6vw, 2.9em);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-shadow: var(--sy-neon);
+}
+.t-synthwave.hs-theme .rg-body h1 {
+  color: transparent;
+  text-shadow: none;
+  background: linear-gradient(180deg, #e9fdff 0%, #8ff7f9 44%, #ffffff 49%, #ff7ac6 52%, #ff2e97 72%, #ffb14a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--rg-accent) 75%, transparent)) drop-shadow(0 3px 0 #3a0a55);
+}
+.t-synthwave .rg-body h2 {
+  font-size: 1.5em;
+  font-weight: 800;
+  margin-top: 2.1em;
+  text-shadow: var(--sy-neon);
+}
+.t-synthwave.hs-theme .rg-body h2 {
+  padding-bottom: 0.55em;
+}
+.t-synthwave.hs-theme .rg-body h2::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--rg-accent), var(--sy-violet) 45%, var(--sy-cyan));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--rg-accent) 70%, transparent), 0 0 22px rgba(45, 226, 230, 0.35);
+}
+.t-synthwave .rg-body h2:dir(rtl)::after {
+  background: linear-gradient(270deg, var(--rg-accent), var(--sy-violet) 45%, var(--sy-cyan));
+}
+.t-synthwave .rg-body h3 {
+  font-size: 1.18em;
+  font-weight: 700;
+  color: var(--sy-cyan);
+  text-shadow: var(--sy-neon-cyan);
+}
+.t-synthwave .rg-body h4 {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--rg-warning);
+  text-shadow: 0 0 10px rgba(254, 222, 93, 0.45);
+}
+.t-synthwave .rg-body :is(h5, h6) {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+/* ---------------------------------------------------------------- text */
+.t-synthwave .rg-body strong {
+  color: var(--rg-heading);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--rg-accent) 55%, transparent);
+}
+.t-synthwave .rg-body mark {
+  border-radius: 3px;
+  box-shadow: 0 0 12px rgba(254, 222, 93, 0.45);
+}
+.t-synthwave .rg-body a {
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--rg-link) 45%, transparent);
+  transition: text-shadow 0.2s ease, border-color 0.2s ease;
+}
+.t-synthwave .rg-body a:hover {
+  border-bottom-color: var(--rg-link);
+  text-shadow: 0 0 8px var(--rg-link), 0 0 20px color-mix(in srgb, var(--rg-link) 55%, transparent);
+}
+.t-synthwave .rg-body :is(.rg-badges, .rg-figure) a,
+.t-synthwave .rg-body a.rg-anchor,
+.t-synthwave .rg-body a:has(> img) {
+  border-bottom: 0;
+}
+
+/* ---------------------------------------------------------------- lists */
+.t-synthwave .rg-body ul:not(.contains-task-list) {
+  list-style-type: '\25C6\00a0\00a0';
+}
+.t-synthwave .rg-body ul ul:not(.contains-task-list) {
+  list-style-type: '\25C7\00a0\00a0';
+}
+.t-synthwave .rg-body li::marker {
+  color: var(--rg-accent);
+  font-size: 0.82em;
+}
+.t-synthwave .rg-body ul ul > li::marker {
+  color: var(--sy-cyan);
+}
+.t-synthwave .rg-body ol {
+  list-style-type: decimal-leading-zero;
+  padding-inline-start: 2.2em;
+}
+.t-synthwave .rg-body ol > li::marker {
+  font-family: var(--rg-font-heading);
+  font-size: 0.8em;
+  font-weight: 700;
+  color: var(--sy-cyan);
+}
+.t-synthwave .rg-body .task-list-item > input[type='checkbox'],
+.t-synthwave .rg-body .task-list-item > p > input[type='checkbox'] {
+  border: 2px solid var(--sy-cyan);
+  border-radius: 4px;
+  background: transparent;
+  box-shadow: 0 0 8px rgba(45, 226, 230, 0.5);
+}
+.rg-doc.t-synthwave.mode-dark .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-synthwave.mode-dark .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  border-color: var(--rg-accent);
+  background: var(--rg-accent)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23140a2e' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E")
+    center / 88% no-repeat;
+  box-shadow: 0 0 10px var(--rg-accent);
+}
+
+/* ---------------------------------------------------------------- quotes & alerts */
+.t-synthwave .rg-body blockquote {
+  position: relative;
+  padding: 1em 1.4em;
+  color: var(--rg-text);
+  font-size: 1.05em;
+  font-style: italic;
+  background: var(--sy-panel-deep);
+  border: 0;
+  border-inline-start: 3px solid var(--rg-accent);
+  border-image: linear-gradient(180deg, var(--rg-accent), var(--sy-violet), var(--sy-cyan)) 1;
+}
+.t-synthwave .rg-body blockquote::after {
+  content: '\201D';
+  position: absolute;
+  top: 0.05em;
+  inset-inline-end: 0.3em;
+  font-family: var(--rg-font-heading);
+  font-size: 3em;
+  font-style: normal;
+  line-height: 1;
+  color: color-mix(in srgb, var(--rg-accent) 55%, transparent);
+  text-shadow: var(--sy-neon);
+  pointer-events: none;
+}
+.rg-doc.t-synthwave .rg-body div.markdown-alert {
+  padding: 1em 1.3em;
+  border: 1px solid color-mix(in srgb, var(--rg-alert-color) 80%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--rg-alert-color) 8%, var(--sy-panel-deep));
+  box-shadow: inset 0 0 22px -8px color-mix(in srgb, var(--rg-alert-color) 55%, transparent),
+    0 0 20px -4px color-mix(in srgb, var(--rg-alert-color) 50%, transparent);
+}
+.t-synthwave .rg-body .markdown-alert-title {
+  gap: 0.7em;
+  font-family: var(--rg-font-heading);
+  font-size: 0.76em;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--rg-alert-color) 80%, transparent);
+}
+.t-synthwave .rg-body .markdown-alert-title .rg-icon {
+  width: 1.3em;
+  height: 1.3em;
+  filter: drop-shadow(0 0 5px var(--rg-alert-color));
+}
+
+/* ---------------------------------------------------------------- code */
+.t-synthwave .rg-body .rg-code {
+  border: 1px solid color-mix(in srgb, var(--rg-accent) 45%, transparent);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px rgba(45, 226, 230, 0.1), 0 0 26px -6px color-mix(in srgb, var(--rg-accent) 55%, transparent),
+    0 20px 50px -26px rgba(0, 0, 0, 0.9);
+}
+.t-synthwave .rg-body .rg-code-head {
+  font-family: var(--rg-font-heading);
+  font-size: 0.64em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom-color: color-mix(in srgb, var(--rg-accent) 32%, transparent);
+}
+.t-synthwave .rg-body .rg-code.has-file .rg-code-head {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--rg-accent) 20%, var(--rg-code-bg)), color-mix(in srgb, var(--sy-violet) 16%, var(--rg-code-bg)) 55%, color-mix(in srgb, var(--sy-cyan) 14%, var(--rg-code-bg)));
+}
+.t-synthwave .rg-body .rg-code.has-file .rg-code-head::before {
+  content: '';
+  flex: none;
+  width: 44px;
+  height: 10px;
+  background:
+    radial-gradient(circle at 5px 5px, var(--rg-accent) 3.5px, transparent 4.5px),
+    radial-gradient(circle at 22px 5px, var(--sy-yellow) 3.5px, transparent 4.5px),
+    radial-gradient(circle at 39px 5px, var(--sy-cyan) 3.5px, transparent 4.5px);
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--rg-accent) 70%, transparent));
+}
+.t-synthwave .rg-body .rg-code-file {
+  font-size: 1.2em;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.t-synthwave .rg-body .rg-copy {
+  font-family: var(--rg-font-heading);
+  border-radius: 6px;
+}
+.t-synthwave .rg-body pre {
+  font-size: 0.85em;
+}
+.t-synthwave .rg-body :not(pre) > code {
+  border: 1px solid color-mix(in srgb, var(--rg-inline-code-text) 25%, transparent);
+  border-radius: 5px;
+}
+
+/* ---------------------------------------------------------------- tables */
+.t-synthwave .rg-body .rg-table-wrap {
+  background: var(--sy-panel-deep);
+  border: 1px solid rgba(45, 226, 230, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 0 22px -8px rgba(45, 226, 230, 0.5);
+}
+.t-synthwave .rg-body th {
+  font-family: var(--rg-font-heading);
+  font-size: 0.72em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rg-heading);
+  text-shadow: 0 0 10px var(--rg-accent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--rg-accent) 30%, transparent), color-mix(in srgb, var(--rg-accent) 10%, transparent));
+  border-bottom: 1px solid var(--rg-accent);
+}
+.t-synthwave .rg-body td {
+  border-bottom-color: color-mix(in srgb, var(--rg-border) 80%, transparent);
+}
+.t-synthwave .rg-body tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.025);
+}
+.t-synthwave .rg-body tbody tr:hover {
+  background: rgba(45, 226, 230, 0.07);
+}
+
+/* ---------------------------------------------------------------- media */
+.t-synthwave .rg-body .rg-figure img,
+.t-synthwave .rg-body .rg-figure video,
+.t-synthwave.layout-landing .rg-body .rg-intro .rg-figure img {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  box-shadow: 10px 10px 30px -6px color-mix(in srgb, var(--rg-accent) 60%, transparent), -10px -10px 30px -6px rgba(45, 226, 230, 0.5),
+    0 20px 60px -20px rgba(0, 0, 0, 0.8);
+}
+.t-synthwave .rg-body .rg-caption {
+  font-family: var(--rg-font-heading);
+  font-size: 0.7em;
+  font-style: normal;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.t-synthwave .rg-body .rg-badges img {
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.t-synthwave .rg-body .rg-badges a:hover img,
+.t-synthwave .rg-body .rg-badges img:hover {
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--rg-accent) 80%, transparent));
+}
+.t-synthwave .rg-body hr {
+  height: 2px;
+  margin: 3.2em 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--rg-accent) 18%, var(--sy-orange) 50%, var(--sy-cyan) 82%, transparent);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--rg-accent) 70%, transparent), 0 0 26px rgba(45, 226, 230, 0.35);
+}
+.t-synthwave .rg-body details {
+  background: var(--sy-panel-deep);
+  border-color: var(--sy-line);
+  border-radius: 12px;
+}
+.t-synthwave .rg-body summary {
+  font-family: var(--rg-font-heading);
+  font-size: 0.82em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-inline: -1.22em;
+  padding-inline: 1.22em;
+}
+.t-synthwave .rg-body summary::before {
+  border-inline-end-color: var(--sy-cyan);
+  border-bottom-color: var(--sy-cyan);
+  filter: drop-shadow(0 0 4px var(--sy-cyan));
+}
+.t-synthwave .rg-body details[open] > summary {
+  border-bottom-color: var(--sy-line);
+}
+.t-synthwave .rg-body kbd {
+  color: var(--sy-cyan);
+  background: var(--rg-code-bg);
+  border-color: rgba(45, 226, 230, 0.55);
+  border-radius: 6px;
+  box-shadow: 0 0 10px -2px rgba(45, 226, 230, 0.6);
+}
+.t-synthwave .rg-body .footnotes {
+  border-top: 1px solid var(--sy-line);
+}
+.t-synthwave .rg-body .rg-mermaid {
+  background: var(--sy-panel-deep);
+  border-color: var(--sy-line);
+  border-radius: 12px;
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-synthwave .rg-toc-title {
+  letter-spacing: 0.22em;
+  color: var(--rg-accent);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--rg-accent) 60%, transparent);
+}
+.t-synthwave .rg-toc a {
+  border-inline-start-color: color-mix(in srgb, var(--rg-border) 80%, transparent);
+}
+.t-synthwave .rg-toc a:hover {
+  color: var(--sy-cyan);
+}
+.t-synthwave .rg-toc a.is-active {
+  color: var(--rg-heading);
+  background: color-mix(in srgb, var(--rg-accent) 16%, transparent);
+  border-inline-start-color: var(--rg-accent);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--rg-accent) 80%, transparent);
+  box-shadow: 0 0 16px -6px var(--rg-accent);
+}
+@media (min-width: 901px) {
+  .t-synthwave.layout-docs .rg-toc {
+    top: 16px;
+    margin-top: clamp(14px, 4vw, 52px);
+    max-height: calc(var(--rg-viewport, 100vh) - 32px);
+    padding: 22px 10px 22px 6px;
+    background: var(--sy-panel);
+    border: 1px solid var(--sy-line);
+    border-radius: 18px;
+  }
+}
+
+/* ---------------------------------------------------------------- landing */
+.t-synthwave.layout-landing .rg-intro {
+  background: radial-gradient(closest-side, rgba(20, 10, 46, 0.72), transparent);
+}
+.t-synthwave.layout-landing .rg-body .rg-intro h1 {
+  font-size: clamp(2.2em, 1.2em + 5vw, 4.6em);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+}
+.t-synthwave.layout-landing .rg-intro > p:not(.rg-badges, .rg-figure) {
+  text-shadow: 0 2px 16px #140a2e, 0 0 4px #140a2e;
+}
+.t-synthwave.layout-landing .rg-section {
+  border-radius: 20px;
+}
+.t-synthwave.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  background: var(--sy-panel-deep);
+  border: 1px solid rgba(45, 226, 230, 0.25);
+  border-radius: 10px;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.t-synthwave.layout-landing .rg-body .rg-section > ul.rg-simple-list > li:hover {
+  border-color: var(--sy-cyan);
+  box-shadow: 0 0 20px -6px var(--sy-cyan);
+}
+
+/* ---------------------------------------------------------------- slides */
+.t-synthwave.layout-slides .rg-slide-body {
+  background: linear-gradient(180deg, rgba(20, 10, 46, 0.84), rgba(20, 10, 46, 0.7));
+}
+.t-synthwave.layout-slides .rg-slide-title {
+  background: radial-gradient(60% 45% at 50% 40%, rgba(20, 10, 46, 0.7), transparent);
+}
+.t-synthwave.layout-slides .rg-body .rg-slide-title h1 {
+  font-size: clamp(2.2em, 1.2em + 4.6vw, 4.4em);
+}
+.t-synthwave .rg-slides-progress > span {
+  background: linear-gradient(90deg, var(--sy-cyan), var(--rg-accent));
+  box-shadow: 0 0 12px var(--rg-accent);
+}
+.t-synthwave .rg-slides-ui button {
+  background: var(--sy-panel);
+  border-color: var(--sy-line);
+}
+.t-synthwave.layout-magazine .rg-section {
+  column-rule-color: var(--sy-line);
+}
+.t-synthwave.layout-magazine .rg-body .rg-section > h2 + p::first-letter {
+  text-shadow: var(--sy-neon);
+}

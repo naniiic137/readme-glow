@@ -1,0 +1,553 @@
+/* Swiss — the International Typographic Style: a strict grid, heavy black rules,
+   enormous flush-left type, numbered sections and a single red. */
+
+.t-swiss {
+  --sx-rule: 6px;
+  --sx-gutter: 150px;
+  counter-reset: sx-slide;
+}
+
+/* ---------------------------------------------------------------- page */
+.t-swiss.bg-theme .rg-backdrop::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  height: 6px;
+  background: var(--rg-heading);
+}
+.t-swiss.bg-theme .rg-backdrop::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: clamp(18px, 3.4vw, 48px);
+  aspect-ratio: 1;
+  background: var(--rg-accent);
+}
+.t-swiss .rg-body p {
+  text-wrap: pretty;
+}
+.t-swiss .rg-body strong {
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-swiss .rg-body :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+.t-swiss .rg-body h1 {
+  font-size: clamp(2.5em, 1.3em + 5vw, 4.5em);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.048em;
+  margin: 0.2em 0 0.55em;
+}
+.t-swiss .rg-body h2 {
+  font-size: 2em;
+  letter-spacing: -0.032em;
+  margin-top: 2.4em;
+}
+.t-swiss.hs-theme .rg-body {
+  counter-reset: sx-sec;
+}
+.t-swiss.hs-theme .rg-body h2 {
+  counter-increment: sx-sec;
+  padding-top: 0.5em;
+  border-top: var(--sx-rule) solid var(--rg-heading);
+}
+.t-swiss.hs-theme .rg-body h2::before {
+  content: counter(sx-sec, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.08em;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+  color: var(--rg-accent);
+}
+.t-swiss .rg-body h3 {
+  font-size: 1.32em;
+  font-weight: 750;
+  letter-spacing: -0.016em;
+}
+.t-swiss .rg-body h4 {
+  font-size: 0.84em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.t-swiss .rg-body h5 {
+  font-size: 0.95em;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.t-swiss .rg-body h6 {
+  font-size: 0.74em;
+  letter-spacing: 0.14em;
+}
+.t-swiss.hs-theme .rg-body h6::before {
+  content: '';
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-inline-end: 0.6em;
+  vertical-align: -0.02em;
+  background: var(--rg-accent);
+}
+
+/* Wide screens: section numbers hang in a left column, rules run the full grid. */
+@media (min-width: 1100px) {
+  .t-swiss.layout-document .rg-body {
+    max-width: calc(var(--rg-measure) + var(--sx-gutter));
+    padding-inline-start: calc(44px + var(--sx-gutter));
+  }
+  .t-swiss.layout-document .rg-body > :is(h1, hr),
+  .t-swiss.layout-document .rg-body :is(.rg-intro, .rg-section) > :is(h1, hr) {
+    margin-inline-start: calc(var(--sx-gutter) * -1);
+  }
+  .t-swiss.layout-document.hs-theme .rg-body h2 {
+    border-top: 0;
+  }
+  .t-swiss.layout-document.hs-theme .rg-body h2::before {
+    position: absolute;
+    top: 0.5em;
+    inset-inline-start: calc(var(--sx-gutter) * -1);
+    margin: 0;
+  }
+  .t-swiss.layout-document.hs-theme .rg-body h2::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    inset-inline: calc(var(--sx-gutter) * -1) 0;
+    height: var(--sx-rule);
+    background: var(--rg-heading);
+  }
+}
+
+/* ---------------------------------------------------------------- text */
+.t-swiss .rg-body a {
+  text-decoration-color: var(--rg-accent);
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.2em;
+}
+.t-swiss .rg-body a:hover {
+  color: var(--rg-accent);
+  text-decoration-color: currentColor;
+}
+.t-swiss .rg-body mark {
+  padding: 0 0.2em;
+  border-radius: 0;
+}
+.t-swiss .rg-body :not(pre) > code {
+  padding: 0.12em 0.35em;
+  font-size: 0.84em;
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- lists */
+.t-swiss .rg-body ul:not(.contains-task-list) {
+  list-style: none;
+  padding-inline-start: 1.4em;
+}
+.t-swiss .rg-body ul:not(.contains-task-list) > li {
+  position: relative;
+}
+.t-swiss .rg-body ul:not(.contains-task-list) > li::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: -1.15em;
+  top: 0.6em;
+  width: 0.42em;
+  height: 0.42em;
+  background: var(--rg-accent);
+}
+.t-swiss .rg-body ul ul:not(.contains-task-list) > li::before {
+  background: none;
+  box-shadow: inset 0 0 0 2px var(--rg-heading);
+}
+.t-swiss .rg-body ol > li::marker {
+  font-weight: 800;
+  color: var(--rg-heading);
+}
+.t-swiss .rg-body .task-list-item > input[type='checkbox'],
+.t-swiss .rg-body .task-list-item > p > input[type='checkbox'] {
+  border: 2px solid var(--rg-heading);
+  border-radius: 0;
+}
+.rg-doc.t-swiss .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-swiss .rg-body .task-list-item > p > input[type='checkbox']:checked,
+.rg-doc.t-swiss.mode-dark .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-swiss.mode-dark .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  border-color: var(--rg-accent);
+  background: var(--rg-accent)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='white' stroke-width='2.6' stroke-linecap='square' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E")
+    center / 86% no-repeat;
+}
+
+/* ---------------------------------------------------------------- statements & alerts */
+.t-swiss .rg-body blockquote {
+  margin-block: 2.2em;
+  padding: 0;
+  border: 0;
+  font-family: var(--rg-font-heading);
+  font-size: 1.55em;
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.026em;
+  color: var(--rg-heading);
+}
+.t-swiss .rg-body blockquote::before {
+  content: '';
+  display: block;
+  width: 1.6em;
+  height: 0.2em;
+  margin-bottom: 0.55em;
+  background: var(--rg-accent);
+}
+.t-swiss .rg-body blockquote :is(ul, ol, pre, table, .rg-code, .markdown-alert, details) {
+  font-size: 0.64em;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+.t-swiss .rg-body .markdown-alert {
+  padding: 0 0 0.35em;
+  border: 0;
+  border-bottom: 3px solid var(--rg-alert-color);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--rg-alert-color) 6%, var(--rg-bg));
+}
+.t-swiss .rg-body .markdown-alert > :not(.markdown-alert-title) {
+  margin-inline: 1.1em;
+}
+.t-swiss .rg-body .markdown-alert-title {
+  gap: 0.6em;
+  margin: 0 0 0.9em;
+  padding: 0.6em 1.4em;
+  font-family: var(--rg-font-heading);
+  font-size: 0.78em;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rg-bg);
+  background: var(--rg-alert-color);
+}
+
+/* ---------------------------------------------------------------- code */
+.t-swiss .rg-body .rg-code {
+  border: 0;
+  border-radius: 0;
+}
+.t-swiss .rg-body .rg-code-head {
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom-color: color-mix(in srgb, var(--rg-code-text) 20%, transparent);
+}
+.t-swiss .rg-body .rg-code.has-file .rg-code-head::before {
+  content: '';
+  flex: none;
+  width: 0.75em;
+  height: 0.75em;
+  background: var(--rg-accent);
+}
+.t-swiss .rg-body .rg-code-file {
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.t-swiss .rg-body .rg-code-file .rg-icon {
+  display: none;
+}
+.t-swiss .rg-body .rg-copy {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 0;
+}
+.t-swiss .rg-body pre {
+  padding: 1.2em 1.4em;
+  font-size: 0.84em;
+}
+
+/* ---------------------------------------------------------------- tables */
+.t-swiss .rg-body .rg-table-wrap {
+  border: 0;
+  border-block: 3px solid var(--rg-heading);
+  border-radius: 0;
+}
+.t-swiss .rg-body th {
+  padding-block: 0.9em 0.6em;
+  font-size: 0.78em;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: none;
+  border-bottom: 1px solid var(--rg-heading);
+}
+.t-swiss .rg-body :is(th, td):first-child {
+  padding-inline-start: 0;
+}
+.t-swiss .rg-body :is(th, td):last-child {
+  padding-inline-end: 0;
+}
+.t-swiss .rg-body tbody tr:nth-child(even) {
+  background: none;
+}
+.t-swiss .rg-body tbody tr:hover {
+  background: var(--rg-bg-alt);
+}
+
+/* ---------------------------------------------------------------- images */
+.t-swiss .rg-body .rg-figure {
+  align-items: flex-start;
+  gap: 0.7em;
+  margin-block: 2.2em;
+  text-align: start;
+}
+.t-swiss .rg-body .rg-figure img,
+.t-swiss .rg-body .rg-figure video,
+.t-swiss.layout-landing .rg-body .rg-intro .rg-figure img {
+  border-radius: 0;
+  box-shadow: none;
+}
+.t-swiss .rg-body .rg-caption {
+  align-self: stretch;
+  padding-top: 0.55em;
+  font-size: 0.78em;
+  font-style: normal;
+  font-weight: 500;
+  border-top: 1px solid var(--rg-heading);
+}
+.t-swiss .rg-body .rg-caption::before {
+  content: '';
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  margin-inline-end: 0.55em;
+  background: var(--rg-accent);
+}
+.t-swiss .rg-body .rg-badges {
+  gap: 4px;
+}
+.t-swiss .rg-body .rg-badges img {
+  border-radius: 0;
+  filter: grayscale(1) contrast(1.15);
+  transition: filter 0.2s ease;
+}
+.t-swiss .rg-body .rg-badges a:hover img,
+.t-swiss .rg-body .rg-badges img:hover {
+  filter: none;
+}
+
+/* ---------------------------------------------------------------- rules & details */
+.t-swiss .rg-body hr {
+  height: 8px;
+  margin: 3em 0;
+  background: var(--rg-heading);
+}
+.t-swiss .rg-body details {
+  padding: 0;
+  background: none;
+  border: 0;
+  border-top: 2px solid var(--rg-heading);
+  border-bottom: 1px solid var(--rg-border);
+  border-radius: 0;
+}
+.t-swiss .rg-body details + details {
+  margin-top: calc(var(--rg-space) * -1);
+  border-top-width: 1px;
+  border-top-color: var(--rg-border);
+}
+.t-swiss .rg-body details[open] {
+  padding-bottom: 1em;
+}
+.t-swiss .rg-body summary {
+  margin: 0;
+  padding: 0.8em 0;
+  font-family: var(--rg-font-heading);
+  font-size: 1.05em;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  border-radius: 0;
+}
+.t-swiss .rg-body summary::before {
+  display: none;
+}
+.t-swiss .rg-body summary::after {
+  content: '+';
+  float: right;
+  float: inline-end;
+  font-size: 1.5em;
+  font-weight: 400;
+  line-height: 0.7;
+  color: var(--rg-accent);
+  transition: transform 0.25s ease;
+}
+.t-swiss .rg-body details[open] > summary {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+.t-swiss .rg-body details[open] > summary::after {
+  transform: rotate(45deg);
+}
+.t-swiss .rg-body kbd {
+  padding: 0.18em 0.5em;
+  font-weight: 700;
+  color: var(--rg-bg);
+  background: var(--rg-heading);
+  border: 0;
+  border-radius: 0;
+}
+.t-swiss .rg-body .footnotes {
+  border-top: 2px solid var(--rg-heading);
+}
+.t-swiss .rg-body .rg-mermaid {
+  border: 0;
+  border-block: 2px solid var(--rg-heading);
+  border-radius: 0;
+  background: none;
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-swiss .rg-toc-title {
+  color: var(--rg-heading);
+  font-weight: 900;
+  letter-spacing: 0.14em;
+}
+.t-swiss .rg-toc a {
+  border-inline-start-color: var(--rg-border);
+}
+.t-swiss .rg-toc a:hover {
+  color: var(--rg-heading);
+}
+.t-swiss .rg-toc a.is-active {
+  color: var(--rg-heading);
+  background: none;
+  font-weight: 800;
+  border-inline-start: 4px solid var(--rg-accent);
+}
+
+/* ---------------------------------------------------------------- landing: flush-left poster */
+.t-swiss.layout-landing .rg-body .rg-intro {
+  align-items: flex-start;
+  text-align: start;
+}
+.t-swiss.layout-landing .rg-intro::before {
+  content: '';
+  width: 56px;
+  height: 56px;
+  margin-bottom: 2.2em;
+  background: var(--rg-accent);
+}
+.t-swiss.layout-landing .rg-body .rg-intro h1 {
+  font-size: clamp(3em, 1.2em + 6.8vw, 6.8em);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.052em;
+}
+.rg-doc.t-swiss.layout-landing .rg-body .rg-intro > p:not(.rg-badges, .rg-figure) {
+  font-size: 1.36em;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.012em;
+  color: var(--rg-text);
+}
+.t-swiss.layout-landing .rg-body .rg-intro .rg-badges {
+  justify-content: flex-start;
+}
+.t-swiss.layout-landing .rg-section {
+  padding: clamp(8px, 2vw, 24px) 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+.t-swiss.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  background: var(--rg-bg-alt);
+  border: 0;
+  border-top: 3px solid var(--rg-heading);
+  border-radius: 0;
+}
+@media (min-width: 1100px) {
+  .t-swiss.layout-landing .rg-section:has(> h2:first-child) {
+    display: grid;
+    grid-template-columns: minmax(0, 15em) minmax(0, 1fr);
+    column-gap: clamp(24px, 4vw, 64px);
+    align-items: start;
+    padding-top: 0.9em;
+    border-top: var(--sx-rule) solid var(--rg-heading);
+  }
+  .t-swiss.layout-landing .rg-section:has(> h2:first-child) > * {
+    grid-column: 2;
+  }
+  .t-swiss.layout-landing .rg-body .rg-section:has(> h2:first-child) > h2:first-child {
+    grid-column: 1;
+    grid-row: 1 / span 60;
+    position: sticky;
+    top: 24px;
+    margin: 0;
+    padding-top: 0;
+    border-top: 0;
+    font-size: 1.7em;
+  }
+  .t-swiss.layout-landing .rg-section:has(> h2:first-child) > :is(h3, h4) {
+    margin-top: 1.2em;
+  }
+}
+
+/* ---------------------------------------------------------------- slides & magazine */
+.t-swiss.layout-slides .rg-slide {
+  counter-increment: sx-slide;
+}
+.t-swiss.layout-slides .rg-slide::after {
+  content: counter(sx-slide, decimal-leading-zero);
+  position: absolute;
+  top: clamp(18px, 4vh, 40px);
+  inset-inline-start: clamp(22px, 8vw, 120px);
+  font: 900 1.1em/1 var(--rg-font-heading);
+  letter-spacing: -0.02em;
+  color: var(--rg-accent);
+}
+.t-swiss.layout-slides .rg-body .rg-slide-title {
+  align-items: flex-start;
+  text-align: start;
+}
+.t-swiss.layout-slides .rg-body .rg-slide-title h1 {
+  font-size: clamp(3em, 1.2em + 6.4vw, 6.4em);
+  font-weight: 900;
+  letter-spacing: -0.052em;
+  line-height: 0.92;
+}
+.t-swiss.layout-slides .rg-body .rg-slide-title .rg-badges {
+  justify-content: flex-start;
+}
+.t-swiss .rg-slides-progress > span {
+  background: var(--rg-accent);
+}
+.t-swiss .rg-slides-ui button {
+  border-radius: 0;
+}
+.t-swiss.layout-magazine .rg-body .rg-intro {
+  border-bottom: 8px solid var(--rg-heading);
+}
+.t-swiss.layout-magazine .rg-section {
+  column-rule-color: var(--rg-heading);
+}
+.t-swiss.hs-theme.layout-magazine .rg-body .rg-section > h2 {
+  border-top: var(--sx-rule) solid var(--rg-heading);
+}
+.t-swiss.layout-magazine .rg-body .rg-section > h2 + p::first-letter {
+  font-weight: 900;
+}
+
+@media (max-width: 640px) {
+  .t-swiss .rg-body h2 {
+    font-size: 1.7em;
+  }
+  .t-swiss .rg-body blockquote {
+    font-size: 1.3em;
+  }
+}

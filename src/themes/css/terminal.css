@@ -1,0 +1,546 @@
+/* Terminal — a humming green-phosphor CRT: scanlines, vignette, prompts,
+   a blinking cursor and log-style callouts. */
+
+.t-terminal {
+  --tm-glow: 0 0 1px color-mix(in srgb, var(--rg-text) 55%, transparent), 0 0 9px color-mix(in srgb, var(--rg-accent) 24%, transparent);
+  --tm-glow-strong: 0 0 2px color-mix(in srgb, var(--rg-heading) 80%, transparent), 0 0 14px color-mix(in srgb, var(--rg-accent) 50%, transparent),
+    0 0 32px color-mix(in srgb, var(--rg-accent) 22%, transparent);
+  --tm-dim: color-mix(in srgb, var(--rg-accent) 32%, transparent);
+  --tm-faint: color-mix(in srgb, var(--rg-accent) 9%, transparent);
+}
+
+/* ---------------------------------------------------------------- CRT */
+.t-terminal.bg-theme .rg-backdrop {
+  background: radial-gradient(120% 60% at 50% 0%, color-mix(in srgb, var(--rg-accent) 5%, transparent), transparent 70%);
+}
+.t-terminal.bg-theme .rg-backdrop-inner {
+  background: radial-gradient(85% 75% at 50% 45%, color-mix(in srgb, var(--rg-accent) 7%, transparent), transparent 75%);
+}
+.t-terminal.bg-theme .rg-backdrop-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(180deg, color-mix(in srgb, var(--rg-accent) 6%, transparent) 0 1px, transparent 1px 3px),
+    linear-gradient(180deg, transparent, color-mix(in srgb, var(--rg-accent) 7%, transparent) 50%, transparent) 0 -50% / 100% 30% no-repeat;
+  animation: tm-flicker 9s linear infinite, tm-roll 11s linear infinite;
+}
+.t-terminal.bg-theme .rg-backdrop-inner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(110% 95% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.72) 100%);
+}
+/* A whisper of scanlines over the content itself sells the glass. */
+.t-terminal.bg-theme .rg-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, transparent 0 2px, rgba(0, 0, 0, 0.14) 2px 3px);
+}
+@keyframes tm-flicker {
+  0%, 91%, 100% {
+    opacity: 1;
+  }
+  91.6% {
+    opacity: 0.72;
+  }
+  92.2% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.88;
+  }
+  96.5% {
+    opacity: 1;
+  }
+}
+@keyframes tm-roll {
+  to {
+    background-position: 0 0, 0 150%;
+  }
+}
+@keyframes tm-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- text */
+.t-terminal .rg-body {
+  text-shadow: var(--tm-glow);
+}
+.t-terminal .rg-body strong {
+  color: var(--rg-heading);
+  text-shadow: var(--tm-glow-strong);
+}
+.t-terminal .rg-body em {
+  color: color-mix(in srgb, var(--rg-text) 80%, var(--rg-warning));
+}
+.t-terminal .rg-body mark {
+  border-radius: 0;
+  text-shadow: none;
+}
+.t-terminal .rg-body del {
+  text-decoration-color: var(--rg-caution);
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-terminal .rg-body :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  text-shadow: var(--tm-glow-strong);
+}
+.t-terminal .rg-body h1 {
+  font-size: clamp(2.6em, 2em + 3vw, 3.6em);
+}
+.t-terminal .rg-body h2 {
+  font-size: 2.35em;
+  margin-top: 1.6em;
+}
+.t-terminal .rg-body h3 {
+  font-size: 1.85em;
+  color: var(--rg-text);
+}
+.t-terminal .rg-body h4 {
+  font-size: 1.55em;
+  color: var(--rg-warning);
+}
+.t-terminal .rg-body h5 {
+  font-size: 1.35em;
+}
+.t-terminal .rg-body h6 {
+  font-size: 1.25em;
+  letter-spacing: 0.1em;
+}
+.t-terminal.hs-theme .rg-body :is(h1, h2, h3, h4)::before {
+  margin-inline-end: 0.35em;
+  color: var(--rg-muted);
+  text-shadow: none;
+}
+.t-terminal.hs-theme .rg-body h1::before {
+  content: '$';
+}
+.t-terminal.hs-theme .rg-body h2::before {
+  content: '#';
+}
+.t-terminal.hs-theme .rg-body h3::before {
+  content: '##';
+}
+.t-terminal.hs-theme .rg-body h4::before {
+  content: '###';
+}
+.t-terminal.hs-theme .rg-body h1::after {
+  content: '';
+  display: inline-block;
+  width: 0.46em;
+  height: 0.8em;
+  margin-inline-start: 0.14em;
+  vertical-align: -0.06em;
+  background: var(--rg-accent);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--rg-accent) 70%, transparent);
+  animation: tm-blink 1.06s steps(1, end) infinite;
+}
+.t-terminal.hs-theme .rg-body h1 > .rg-anchor {
+  display: none;
+}
+.t-terminal.hs-theme .rg-body h2 {
+  padding-bottom: 0.18em;
+  border-bottom: 2px dashed var(--tm-dim);
+}
+
+/* ---------------------------------------------------------------- links */
+.t-terminal .rg-body a {
+  color: var(--rg-link);
+  text-decoration: none;
+  text-shadow: 0 0 7px color-mix(in srgb, var(--rg-link) 45%, transparent);
+  transition: background 0.12s ease;
+}
+.t-terminal .rg-body a::before,
+.t-terminal .rg-body a::after {
+  color: var(--rg-muted);
+  text-shadow: none;
+}
+.t-terminal .rg-body a::before {
+  content: '[';
+}
+.t-terminal .rg-body a::after {
+  content: ']';
+}
+.t-terminal .rg-body a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  background: color-mix(in srgb, var(--rg-link) 12%, transparent);
+}
+.t-terminal .rg-body :is(.rg-badges, .rg-figure) a::before,
+.t-terminal .rg-body :is(.rg-badges, .rg-figure) a::after,
+.t-terminal .rg-body a:is(.rg-anchor, [data-footnote-backref])::before,
+.t-terminal .rg-body a:is(.rg-anchor, [data-footnote-backref])::after {
+  content: none;
+}
+.t-terminal .rg-body a:has(> img)::before,
+.t-terminal .rg-body a:has(> img)::after {
+  content: none;
+}
+.t-terminal .rg-body a:has(> img):hover,
+.t-terminal .rg-body :is(.rg-badges, .rg-figure) a:hover {
+  background: none;
+}
+
+/* ---------------------------------------------------------------- lists */
+.t-terminal .rg-body ul:not(.contains-task-list) {
+  list-style-type: '>\00a0';
+  padding-inline-start: 1.5em;
+}
+.t-terminal .rg-body ul:not(.contains-task-list):dir(rtl) {
+  list-style-type: '<\00a0';
+}
+.t-terminal .rg-body ul ul:not(.contains-task-list) {
+  list-style-type: '*\00a0';
+}
+.t-terminal .rg-body ol {
+  list-style-type: decimal-leading-zero;
+  padding-inline-start: 2.3em;
+}
+.t-terminal .rg-body li::marker {
+  color: var(--rg-accent);
+  font-weight: 700;
+}
+.t-terminal .rg-body .task-list-item > input[type='checkbox'],
+.t-terminal .rg-body .task-list-item > p > input[type='checkbox'] {
+  top: 0.3em;
+  border: 2px solid var(--rg-muted);
+  border-radius: 0;
+  background: transparent;
+  clip-path: polygon(0 0, 34% 0, 34% 2px, 66% 2px, 66% 0, 100% 0, 100% 100%, 66% 100%, 66% calc(100% - 2px), 34% calc(100% - 2px), 34% 100%, 0 100%);
+}
+.rg-doc.t-terminal.mode-dark .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-terminal.mode-dark .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  border-color: var(--rg-accent);
+  background: var(--rg-accent);
+  background-image: none;
+  box-shadow: inset 0 0 0 3px var(--rg-bg);
+}
+
+/* ---------------------------------------------------------------- quotes & logs */
+.t-terminal .rg-body blockquote {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  padding-inline-start: 2.4ch;
+  border: 0;
+  color: var(--rg-muted);
+  font-style: italic;
+  text-shadow: none;
+}
+.t-terminal .rg-body blockquote::before {
+  content: '>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A>\A';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  font-style: normal;
+  white-space: pre;
+  color: var(--tm-dim);
+}
+.t-terminal .rg-body .markdown-alert {
+  position: relative;
+  margin-top: 1.5em;
+  padding: 1.35em 1.2em 0.95em;
+  border: 1px dashed color-mix(in srgb, var(--rg-alert-color) 70%, transparent);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--rg-alert-color) 5%, transparent);
+}
+.t-terminal .rg-body .markdown-alert-title {
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0.9em;
+  margin: 0;
+  padding: 0.05em 0.55em;
+  gap: 0;
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rg-bg);
+  background: var(--rg-alert-color);
+  text-shadow: none;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--rg-alert-color) 45%, transparent);
+  transform: translateY(-55%);
+}
+.t-terminal .rg-body .markdown-alert-title .rg-icon {
+  display: none;
+}
+.t-terminal .rg-body .markdown-alert-title::before {
+  content: '[\00a0';
+}
+.t-terminal .rg-body .markdown-alert-title::after {
+  content: '\00a0]';
+}
+
+/* ---------------------------------------------------------------- code windows */
+.t-terminal .rg-body .rg-code {
+  border: 1px solid color-mix(in srgb, var(--rg-accent) 34%, transparent);
+  border-radius: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6), 0 0 30px -8px color-mix(in srgb, var(--rg-accent) 32%, transparent);
+}
+.t-terminal .rg-body .rg-code-head,
+.t-terminal .rg-body .rg-code.no-file .rg-code-head {
+  position: static;
+  min-height: 2.2em;
+  padding-block: 0.2em;
+  padding-inline: 0.9em 0.35em;
+  font-family: var(--rg-font-mono);
+  font-size: 0.78em;
+  color: color-mix(in srgb, var(--rg-code-text) 78%, transparent);
+  text-shadow: none;
+  background: color-mix(in srgb, var(--rg-accent) 9%, var(--rg-code-bg));
+  border-bottom: 1px solid color-mix(in srgb, var(--rg-accent) 26%, transparent);
+}
+.t-terminal .rg-body .rg-code.no-file .rg-code-head::before {
+  content: '~/project\00a0\2014';
+  opacity: 0.75;
+}
+.t-terminal .rg-body .rg-code-file {
+  font-weight: 500;
+}
+.t-terminal .rg-body .rg-code-file .rg-icon {
+  display: none;
+}
+.t-terminal .rg-body .rg-code-file::before {
+  content: '~/';
+  opacity: 0.75;
+}
+.t-terminal .rg-body .rg-code-lang {
+  text-transform: lowercase;
+  letter-spacing: 0;
+}
+.t-terminal .rg-body .rg-code.no-file .rg-code-lang {
+  margin-inline-start: 0;
+  opacity: 0.75;
+}
+.t-terminal .rg-body .rg-code.no-file .rg-copy {
+  margin-inline-start: auto;
+}
+.t-terminal .rg-body .rg-copy {
+  font-family: var(--rg-font-mono);
+  border-radius: 0;
+  border-style: dashed;
+  background: transparent;
+}
+.t-terminal .rg-body .rg-copy:hover {
+  color: var(--rg-code-bg);
+  background: var(--rg-accent);
+}
+.t-terminal .rg-body pre,
+.t-terminal .rg-body .rg-code.no-file pre {
+  padding: 1em 1.2em 1.1em;
+  font-size: 0.92em;
+  text-shadow: 0 0 7px color-mix(in srgb, var(--rg-code-text) 30%, transparent);
+}
+.t-terminal:not(.lines-on) .rg-body .rg-code:is([data-lang='bash'], [data-lang='sh'], [data-lang='shell'], [data-lang='zsh']) .rg-line::before {
+  content: '$\00a0';
+  color: var(--rg-muted);
+  user-select: none;
+}
+.t-terminal .rg-body :not(pre) > code {
+  padding: 0.1em 0.45em;
+  font-size: 0.92em;
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- tables */
+.t-terminal .rg-body .rg-table-wrap {
+  border: 1px dashed var(--rg-border);
+  border-radius: 0;
+}
+.t-terminal .rg-body th,
+.t-terminal .rg-body td {
+  border-bottom: 1px dashed var(--rg-border);
+  border-inline-end: 1px dashed var(--rg-border);
+}
+.t-terminal .rg-body :is(th, td):last-child {
+  border-inline-end: 0;
+}
+.t-terminal .rg-body th {
+  color: var(--rg-accent);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--tm-faint);
+  border-bottom: 3px double var(--tm-dim);
+}
+.t-terminal .rg-body tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--rg-accent) 3%, transparent);
+}
+.t-terminal .rg-body tbody tr:hover {
+  background: var(--tm-faint);
+}
+
+/* ---------------------------------------------------------------- media */
+.t-terminal .rg-body .rg-figure img,
+.t-terminal .rg-body .rg-figure video {
+  padding: 5px;
+  border: 1px solid var(--tm-dim);
+  border-radius: 0;
+  background: var(--rg-bg-alt);
+  box-shadow: 0 0 30px -6px color-mix(in srgb, var(--rg-accent) 28%, transparent);
+  filter: sepia(0.22) hue-rotate(55deg) saturate(1.1) brightness(0.93);
+  transition: filter 0.4s ease;
+}
+.t-terminal .rg-body .rg-figure img:hover {
+  filter: none;
+}
+.t-terminal .rg-body .rg-caption {
+  font-style: normal;
+}
+.t-terminal .rg-body .rg-caption::before {
+  content: '//\00a0';
+  color: var(--tm-dim);
+}
+.t-terminal .rg-body .rg-badges img {
+  filter: grayscale(1) sepia(0.6) hue-rotate(62deg) saturate(1.5) brightness(0.92);
+  transition: filter 0.3s ease;
+}
+.t-terminal .rg-body .rg-badges a:hover img,
+.t-terminal .rg-body .rg-badges img:hover {
+  filter: none;
+}
+.t-terminal .rg-body hr {
+  height: auto;
+  margin: 2.6em 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background: none;
+}
+.t-terminal .rg-body hr::before {
+  content: '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -';
+  display: block;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  color: var(--tm-dim);
+}
+.t-terminal .rg-body details {
+  background: transparent;
+  border: 1px dashed var(--rg-border);
+  border-radius: 0;
+}
+.t-terminal .rg-body summary {
+  border-radius: 0;
+}
+.rg-doc.t-terminal .rg-body details > summary::before {
+  content: '[+]';
+  display: inline;
+  width: auto;
+  height: auto;
+  margin-inline-end: 0.7em;
+  border: 0;
+  color: var(--rg-accent);
+  transform: none;
+}
+.rg-doc.t-terminal .rg-body details[open] > summary::before {
+  content: '[-]';
+}
+.t-terminal .rg-body details[open] > summary {
+  border-bottom: 1px dashed var(--rg-border);
+}
+.t-terminal .rg-body summary:hover {
+  background: var(--tm-faint);
+}
+.t-terminal .rg-body kbd {
+  color: var(--rg-heading);
+  background: transparent;
+  border: 1px solid var(--tm-dim);
+  border-radius: 0;
+  box-shadow: inset 0 -2px 0 var(--tm-faint), 0 0 8px color-mix(in srgb, var(--rg-accent) 22%, transparent);
+}
+.t-terminal .rg-body .footnotes {
+  border-top: 1px dashed var(--rg-border);
+}
+.t-terminal .rg-body .rg-mermaid {
+  background: var(--rg-bg-alt);
+  border: 1px dashed var(--rg-border);
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-terminal .rg-toc {
+  font-family: var(--rg-font-mono);
+}
+.t-terminal .rg-toc-title::before {
+  content: '$\00a0';
+  color: var(--rg-accent);
+}
+.t-terminal .rg-toc a {
+  border-inline-start: 1px dashed var(--rg-border);
+}
+.t-terminal .rg-toc a:hover {
+  color: var(--rg-heading);
+  background: var(--tm-faint);
+}
+.t-terminal .rg-toc a.is-active {
+  color: var(--rg-accent-text);
+  background: var(--rg-accent);
+  border-inline-start: 1px solid var(--rg-accent);
+  font-weight: 700;
+  box-shadow: 0 0 14px color-mix(in srgb, var(--rg-accent) 40%, transparent);
+}
+
+/* ---------------------------------------------------------------- landing */
+.t-terminal.layout-landing .rg-body .rg-intro h1 {
+  font-size: clamp(3em, 2em + 5vw, 6.2em);
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.t-terminal.layout-landing .rg-section {
+  position: relative;
+  background: color-mix(in srgb, var(--rg-surface) 88%, transparent);
+  border: 1px solid color-mix(in srgb, var(--rg-accent) 26%, transparent);
+  border-radius: 0;
+  box-shadow: 0 0 44px -14px color-mix(in srgb, var(--rg-accent) 26%, transparent), inset 0 0 60px -34px color-mix(in srgb, var(--rg-accent) 40%, transparent);
+}
+.t-terminal.layout-landing .rg-section::before {
+  content: '[' attr(data-section) ']';
+  position: absolute;
+  top: 0.8em;
+  inset-inline-end: 1em;
+  font-size: 0.8em;
+  color: var(--rg-muted);
+  text-shadow: none;
+}
+.t-terminal.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  background: var(--rg-bg);
+  border: 1px dashed var(--rg-border);
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------- slides & magazine */
+.t-terminal.layout-slides .rg-body .rg-slide-title h1 {
+  font-size: clamp(3em, 2em + 5vw, 6.5em);
+}
+.t-terminal .rg-slides-progress > span {
+  background: var(--rg-accent);
+  box-shadow: 0 0 12px var(--rg-accent);
+}
+.t-terminal .rg-slides-ui button {
+  border-radius: 0;
+  border-style: dashed;
+}
+.t-terminal.layout-magazine .rg-body .rg-section > h2 + p::first-letter {
+  font-weight: 400;
+  text-shadow: var(--tm-glow-strong);
+}
+.t-terminal.layout-magazine .rg-section {
+  column-rule-style: dashed;
+}
+
+@media (max-width: 640px) {
+  .t-terminal .rg-body h2 {
+    font-size: 2em;
+  }
+  .t-terminal .rg-body ol {
+    padding-inline-start: 2em;
+  }
+}

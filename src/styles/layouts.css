@@ -1,0 +1,371 @@
+/*
+ * The five page layouts. Layout classes live on .rg-doc next to the theme
+ * class, so every theme works with every layout.
+ */
+
+/* ------------------------------------------------------------ Document */
+.rg-doc.layout-document .rg-intro > h1:first-child {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------------ Docs (sidebar TOC) */
+.rg-doc.layout-docs .rg-frame {
+  display: grid;
+  grid-template-columns: minmax(200px, 260px) minmax(0, 1fr);
+  gap: clamp(16px, 3vw, 48px);
+  max-width: calc(var(--rg-measure) + 340px);
+  margin-inline: auto;
+  padding-inline: clamp(12px, 2vw, 28px);
+}
+.rg-doc.layout-docs .rg-body {
+  margin-inline: 0;
+  max-width: var(--rg-measure);
+  width: 100%;
+}
+.rg-toc {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  max-height: var(--rg-viewport, 100vh);
+  overflow-y: auto;
+  padding: clamp(28px, 6vw, 72px) 4px 32px 0;
+  font-size: 0.86em;
+  scrollbar-width: thin;
+}
+.rg-toc-title {
+  margin: 0 0 0.9em;
+  padding-inline-start: 12px;
+  font-family: var(--rg-font-heading);
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--rg-muted);
+}
+.rg-toc ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.rg-toc li {
+  margin: 0;
+}
+.rg-toc a {
+  display: block;
+  padding: 0.34em 10px 0.34em 12px;
+  color: var(--rg-muted);
+  text-decoration: none;
+  border-inline-start: 2px solid var(--rg-border);
+  line-height: 1.35;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.rg-toc a[data-depth='3'] {
+  padding-inline-start: 26px;
+  font-size: 0.95em;
+}
+.rg-toc a[data-depth='4'] {
+  padding-inline-start: 40px;
+  font-size: 0.92em;
+}
+.rg-toc a:hover {
+  color: var(--rg-text);
+}
+.rg-toc a.is-active {
+  color: var(--rg-link);
+  border-inline-start-color: var(--rg-accent);
+  background: var(--rg-accent-soft);
+  font-weight: 600;
+}
+.rg-toc a:focus-visible {
+  outline: 2px solid var(--rg-accent);
+  outline-offset: -2px;
+}
+.rg-toc-meta {
+  margin-top: 1.4em;
+  padding-inline-start: 12px;
+  color: var(--rg-muted);
+  font-size: 0.92em;
+}
+.rg-toc-toggle {
+  display: none;
+}
+@media (max-width: 900px) {
+  .rg-doc.layout-docs .rg-frame {
+    display: block;
+    padding-inline: 0;
+  }
+  .rg-doc.layout-docs .rg-body {
+    margin-inline: auto;
+  }
+  .rg-doc.layout-docs .rg-toc {
+    position: fixed;
+    inset: auto 12px 72px 12px;
+    z-index: 30;
+    max-height: min(70vh, 520px);
+    padding: 18px 10px 14px;
+    background: var(--rg-surface);
+    border: 1px solid var(--rg-border);
+    border-radius: 16px;
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.5);
+    transform: translateY(12px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  }
+  .rg-doc.layout-docs .rg-toc.is-open {
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .rg-doc.layout-docs .rg-toc-toggle {
+    position: fixed;
+    inset-inline-end: 16px;
+    bottom: 16px;
+    z-index: 31;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font: 600 14px/1 var(--rg-font-body);
+    color: var(--rg-accent-text);
+    background: var(--rg-accent);
+    border: 0;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+  }
+}
+/* Inside the app preview the docs drawer is positioned against the pane. */
+.rg-doc.in-pane.layout-docs .rg-toc-toggle,
+.rg-doc.in-pane.layout-docs .rg-toc {
+  position: fixed;
+}
+
+/* ------------------------------------------------------------ Landing */
+.rg-doc.layout-landing {
+  --rg-measure: 1080px !important;
+}
+.rg-doc.layout-landing .rg-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(24px, 9vh, 110px) 0 clamp(24px, 7vh, 80px);
+}
+.rg-doc.layout-landing .rg-intro > * {
+  max-width: 820px;
+}
+.rg-doc.layout-landing .rg-intro h1 {
+  font-size: clamp(2.4em, 6vw, 4.4em);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  margin: 0.2em 0 0.35em;
+}
+.rg-doc.layout-landing .rg-intro > p:not(.rg-badges):not(.rg-figure) {
+  font-size: 1.18em;
+  color: var(--rg-muted);
+}
+.rg-doc.layout-landing .rg-intro .rg-badges {
+  justify-content: center;
+  margin-block: 0.4em 1.4em;
+}
+.rg-doc.layout-landing .rg-intro .rg-figure {
+  max-width: 100%;
+  width: 100%;
+  margin-top: 2em;
+}
+.rg-doc.layout-landing .rg-intro .rg-figure img {
+  border-radius: calc(var(--rg-radius) * 1.4);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.45);
+}
+.rg-doc.layout-landing .rg-section {
+  margin: 0 0 clamp(20px, 3vw, 32px);
+  padding: clamp(22px, 4vw, 48px);
+  background: var(--rg-surface);
+  border: 1px solid var(--rg-border);
+  border-radius: calc(var(--rg-radius) * 1.5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 20px 50px -34px rgba(0, 0, 0, 0.4);
+}
+.rg-doc.layout-landing .rg-section > h2:first-child {
+  margin-top: 0;
+}
+.rg-doc.layout-landing .rg-section > ul.rg-simple-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+.rg-doc.layout-landing .rg-section > ul.rg-simple-list > li {
+  margin: 0;
+  padding: 16px 18px;
+  background: var(--rg-bg);
+  border: 1px solid var(--rg-border);
+  border-radius: var(--rg-radius);
+}
+.rg-doc.layout-landing .footnotes {
+  padding-inline: clamp(22px, 4vw, 48px);
+}
+
+/* ------------------------------------------------------------ Slides */
+.rg-doc.layout-slides {
+  --rg-measure: 1100px !important;
+  height: var(--rg-viewport, 100vh);
+  overflow: hidden;
+}
+.rg-doc.layout-slides .rg-body {
+  position: relative;
+  max-width: none;
+  height: 100%;
+  padding: 0;
+}
+.rg-doc.layout-slides .rg-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: safe center;
+  padding: clamp(28px, 7vh, 80px) clamp(22px, 8vw, 120px) clamp(64px, 11vh, 110px);
+  overflow-y: auto;
+  font-size: clamp(1em, 1.1vw + 0.6em, 1.35em);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(3%);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1), visibility 0.45s;
+}
+.rg-doc.layout-slides .rg-slide > * {
+  width: 100%;
+  max-width: var(--rg-measure);
+  margin-inline: auto;
+}
+.rg-doc.layout-slides .rg-slide.is-before {
+  transform: translateX(-3%);
+}
+.rg-doc.layout-slides .rg-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.rg-doc.layout-slides .rg-slide-title {
+  align-items: center;
+  text-align: center;
+}
+.rg-doc.layout-slides .rg-slide-title h1 {
+  font-size: clamp(2.2em, 5vw, 4em);
+  margin-bottom: 0.3em;
+}
+.rg-doc.layout-slides .rg-slide-title .rg-badges {
+  justify-content: center;
+}
+.rg-doc.layout-slides .rg-slide h2 {
+  margin-top: 0;
+  font-size: 1.9em;
+}
+.rg-slides-ui {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px 16px;
+  font: 600 13px/1 var(--rg-font-body);
+  color: var(--rg-muted);
+}
+.rg-slides-ui button {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: var(--rg-text);
+  background: color-mix(in srgb, var(--rg-surface) 88%, transparent);
+  border: 1px solid var(--rg-border);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.rg-slides-ui button:hover:not(:disabled) {
+  border-color: var(--rg-accent);
+  color: var(--rg-link);
+}
+.rg-slides-ui button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.rg-slides-ui button:focus-visible {
+  outline: 2px solid var(--rg-accent);
+  outline-offset: 2px;
+}
+.rg-slides-count {
+  min-width: 64px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.rg-slides-progress {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 5;
+  height: 3px;
+  background: color-mix(in srgb, var(--rg-border) 60%, transparent);
+}
+.rg-slides-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--rg-accent);
+  transition: width 0.4s ease;
+}
+
+/* ------------------------------------------------------------ Magazine */
+.rg-doc.layout-magazine {
+  --rg-measure: 1200px !important;
+}
+.rg-doc.layout-magazine .rg-intro {
+  padding-bottom: 1.4em;
+  margin-bottom: 2.2em;
+  border-bottom: 3px double var(--rg-border);
+}
+.rg-doc.layout-magazine .rg-intro h1 {
+  font-size: clamp(2.6em, 6vw, 4.6em);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  max-width: 16ch;
+}
+.rg-doc.layout-magazine .rg-intro > p:not(.rg-badges):not(.rg-figure) {
+  max-width: 44em;
+  font-size: 1.22em;
+  line-height: 1.55;
+  color: var(--rg-muted);
+}
+@media (min-width: 880px) {
+  .rg-doc.layout-magazine .rg-section {
+    columns: 2 21em;
+    column-gap: 3.2em;
+    column-rule: 1px solid var(--rg-border);
+    margin-bottom: 2.4em;
+  }
+  .rg-doc.layout-magazine .rg-section > h2 {
+    column-span: all;
+    margin-top: 1.2em;
+    padding-top: 0.8em;
+    border-top: 1px solid var(--rg-border);
+  }
+  .rg-doc.layout-magazine .rg-section > :is(.rg-code, .rg-table-wrap, .rg-mermaid, .rg-figure, .katex-display, details, hr) {
+    column-span: all;
+  }
+  .rg-doc.layout-magazine .rg-section > * {
+    break-inside: avoid-column;
+  }
+  .rg-doc.layout-magazine .rg-section > h3 {
+    break-after: avoid-column;
+  }
+  .rg-doc.layout-magazine .rg-section > h2 + p::first-letter {
+    float: inline-start;
+    font-family: var(--rg-font-heading);
+    font-size: 3.4em;
+    line-height: 0.85;
+    margin: 0.06em 0.1em 0 0;
+    color: var(--rg-accent);
+    font-weight: 700;
+  }
+}

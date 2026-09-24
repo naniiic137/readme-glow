@@ -1,0 +1,542 @@
+/* Notebook — handwritten notes on cream lined paper (light) or chalk on a
+   green board (dark): ruled lines, a red margin, taped photos, highlighter,
+   sticky notes and pen doodles. */
+
+.t-notebook {
+  --nb-line: calc(var(--rg-line-height) * 1em);
+  --nb-rule: #c6d8ef;
+  --nb-margin: #ee9a95;
+  --nb-mx: clamp(22px, 6vw, 60px);
+  --nb-hl: rgba(255, 236, 90, 0.72);
+  --nb-card-rule: #dbe6f4;
+  --nb-card-red: #f0a3a0;
+  --nb-grid: rgba(80, 130, 200, 0.13);
+  --nb-photo: #ffffff;
+  --nb-tape: rgba(246, 232, 170, 0.78);
+  --nb-sticky-base: #fffbe3;
+  --nb-shadow: 0 1px 2px rgba(70, 50, 10, 0.12), 0 12px 24px -14px rgba(70, 50, 10, 0.4);
+  --nb-swoosh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 24' preserveAspectRatio='none'%3E%3Cpath d='M4 9 C 60 3, 130 4, 190 7 S 270 12, 296 6' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M18 19 C 90 14, 170 15, 286 13' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+  --nb-wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 8'%3E%3Cpath d='M0 4 Q 6 0 12 4 T 24 4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  --nb-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5 C 4 10, 5.2 11.8, 6.4 13.6 C 8.4 9, 10.8 5.4, 14.6 1.8' fill='none' stroke='%23c8352c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.t-notebook.mode-dark {
+  --nb-rule: transparent;
+  --nb-margin: rgba(255, 159, 176, 0.38);
+  --nb-hl: rgba(247, 233, 160, 0.26);
+  --nb-card-rule: rgba(255, 255, 255, 0.06);
+  --nb-card-red: rgba(255, 159, 176, 0.45);
+  --nb-grid: rgba(255, 255, 255, 0.06);
+  --nb-photo: #eef0e8;
+  --nb-tape: rgba(255, 255, 255, 0.2);
+  --nb-sticky-base: #26352d;
+  --nb-shadow: 0 12px 26px -14px rgba(0, 0, 0, 0.75);
+  --nb-tick: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M2.5 8.5 C 4 10, 5.2 11.8, 6.4 13.6 C 8.4 9, 10.8 5.4, 14.6 1.8' fill='none' stroke='%23ff9fb0' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* ---------------------------------------------------------------- paper & chalkboard */
+.t-notebook.bg-theme .rg-backdrop {
+  background-image:
+    linear-gradient(var(--rg-bg) 0 86px, transparent 86px),
+    linear-gradient(180deg, transparent calc(var(--nb-line) - 1px), var(--nb-rule) calc(var(--nb-line) - 1px), var(--nb-rule) var(--nb-line));
+  background-size: 100% 100%, 100% var(--nb-line);
+  background-repeat: no-repeat, repeat;
+}
+@media (min-width: 1000px) {
+  .t-notebook.mode-light.bg-theme:not(.layout-docs) .rg-backdrop::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: 46px;
+    background: radial-gradient(circle, #e2d9c4 0 7px, #cfc4aa 7px 8.5px, transparent 9.5px) 50% 70px / 46px 170px repeat-y;
+  }
+}
+.t-notebook.mode-dark.bg-theme .rg-backdrop {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(40% 22% at 22% 18%, rgba(255, 255, 255, 0.05), transparent 70%),
+    radial-gradient(34% 18% at 78% 46%, rgba(255, 255, 255, 0.04), transparent 70%),
+    radial-gradient(46% 20% at 32% 82%, rgba(255, 255, 255, 0.035), transparent 70%),
+    linear-gradient(172deg, transparent 38%, rgba(255, 255, 255, 0.025) 44%, transparent 52%);
+  background-size: 300px 300px, 100% 1500px, 100% 1500px, 100% 1500px, 100% 1100px;
+  background-repeat: repeat;
+}
+.t-notebook.mode-dark.bg-theme .rg-backdrop-inner {
+  background: radial-gradient(120% 100% at 50% 45%, transparent 58%, rgba(0, 0, 0, 0.38));
+}
+@media (min-width: 700px) {
+  .t-notebook.mode-dark.bg-theme .rg-backdrop-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 0 3px #2d1d10, inset 0 0 0 11px #6b4a2b, inset 0 0 0 13px #3a2616, inset 0 0 40px 13px rgba(0, 0, 0, 0.45);
+  }
+}
+.t-notebook.mode-dark .rg-body {
+  text-shadow: 0 0 1px rgba(238, 240, 232, 0.3);
+}
+
+/* The red margin line. */
+.t-notebook:is(.layout-document, .layout-docs, .layout-magazine) .rg-body {
+  position: relative;
+  padding-inline-start: calc(var(--nb-mx) + clamp(14px, 2.6vw, 28px));
+}
+.t-notebook:is(.layout-document, .layout-docs, .layout-magazine) .rg-body::before,
+.t-notebook.layout-landing .rg-section::before,
+.t-notebook.layout-slides .rg-slide::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: var(--nb-mx);
+  width: 5px;
+  border-inline: 1.5px solid var(--nb-margin);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-notebook .rg-body :is(h1, h2, h3, h4) {
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0;
+}
+.t-notebook .rg-body h1 {
+  font-size: clamp(2.6em, 2em + 2.4vw, 3.4em);
+}
+.t-notebook .rg-body h2 {
+  font-size: 2.35em;
+  margin-top: 1.5em;
+}
+.t-notebook .rg-body h3 {
+  font-size: 1.8em;
+  color: var(--rg-accent);
+}
+.t-notebook .rg-body h4 {
+  font-size: 1.45em;
+}
+.t-notebook .rg-body h5 {
+  font-size: 1em;
+  font-family: var(--rg-font-body);
+  font-weight: 800;
+}
+.t-notebook .rg-body h6 {
+  font-family: var(--rg-font-body);
+  font-weight: 800;
+}
+.t-notebook.mode-dark .rg-body :is(h1, h2, h3, h4) {
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.45), 0 0 8px rgba(255, 255, 255, 0.12);
+}
+.t-notebook.hs-theme .rg-body :is(h1, h2) {
+  width: fit-content;
+  max-width: 100%;
+}
+.t-notebook.hs-theme .rg-body h1 {
+  rotate: -1.2deg;
+  padding-bottom: 0.32em;
+}
+.t-notebook.hs-theme .rg-body h1::after,
+.t-notebook.hs-theme .rg-body h2::after {
+  content: '';
+  position: absolute;
+  inset-inline: -0.1em;
+  bottom: 0;
+  height: 0.28em;
+  background: var(--rg-accent);
+  -webkit-mask: var(--nb-swoosh) center / 100% 100% no-repeat;
+  mask: var(--nb-swoosh) center / 100% 100% no-repeat;
+}
+.t-notebook.hs-theme .rg-body h2 {
+  padding-bottom: 0.26em;
+}
+.t-notebook.hs-theme .rg-body h2::after {
+  inset-inline: 0;
+  height: 0.2em;
+  background: var(--rg-link);
+  -webkit-mask: var(--nb-wave) 0 50% / 0.55em 100% repeat-x;
+  mask: var(--nb-wave) 0 50% / 0.55em 100% repeat-x;
+  opacity: 0.8;
+}
+.t-notebook.hs-theme.layout-magazine .rg-body .rg-section > h2 {
+  width: auto;
+}
+.t-notebook.hs-theme .rg-body [align='center'] > :is(h1, h2),
+.t-notebook.hs-theme.layout-landing .rg-intro h1,
+.t-notebook.hs-theme.layout-slides .rg-slide-title h1 {
+  margin-inline: auto;
+}
+
+/* ---------------------------------------------------------------- text */
+.t-notebook .rg-body strong {
+  color: var(--rg-heading);
+  font-weight: 800;
+  background: linear-gradient(176deg, transparent 0 52%, var(--nb-hl) 52% 90%, transparent 90%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding-inline: 0.1em;
+}
+.t-notebook .rg-body :is(h1, h2, h3, h4, th, summary) strong {
+  background: none;
+}
+.t-notebook .rg-body mark {
+  margin-inline: -0.1em;
+  padding: 0.05em 0.35em;
+  border-radius: 0.8em 0.3em;
+  background: linear-gradient(104deg, transparent 0.9%, var(--rg-mark) 2.4%, color-mix(in srgb, var(--rg-mark) 75%, transparent) 6%,
+    color-mix(in srgb, var(--rg-mark) 55%, transparent) 93%, color-mix(in srgb, var(--rg-mark) 85%, transparent) 96%, transparent 98%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.t-notebook.mode-dark .rg-body mark {
+  background: var(--rg-mark);
+  text-shadow: none;
+}
+.t-notebook .rg-body a {
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+.t-notebook .rg-body a:hover {
+  text-decoration-style: wavy;
+  text-decoration-color: var(--rg-accent);
+}
+.t-notebook .rg-body :not(pre) > code {
+  font-size: 0.84em;
+  border-radius: 3px 5px 4px 6px;
+}
+
+/* ---------------------------------------------------------------- lists */
+.t-notebook .rg-body ul:not(.contains-task-list) {
+  list-style-type: '\2192\00a0\00a0';
+  padding-inline-start: 1.6em;
+}
+.t-notebook .rg-body ul:not(.contains-task-list):dir(rtl) {
+  list-style-type: '\2190\00a0\00a0';
+}
+.t-notebook .rg-body ul ul:not(.contains-task-list) {
+  list-style-type: '\2022\00a0\00a0';
+}
+.t-notebook .rg-body li::marker {
+  color: var(--rg-accent);
+  font-weight: 800;
+}
+.t-notebook .rg-body ol > li::marker {
+  font-family: var(--rg-font-heading);
+  font-size: 1.28em;
+  font-weight: 700;
+}
+.t-notebook .rg-body .task-list-item > input[type='checkbox'],
+.t-notebook .rg-body .task-list-item > p > input[type='checkbox'] {
+  width: 1.05em;
+  height: 1.05em;
+  border: 1.8px solid var(--rg-text);
+  border-radius: 3px 5px 4px 6px;
+  background: transparent;
+  rotate: -3deg;
+}
+.rg-doc.t-notebook .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-notebook .rg-body .task-list-item > p > input[type='checkbox']:checked,
+.rg-doc.t-notebook.mode-dark .rg-body .task-list-item > input[type='checkbox']:checked,
+.rg-doc.t-notebook.mode-dark .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  border-color: var(--rg-text);
+  background: transparent var(--nb-tick) 60% 40% / 115% no-repeat;
+}
+
+/* ---------------------------------------------------------------- quotes & sticky notes */
+.t-notebook .rg-body blockquote {
+  position: relative;
+  padding: 0.1em 0.8em;
+  padding-inline-start: 1.1em;
+  border: 0;
+  font-family: var(--rg-font-heading);
+  font-size: 1.45em;
+  line-height: 1.3;
+  color: var(--rg-heading);
+}
+.t-notebook .rg-body blockquote::before {
+  content: '';
+  position: absolute;
+  inset-block: 0.1em;
+  inset-inline-start: 0;
+  width: 0.4em;
+  background: var(--rg-accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 100' preserveAspectRatio='none'%3E%3Cpath d='M7 2 C 3 20, 5 40, 4 55 S 6 85, 3 98' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 100' preserveAspectRatio='none'%3E%3Cpath d='M7 2 C 3 20, 5 40, 4 55 S 6 85, 3 98' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+}
+.t-notebook .rg-body blockquote :is(ul, ol, pre, table, .rg-code, .markdown-alert) {
+  font-size: 0.7em;
+}
+.t-notebook .rg-body .markdown-alert {
+  position: relative;
+  margin-block: 1.6em;
+  padding: 1.15em 1.3em 1.1em;
+  border: 0;
+  border-radius: 2px 2px 4px 18px / 2px 2px 4px 10px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--rg-alert-color) 9%, transparent) 0 1.6em, transparent 1.6em),
+    color-mix(in srgb, var(--rg-alert-color) 13%, var(--nb-sticky-base));
+  box-shadow: var(--nb-shadow);
+  rotate: -0.6deg;
+}
+.t-notebook .rg-body .markdown-alert-tip {
+  rotate: 0.5deg;
+}
+.t-notebook .rg-body .markdown-alert-important {
+  rotate: -0.35deg;
+}
+.t-notebook .rg-body .markdown-alert-warning {
+  rotate: 0.7deg;
+}
+.t-notebook .rg-body .markdown-alert-caution {
+  rotate: -0.8deg;
+}
+.t-notebook.mode-dark .rg-body .markdown-alert {
+  border: 2px dashed color-mix(in srgb, var(--rg-alert-color) 55%, transparent);
+}
+.t-notebook .rg-body .markdown-alert-title {
+  gap: 0.4em;
+  margin-bottom: 0.25em;
+  font-family: var(--rg-font-heading);
+  font-size: 1.45em;
+  line-height: 1.15;
+}
+.t-notebook .rg-body .markdown-alert-title .rg-icon {
+  width: 0.72em;
+  height: 0.72em;
+}
+
+/* ---------------------------------------------------------------- code: index cards */
+.t-notebook .rg-body .rg-code {
+  border: 1px solid color-mix(in srgb, var(--rg-border) 80%, transparent);
+  border-radius: 3px;
+  box-shadow: var(--nb-shadow);
+}
+.t-notebook .rg-body .rg-code.has-file .rg-code-head {
+  min-height: 2.3em;
+  font-family: var(--rg-font-heading);
+  font-size: 1.15em;
+  font-weight: 700;
+  border-bottom: 2px solid var(--nb-card-red);
+}
+.t-notebook .rg-body .rg-code.no-file::before {
+  content: '';
+  display: block;
+  height: 2.2em;
+  border-bottom: 2px solid var(--nb-card-red);
+}
+.t-notebook .rg-body .rg-code-file {
+  font-family: var(--rg-font-heading);
+  font-weight: 700;
+  font-size: 1.1em;
+}
+.t-notebook .rg-body .rg-code-file .rg-icon {
+  display: none;
+}
+.t-notebook .rg-body .rg-code-lang {
+  font-family: var(--rg-font-heading);
+  font-size: 1.05em;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+.t-notebook .rg-body .rg-code.no-file .rg-code-head {
+  font-family: var(--rg-font-heading);
+  font-size: 1em;
+}
+.t-notebook .rg-body .rg-copy {
+  font-family: var(--rg-font-body);
+  font-size: 0.72em;
+  border-radius: 4px 6px 5px 7px;
+}
+.t-notebook .rg-body pre,
+.t-notebook .rg-body .rg-code.no-file pre {
+  --nb-pl: 1.75em;
+  padding-top: 0.9em;
+  line-height: 1.75;
+  background-image: linear-gradient(transparent calc(var(--nb-pl) - 1px), var(--nb-card-rule) calc(var(--nb-pl) - 1px), var(--nb-card-rule) var(--nb-pl));
+  background-size: 100% var(--nb-pl);
+  background-position: 0 0.9em;
+  background-attachment: local;
+}
+
+/* ---------------------------------------------------------------- tables on graph paper */
+.t-notebook .rg-body .rg-table-wrap {
+  border: 1.5px solid color-mix(in srgb, var(--rg-text) 45%, transparent);
+  border-radius: 4px 7px 5px 8px;
+  background-color: var(--rg-surface);
+  background-image: linear-gradient(var(--nb-grid) 1px, transparent 1px), linear-gradient(90deg, var(--nb-grid) 1px, transparent 1px);
+  background-size: 14px 14px;
+  background-attachment: local;
+}
+.t-notebook .rg-body th {
+  padding-block: 0.35em 0.2em;
+  font-family: var(--rg-font-heading);
+  font-size: 1.3em;
+  color: var(--rg-heading);
+  background: none;
+  border-bottom: 2px solid color-mix(in srgb, var(--rg-heading) 70%, transparent);
+}
+.t-notebook .rg-body td {
+  border-bottom: 1px dashed color-mix(in srgb, var(--rg-text) 25%, transparent);
+}
+.t-notebook .rg-body tbody tr:nth-child(even) {
+  background: none;
+}
+.t-notebook .rg-body tbody tr:hover {
+  background: color-mix(in srgb, var(--rg-mark) 30%, transparent);
+}
+
+/* ---------------------------------------------------------------- taped photos */
+.t-notebook .rg-body .rg-figure {
+  position: relative;
+  padding-top: 0.7em;
+  gap: 0.5em;
+}
+.t-notebook .rg-body .rg-figure::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
+  z-index: 1;
+  width: 6.5em;
+  height: 1.7em;
+  margin-inline: auto;
+  background: var(--nb-tape);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  clip-path: polygon(2% 0, 98% 0, 100% 18%, 97% 36%, 100% 54%, 97% 72%, 100% 90%, 98% 100%, 2% 100%, 0 82%, 3% 64%, 0 46%, 3% 28%, 0 10%);
+  rotate: -3deg;
+  pointer-events: none;
+}
+.t-notebook .rg-body .rg-figure img,
+.t-notebook .rg-body .rg-figure video,
+.t-notebook.layout-landing .rg-body .rg-intro .rg-figure img {
+  border: 7px solid var(--nb-photo);
+  border-radius: 2px;
+  box-shadow: var(--nb-shadow);
+}
+.t-notebook .rg-body .rg-caption {
+  font-family: var(--rg-font-heading);
+  font-size: 1.3em;
+  font-style: normal;
+  line-height: 1.2;
+  rotate: -1deg;
+}
+.t-notebook .rg-body .rg-badges > * {
+  transition: rotate 0.2s ease;
+}
+.t-notebook .rg-body .rg-badges > :nth-child(3n + 1) {
+  rotate: -2deg;
+}
+.t-notebook .rg-body .rg-badges > :nth-child(3n + 2) {
+  rotate: 1.5deg;
+}
+.t-notebook .rg-body .rg-badges > :nth-child(3n) {
+  rotate: -0.6deg;
+}
+.t-notebook .rg-body .rg-badges > :hover {
+  rotate: 0deg;
+}
+
+/* ---------------------------------------------------------------- doodles */
+.t-notebook .rg-body hr {
+  width: min(100%, 240px);
+  height: 14px;
+  margin: 2.8em auto;
+  background: var(--rg-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 14' preserveAspectRatio='none'%3E%3Cpath d='M3 8 C 13 1, 23 13, 33 7 S 53 1, 63 7 S 83 13, 93 7 S 113 1, 123 7 S 143 13, 153 7 S 173 1, 183 7 S 203 13, 213 7 S 231 3, 237 6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 14' preserveAspectRatio='none'%3E%3Cpath d='M3 8 C 13 1, 23 13, 33 7 S 53 1, 63 7 S 83 13, 93 7 S 113 1, 123 7 S 143 13, 153 7 S 173 1, 183 7 S 203 13, 213 7 S 231 3, 237 6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+}
+.t-notebook .rg-body details {
+  background: var(--rg-surface);
+  border: 1.5px dashed color-mix(in srgb, var(--rg-text) 35%, transparent);
+  border-radius: 6px 10px 8px 12px;
+}
+.t-notebook .rg-body summary {
+  margin-inline: -0.74em;
+  padding: 0.35em 0.74em;
+  font-family: var(--rg-font-heading);
+  font-size: 1.35em;
+  font-weight: 700;
+}
+.t-notebook .rg-body details[open] > summary {
+  border-bottom: 1.5px dashed color-mix(in srgb, var(--rg-text) 25%, transparent);
+}
+.t-notebook .rg-body kbd {
+  font-family: var(--rg-font-body);
+  font-weight: 800;
+  background: var(--rg-surface);
+  border: 1.5px solid color-mix(in srgb, var(--rg-text) 70%, transparent);
+  border-bottom-width: 3px;
+  border-radius: 5px 7px 4px 6px;
+}
+.t-notebook .rg-body .footnotes {
+  border-top: 1.5px dashed color-mix(in srgb, var(--rg-text) 30%, transparent);
+}
+.t-notebook .rg-body .rg-mermaid {
+  border-style: dashed;
+  border-radius: 6px 10px 8px 12px;
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-notebook .rg-toc a {
+  font-family: var(--rg-font-heading);
+  font-size: 1.28em;
+  line-height: 1.15;
+  border-inline-start-style: dashed;
+}
+.t-notebook .rg-toc a.is-active {
+  color: var(--rg-heading);
+  font-weight: 700;
+  border-inline-start-style: solid;
+  background: linear-gradient(176deg, transparent 0 18%, var(--nb-hl) 18% 88%, transparent 88%);
+}
+
+/* ---------------------------------------------------------------- landing */
+.t-notebook.layout-landing .rg-body .rg-intro h1 {
+  font-size: clamp(3em, 2em + 4.4vw, 5.4em);
+  letter-spacing: 0;
+  line-height: 1;
+}
+.t-notebook.layout-landing .rg-section {
+  position: relative;
+  padding-inline-start: calc(var(--nb-mx) + clamp(14px, 2.6vw, 28px));
+  background-color: var(--rg-surface);
+  background-image: linear-gradient(180deg, transparent calc(var(--nb-line) - 1px), var(--nb-rule) calc(var(--nb-line) - 1px), var(--nb-rule) var(--nb-line));
+  background-size: 100% var(--nb-line);
+  background-position: 0 clamp(22px, 4vw, 48px);
+  border: 1px solid var(--rg-border);
+  border-radius: 3px;
+  box-shadow: var(--nb-shadow);
+}
+.t-notebook.layout-landing .rg-section::before {
+  z-index: 0;
+}
+.t-notebook.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  background: var(--nb-sticky-base);
+  border: 0;
+  border-radius: 2px;
+  box-shadow: var(--nb-shadow);
+  rotate: -0.6deg;
+}
+.t-notebook.layout-landing .rg-body .rg-section > ul.rg-simple-list > li:nth-child(even) {
+  rotate: 0.6deg;
+}
+
+/* ---------------------------------------------------------------- slides & magazine */
+.t-notebook.layout-slides .rg-slide {
+  --nb-mx: clamp(12px, 5vw, 80px);
+}
+.t-notebook.layout-slides .rg-body .rg-slide-title h1 {
+  font-size: clamp(3em, 2em + 4.4vw, 5.6em);
+}
+.t-notebook .rg-slides-progress > span {
+  background: var(--rg-accent);
+}
+.t-notebook.layout-magazine .rg-section {
+  column-rule: 1.5px dashed var(--nb-margin);
+}
+.t-notebook.layout-magazine .rg-body .rg-section > h2 + p::first-letter {
+  font-size: 4em;
+  line-height: 0.8;
+}

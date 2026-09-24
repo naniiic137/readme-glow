@@ -1,0 +1,650 @@
+/* Comic Book — halftone paper, thick ink panels, speech bubbles, caption boxes and a lot of POW. */
+
+.t-comic {
+  --cm-ink: #111111;
+  --cm-paper: #ffffff;
+  --cm-red: #e8322b;
+  --cm-red-deep: #c4161c;
+  --cm-yellow: #ffd400;
+  --cm-blue: #1c6fd1;
+  --cm-cyan: #5fd4ff;
+  --cm-green: #7ee081;
+  --cm-violet: #c9a7ff;
+  --cm-coral: #ff6b5e;
+  --cm-dots: radial-gradient(circle, rgba(0, 0, 0, 0.13) 1.2px, transparent 1.7px) 0 0 / 7px 7px;
+  --cm-burst: polygon(47.4% 0.1%, 58.3% 19.1%, 75.1% 11.4%, 74.7% 25.3%, 91.9% 22.8%, 79.9% 42%, 93.9% 52.3%, 82.8% 58.8%, 93.7% 72.2%, 73.3% 73.3%, 71.3% 91.9%, 57.8% 79%, 52.6% 99.9%, 40.9% 83.8%, 25.5% 87.7%, 27.4% 72.6%, 9.7% 76.1%, 17.2% 58.8%, 0.1% 47.4%, 20.1% 42%, 9% 29.1%, 26.7% 26.7%, 27.8% 6.3%, 40.9% 16.2%);
+  --cm-check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23111' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round' d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E");
+}
+.t-comic .rg-body {
+  -webkit-text-stroke: 0.25px currentColor;
+}
+.t-comic .rg-body :is(pre, code, kbd, h1, h2, h3, img) {
+  -webkit-text-stroke: 0;
+}
+
+/* ---------------------------------------------------------------- halftone paper */
+.t-comic.bg-theme .rg-backdrop {
+  background-color: var(--rg-bg);
+  background-image:
+    radial-gradient(circle, rgba(28, 111, 209, 0.15) 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(232, 50, 43, 0.11) 1.5px, transparent 2px);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 8px;
+}
+.t-comic.bg-theme .rg-backdrop-inner::before,
+.t-comic.bg-theme .rg-backdrop-inner::after {
+  content: '';
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  pointer-events: none;
+  -webkit-mask: radial-gradient(closest-side, #000000 10%, transparent);
+  mask: radial-gradient(closest-side, #000000 10%, transparent);
+}
+.t-comic.bg-theme .rg-backdrop-inner::before {
+  top: -35vmax;
+  inset-inline-end: -30vmax;
+  background: radial-gradient(circle, rgba(0, 160, 225, 0.42) 3.4px, transparent 4px) 0 0 / 13px 13px;
+}
+.t-comic.bg-theme .rg-backdrop-inner::after {
+  bottom: -38vmax;
+  inset-inline-start: -32vmax;
+  background: radial-gradient(circle, rgba(255, 60, 150, 0.32) 3.4px, transparent 4px) 0 0 / 13px 13px;
+}
+
+/* ---------------------------------------------------------------- the page panel */
+.t-comic.layout-document .rg-body,
+.t-comic.layout-docs .rg-body,
+.t-comic.layout-magazine .rg-body {
+  margin-block: clamp(16px, 4vw, 44px);
+  background: var(--cm-paper);
+  border: 4px solid var(--cm-ink);
+  border-radius: 4px;
+  box-shadow: 9px 9px 0 var(--cm-ink);
+}
+
+/* ---------------------------------------------------------------- headings */
+.t-comic .rg-body :is(h1, h2, h3) {
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.035em;
+}
+.t-comic .rg-body h1 {
+  font-size: 3.4em;
+}
+.t-comic .rg-body h2 {
+  font-size: 1.95em;
+  margin-top: 1.7em;
+}
+.t-comic .rg-body h3 {
+  font-size: 1.5em;
+  letter-spacing: 0.05em;
+}
+.t-comic .rg-body h4 {
+  font-size: 1.1em;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.t-comic.hs-theme .rg-body h1 {
+  color: var(--cm-yellow);
+  -webkit-text-stroke: 0.1em var(--cm-ink);
+  paint-order: stroke fill;
+  text-shadow: 0.07em 0.07em 0 var(--cm-ink);
+  rotate: -2deg;
+  transform-origin: 0 50%;
+}
+.t-comic.hs-theme .rg-body [align='center'] h1,
+.t-comic.hs-theme.layout-landing .rg-intro h1,
+.t-comic.hs-theme.layout-slides .rg-slide-title h1 {
+  transform-origin: 50% 50%;
+}
+.t-comic.hs-theme .rg-body h2 {
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.14em 0.55em 0.06em;
+  background: var(--cm-yellow);
+  border: 3px solid var(--cm-ink);
+  box-shadow: 4px 4px 0 var(--cm-ink);
+  rotate: -1.2deg;
+}
+.t-comic.hs-theme .rg-body > h2:nth-of-type(even),
+.t-comic.hs-theme .rg-body > section:nth-of-type(even) > h2 {
+  rotate: 1deg;
+}
+.t-comic.hs-theme .rg-body [align='center'] > h2 {
+  margin-inline: auto;
+}
+.t-comic.hs-theme.layout-magazine .rg-body .rg-section > h2 {
+  margin-top: 1.4em;
+  padding-top: 0.14em;
+  border-top: 3px solid var(--cm-ink);
+}
+.t-comic.hs-theme .rg-body h3 {
+  color: var(--rg-accent);
+  text-shadow: 2px 2px 0 var(--cm-ink);
+}
+
+/* ---------------------------------------------------------------- text */
+.t-comic .rg-body a:not(.rg-anchor) {
+  font-weight: 700;
+  text-decoration: underline wavy var(--cm-red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.24em;
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+}
+.t-comic .rg-body a:not(.rg-anchor):hover {
+  color: var(--cm-ink);
+  background-color: var(--cm-yellow);
+  animation: cm-wobble 0.18s ease-in-out 4 alternate;
+}
+@keyframes cm-wobble {
+  from {
+    text-underline-offset: 0.2em;
+  }
+  to {
+    text-underline-offset: 0.38em;
+  }
+}
+.t-comic .rg-body :is(.rg-badges, .rg-figure) a,
+.t-comic .rg-body :is(.rg-badges, .rg-figure) a:hover,
+.t-comic .rg-body a:has(> img),
+.t-comic .rg-body a:has(> img):hover {
+  text-decoration: none;
+  background-color: transparent;
+  animation: none;
+}
+.t-comic .rg-body mark {
+  padding: 0.02em 0.3em;
+  border-radius: 3px;
+  box-shadow: 2px 2px 0 var(--cm-ink);
+}
+.t-comic .rg-body ul:not(.contains-task-list) {
+  list-style-type: '\2605\2002';
+}
+.t-comic .rg-body ul ul:not(.contains-task-list) {
+  list-style-type: '\2606\2002';
+}
+.t-comic .rg-body ul > li::marker {
+  color: var(--cm-red);
+}
+.t-comic .rg-body ol > li::marker {
+  font-family: var(--rg-font-heading);
+  font-size: 1.2em;
+  font-weight: 400;
+  color: var(--rg-accent);
+}
+.t-comic .rg-body .task-list-item > input[type='checkbox'],
+.t-comic .rg-body .task-list-item > p > input[type='checkbox'] {
+  border: 2.5px solid var(--cm-ink);
+  border-radius: 4px;
+  background-color: var(--cm-paper);
+}
+.t-comic .rg-body .task-list-item > input[type='checkbox']:checked,
+.t-comic .rg-body .task-list-item > p > input[type='checkbox']:checked {
+  border-color: var(--cm-ink);
+  background: var(--cm-yellow) var(--cm-check) center / 90% no-repeat;
+}
+
+/* The rule: an ink line with a sound-effect burst. */
+.t-comic .rg-body hr {
+  --cm-word: 'POW!';
+  position: relative;
+  height: 4px;
+  margin: 3.8em 0;
+  overflow: visible;
+  background: var(--cm-ink);
+  border-radius: 2px;
+}
+.t-comic .rg-body hr:nth-of-type(3n + 2) {
+  --cm-word: 'BAM!';
+}
+.t-comic .rg-body hr:nth-of-type(3n) {
+  --cm-word: 'ZAP!';
+}
+.t-comic .rg-body hr::before,
+.t-comic .rg-body hr::after {
+  content: var(--cm-word);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 0.95em 1.45em;
+  font: 400 1.3em/1 var(--rg-font-heading);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  -webkit-text-stroke: 0;
+  clip-path: var(--cm-burst);
+  rotate: -6deg;
+}
+.t-comic .rg-body hr::before {
+  padding: calc(0.95em + 5px) calc(1.45em + 7px);
+  color: transparent;
+  background: var(--cm-ink);
+  translate: calc(-50% + 3px) calc(-50% + 3px);
+}
+.t-comic .rg-body hr::after {
+  color: var(--cm-ink);
+  background: var(--cm-yellow);
+  translate: -50% -50%;
+}
+
+/* ---------------------------------------------------------------- thought & speech bubbles */
+.t-comic .rg-body blockquote {
+  position: relative;
+  margin: 1.4em 0 2.9em;
+  padding: 1em 1.5em;
+  font-style: italic;
+  color: var(--rg-text);
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  border-radius: 2em;
+}
+.t-comic .rg-body blockquote::before,
+.t-comic .rg-body blockquote::after {
+  content: '';
+  position: absolute;
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  border-radius: 50%;
+}
+.t-comic .rg-body blockquote::before {
+  bottom: -27px;
+  inset-inline-start: 2.6em;
+  width: 24px;
+  height: 19px;
+}
+.t-comic .rg-body blockquote::after {
+  bottom: -44px;
+  inset-inline-start: 1.9em;
+  width: 13px;
+  height: 11px;
+}
+.t-comic .rg-body .markdown-alert {
+  --cm-tag: var(--cm-cyan);
+  --cm-bubble: color-mix(in srgb, var(--cm-tag) 12%, #ffffff);
+  position: relative;
+  margin: 2.3em 0 2.6em;
+  padding: 1.45em 1.4em 1.1em;
+  color: var(--rg-text);
+  background: var(--cm-bubble);
+  border: 3px solid var(--cm-ink);
+  border-radius: 1.4em;
+  filter: drop-shadow(4px 4px 0 var(--cm-ink));
+}
+.t-comic[dir='rtl'] .rg-body .markdown-alert,
+.t-comic .rg-body .markdown-alert[dir='rtl'] {
+  border-radius: 1.4em;
+}
+.t-comic .rg-body .markdown-alert-tip {
+  --cm-tag: var(--cm-green);
+}
+.t-comic .rg-body .markdown-alert-important {
+  --cm-tag: var(--cm-violet);
+}
+.t-comic .rg-body .markdown-alert-warning {
+  --cm-tag: var(--cm-yellow);
+}
+.t-comic .rg-body .markdown-alert-caution {
+  --cm-tag: var(--cm-coral);
+}
+.t-comic .rg-body .markdown-alert::before,
+.t-comic .rg-body .markdown-alert::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0 solid transparent;
+}
+.t-comic .rg-body .markdown-alert::before {
+  bottom: -24px;
+  inset-inline-start: 2.2em;
+  border-block-start: 24px solid var(--cm-ink);
+  border-inline-end: 24px solid transparent;
+}
+.t-comic .rg-body .markdown-alert::after {
+  bottom: -16px;
+  inset-inline-start: calc(2.2em + 3px);
+  border-block-start: 16px solid var(--cm-bubble);
+  border-inline-end: 16px solid transparent;
+}
+.t-comic .rg-body .markdown-alert-title {
+  position: absolute;
+  top: -0.95em;
+  inset-inline-start: 0.9em;
+  margin: 0;
+  padding: 0.14em 0.6em 0.04em;
+  font-family: var(--rg-font-heading);
+  font-size: 1.08em;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  -webkit-text-stroke: 0;
+  color: var(--cm-ink);
+  background: var(--cm-tag);
+  border: 3px solid var(--cm-ink);
+  rotate: -2deg;
+}
+
+/* ---------------------------------------------------------------- code panels */
+.t-comic .rg-body .rg-code {
+  border: 3px solid var(--cm-ink);
+  border-radius: 6px;
+  box-shadow: 5px 5px 0 var(--cm-ink);
+}
+.t-comic .rg-body .rg-code.has-file .rg-code-head {
+  font-family: var(--rg-font-mono);
+  font-weight: 700;
+  color: var(--cm-ink);
+  background: var(--cm-dots), var(--cm-yellow);
+  border-bottom: 3px solid var(--cm-ink);
+}
+.t-comic .rg-body .rg-code.has-file .rg-code-file {
+  color: var(--cm-ink);
+}
+.t-comic .rg-body .rg-code.has-file .rg-code-head::before,
+.t-comic .rg-body .rg-code.no-file::before {
+  content: 'CODE!';
+  font-family: var(--rg-font-heading);
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background: var(--cm-red-deep);
+  border: 2px solid var(--cm-ink);
+}
+.t-comic .rg-body .rg-code.has-file .rg-code-head::before {
+  flex: none;
+  padding: 0.1em 0.45em 0;
+  font-size: 1.15em;
+  rotate: -3deg;
+}
+.t-comic .rg-body .rg-code.no-file::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 0.12em 0.55em 0.02em;
+  font-size: 0.9em;
+  border-width: 0 3px 3px 0;
+  border-end-end-radius: 6px;
+}
+.t-comic .rg-body .rg-code.no-file pre {
+  padding-top: 2.4em;
+}
+.t-comic .rg-body .rg-code-lang {
+  font-family: var(--rg-font-heading);
+  font-size: 1.1em;
+  letter-spacing: 0.06em;
+  color: var(--cm-ink);
+  opacity: 1;
+}
+.t-comic .rg-body .rg-copy {
+  font-weight: 700;
+  color: var(--cm-ink);
+  background: var(--cm-paper);
+  border: 2px solid var(--cm-ink);
+  border-radius: 6px;
+  box-shadow: 2px 2px 0 var(--cm-ink);
+}
+.t-comic .rg-body .rg-copy:hover {
+  background: var(--cm-cyan);
+}
+.t-comic .rg-body pre {
+  font-size: 0.8em;
+  line-height: 1.7;
+}
+.t-comic .rg-body :not(pre) > code {
+  padding: 0.06em 0.36em;
+  font-size: 0.8em;
+  border: 2px solid var(--cm-ink);
+  border-radius: 5px;
+}
+.t-comic .rg-body kbd {
+  font-weight: 700;
+  color: var(--cm-ink);
+  background: var(--cm-paper);
+  border: 2px solid var(--cm-ink);
+  border-radius: 5px;
+  box-shadow: 2px 2px 0 var(--cm-ink);
+}
+
+/* ---------------------------------------------------------------- tables */
+.t-comic .rg-body .rg-table-wrap {
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  border-radius: 6px;
+  box-shadow: 5px 5px 0 var(--cm-ink);
+}
+.t-comic .rg-body th,
+.t-comic .rg-body td {
+  border: 2px solid var(--cm-ink);
+}
+.t-comic .rg-body tr > :first-child {
+  border-inline-start: 0;
+}
+.t-comic .rg-body tr > :last-child {
+  border-inline-end: 0;
+}
+.t-comic .rg-body thead tr:first-child > th {
+  border-top: 0;
+}
+.t-comic .rg-body th {
+  font-family: var(--rg-font-heading);
+  font-size: 1.1em;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  background: var(--cm-blue);
+  border-bottom-width: 3px;
+  -webkit-text-stroke: 0;
+}
+.t-comic .rg-body tbody tr:nth-child(even) {
+  background: #fff6cf;
+}
+.t-comic .rg-body tbody tr:hover {
+  background: #ffe6f1;
+}
+
+/* ---------------------------------------------------------------- panels & captions */
+.t-comic .rg-body .rg-figure img,
+.t-comic.layout-landing .rg-body .rg-intro .rg-figure img {
+  background: var(--cm-paper);
+  border: 4px solid var(--cm-ink);
+  border-radius: 3px;
+  box-shadow: 7px 7px 0 var(--cm-ink);
+  rotate: -1deg;
+}
+.t-comic .rg-body .rg-figure:nth-of-type(even) img {
+  rotate: 1deg;
+}
+.t-comic .rg-body .rg-caption {
+  padding: 0.2em 0.65em 0.12em;
+  font-size: 0.8em;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--cm-ink);
+  background: var(--cm-yellow);
+  border: 2px solid var(--cm-ink);
+  box-shadow: 2px 2px 0 var(--cm-ink);
+  rotate: 1deg;
+}
+.t-comic .rg-body .rg-badges {
+  width: fit-content;
+  max-width: 100%;
+  gap: 6px;
+  padding: 8px 12px;
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 var(--cm-ink);
+  rotate: -0.6deg;
+}
+.t-comic .rg-body [align='center'] > .rg-badges,
+.t-comic .rg-body .rg-badges[align='center'],
+.t-comic.layout-landing .rg-body .rg-intro .rg-badges,
+.t-comic.layout-slides .rg-body .rg-slide-title .rg-badges {
+  margin-inline: auto;
+}
+.t-comic .rg-body details {
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  border-radius: 6px;
+  box-shadow: 5px 5px 0 var(--cm-ink);
+}
+.t-comic .rg-body summary {
+  font-family: var(--rg-font-heading);
+  font-size: 1.2em;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  -webkit-text-stroke: 0;
+}
+.t-comic .rg-body summary::before {
+  border-color: var(--cm-red);
+  border-width: 0 3px 3px 0;
+}
+.t-comic .rg-body details[open] > summary {
+  background: var(--cm-dots), var(--cm-yellow);
+  border-bottom: 3px solid var(--cm-ink);
+  border-radius: 3px 3px 0 0;
+}
+.t-comic .rg-body .rg-mermaid {
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  box-shadow: 5px 5px 0 var(--cm-ink);
+}
+.t-comic .rg-body .footnotes {
+  border-top: 3px dashed var(--cm-ink);
+}
+
+/* ---------------------------------------------------------------- table of contents */
+.t-comic .rg-toc-title {
+  font-size: 1.15em;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--rg-accent);
+}
+.t-comic .rg-toc a {
+  font-weight: 700;
+  color: var(--rg-text);
+  border-inline-start: 3px solid var(--cm-ink);
+}
+.t-comic .rg-toc a:hover {
+  background: #fff3b0;
+}
+.t-comic .rg-toc a.is-active {
+  color: var(--cm-ink);
+  background: var(--cm-yellow);
+  border-inline-start: 6px solid var(--cm-red);
+}
+
+/* ---------------------------------------------------------------- landing */
+.t-comic.layout-landing .rg-body .rg-intro {
+  position: relative;
+}
+.t-comic.layout-landing .rg-body .rg-intro::before {
+  content: '';
+  position: absolute;
+  inset: -6% 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background: repeating-conic-gradient(from 0deg at 50% 42%, rgba(255, 212, 0, 0.5) 0 6deg, transparent 6deg 12deg);
+  -webkit-mask: radial-gradient(62% 58% at 50% 42%, #000000 25%, transparent 78%);
+  mask: radial-gradient(62% 58% at 50% 42%, #000000 25%, transparent 78%);
+}
+.t-comic.layout-landing .rg-body .rg-intro h1 {
+  font-size: clamp(2.8em, 8vw, 5.4em);
+  letter-spacing: 0.04em;
+}
+.t-comic.layout-landing .rg-body .rg-intro > h1 + p:not(.rg-badges):not(.rg-figure) {
+  padding: 0.5em 1em;
+  color: var(--cm-ink);
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  box-shadow: 4px 4px 0 var(--cm-ink);
+  rotate: 0.6deg;
+}
+.t-comic.layout-landing .rg-body .rg-section {
+  background: var(--cm-paper);
+  border: 4px solid var(--cm-ink);
+  border-radius: 4px;
+  box-shadow: 8px 8px 0 var(--cm-ink);
+}
+.t-comic.layout-landing .rg-body .rg-section > ul.rg-simple-list > li {
+  font-weight: 700;
+  background: #fffbe8;
+  border: 3px solid var(--cm-ink);
+  border-radius: 6px;
+  box-shadow: 3px 3px 0 var(--cm-ink);
+}
+
+/* ---------------------------------------------------------------- slides & magazine */
+.t-comic.layout-slides .rg-body .rg-slide {
+  isolation: isolate;
+}
+.t-comic.layout-slides .rg-body .rg-slide::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: clamp(12px, 3vh, 32px) clamp(10px, 3vw, 48px) clamp(60px, 10vh, 92px);
+  background: var(--cm-paper);
+  border: 4px solid var(--cm-ink);
+  border-radius: 4px;
+  box-shadow: 9px 9px 0 var(--cm-ink);
+}
+.t-comic.layout-slides .rg-body .rg-slide-title::before {
+  background:
+    repeating-conic-gradient(from 0deg at 50% 50%, rgba(255, 212, 0, 0.42) 0 6deg, transparent 6deg 12deg),
+    var(--cm-paper);
+}
+.t-comic .rg-slides-progress {
+  height: 8px;
+  background: var(--cm-paper);
+  border-bottom: 3px solid var(--cm-ink);
+}
+.t-comic .rg-slides-progress > span {
+  background: var(--cm-red);
+}
+.t-comic .rg-slides-ui button {
+  color: var(--cm-ink);
+  background: var(--cm-paper);
+  border: 3px solid var(--cm-ink);
+  box-shadow: 3px 3px 0 var(--cm-ink);
+}
+.t-comic .rg-slides-ui button:hover:not(:disabled) {
+  color: var(--cm-ink);
+  background: var(--cm-yellow);
+  border-color: var(--cm-ink);
+}
+.t-comic.layout-magazine .rg-body .rg-intro {
+  border-bottom: 4px solid var(--cm-ink);
+}
+@media (min-width: 880px) {
+  .t-comic.layout-magazine .rg-body .rg-section {
+    column-rule: 3px solid var(--cm-ink);
+  }
+  .t-comic.layout-magazine .rg-body .rg-section > h2 + p::first-letter {
+    font-weight: 400;
+    -webkit-text-stroke: 0.04em var(--cm-ink);
+    paint-order: stroke fill;
+  }
+}
+
+/* ---------------------------------------------------------------- small screens */
+@media (max-width: 640px) {
+  .t-comic.layout-document .rg-body,
+  .t-comic.layout-docs .rg-body,
+  .t-comic.layout-magazine .rg-body {
+    margin: 10px 16px 24px 10px;
+    box-shadow: 6px 6px 0 var(--cm-ink);
+  }
+  .t-comic .rg-body h1 {
+    font-size: 2.5em;
+  }
+  .t-comic .rg-body h2 {
+    font-size: 1.6em;
+  }
+  .t-comic.layout-landing .rg-body .rg-section {
+    box-shadow: 5px 5px 0 var(--cm-ink);
+  }
+}
