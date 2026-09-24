@@ -215,6 +215,7 @@ export async function openGitHub(input: string | RepoRef): Promise<boolean> {
     await openMarkdown(r.markdown, {
       source: { kind: 'github', owner: r.owner, repo: r.repo, ref: r.ref, path: r.path },
       meta: r.meta,
+      title: titleFromMarkdown(r.markdown, r.repo),
     });
     return true;
   } catch (err) {

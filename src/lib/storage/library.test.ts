@@ -88,6 +88,7 @@ describe('titleFromMarkdown', () => {
     ['Setext\n======\n', 'Setext'],
     ['# [Linked](https://x) title', 'Linked title'],
     ['no heading', 'Untitled README'],
+    ['<h1 align="center"><img src="logo.svg" alt="awesome" width="200"></h1>', 'awesome'],
   ])('%s → %s', (md, title) => {
     expect(titleFromMarkdown(md)).toBe(title);
   });

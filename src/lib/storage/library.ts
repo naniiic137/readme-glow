@@ -68,9 +68,10 @@ export function titleFromMarkdown(markdown: string, fallback = 'Untitled README'
   const atx = /^\s{0,3}#\s+(.+?)\s*#*\s*$/m.exec(markdown);
   const html = /<h1[^>]*>([\s\S]*?)<\/h1>/i.exec(markdown);
   const setext = /^(?!\s*$)(.+)\n=+\s*$/m.exec(markdown);
-  const raw = [atx?.[1], html?.[1], setext?.[1]].find((t) => t && t.replace(/<[^>]+>/g, '').trim());
+  const raw = [atx?.[1], html?.[1], setext?.[1]].find((t) => t && t.replace(/<img\b[^>]*\balt=["']([^"']*)["'][^>]*>/gi, '$1').replace(/<[^>]+>/g, '').trim());
   if (!raw) return fallback;
   const clean = raw
+    .replace(/<img\b[^>]*\balt=["']([^"']*)["'][^>]*>/gi, ' $1 ')
     .replace(/<[^>]+>/g, '')
     .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
