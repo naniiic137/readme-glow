@@ -641,10 +641,8 @@
     font-size: 1.16em;
     padding-inline-start: 1.2em;
   }
+  /* On phones the text column fills the width: no moon behind the words. */
   .t-midnight.bg-theme .rg-backdrop-inner::after {
-    top: 6px;
-    inset-inline-end: 0;
-    scale: 0.5;
-    opacity: 0.5;
+    display: none;
   }
 }
