@@ -2,24 +2,22 @@ import { lazy, Suspense, useEffect, useMemo, useRef, useState, useSyncExternalSt
 import { useStore } from '../app/store';
 import { doc, settings, setSettings, ui } from '../app/state';
 import { useRender } from '../app/useRender';
-import { githubResolver } from '../lib/github';
-import { localResolver } from '../lib/localFiles';
 import { PreviewPane } from './PreviewPane';
 import { TopBar } from './TopBar';
 import { EditorPane } from './editor/EditorPane';
 import { Splitter } from './Splitter';
 import type { CurrentDoc } from '../app/state';
-import type { UrlResolver } from '../lib/markdown/types';
+import type { ResolverConfig } from '../lib/markdown/resolvers';
 
 const CustomizePanel = lazy(() => import('./panels/CustomizePanel'));
 const InsightsPanel = lazy(() => import('./panels/InsightsPanel'));
 const LibraryPanel = lazy(() => import('./panels/LibraryPanel'));
 
-function resolverFor(d: CurrentDoc): UrlResolver {
+export function resolverFor(d: CurrentDoc): ResolverConfig {
   if (d.source.kind === 'github') {
-    return githubResolver({ owner: d.source.owner, repo: d.source.repo, ref: d.source.ref, path: d.source.path });
+    return { kind: 'github', owner: d.source.owner, repo: d.source.repo, ref: d.source.ref, path: d.source.path };
   }
-  return localResolver(d.assets, d.baseDir, d.sampleBase);
+  return { kind: 'local', assets: [...d.assets], baseDir: d.baseDir, fallbackBase: d.sampleBase };
 }
 
 function useDocText(): string {

@@ -2,16 +2,17 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { UrlResolver } from '../lib/markdown/types';
+import type { ResolverConfig } from '../lib/markdown/resolvers';
+import { buildResolver } from '../lib/markdown/resolvers';
 
 const hoisted = vi.hoisted(() => ({
   renderResult: { toc: [], html: '<p>hi</p>' } as unknown,
   renderError: null as string | null,
-  resolvers: [] as UrlResolver[],
+  resolvers: [] as ResolverConfig[],
 }));
 
 vi.mock('../app/useRender', () => ({
-  useRender: vi.fn((_text: string, resolver: UrlResolver) => {
+  useRender: vi.fn((_text: string, resolver: ResolverConfig) => {
     hoisted.resolvers.push(resolver);
     return { result: hoisted.renderResult, error: hoisted.renderError, pending: false };
   }),
@@ -148,7 +149,7 @@ describe('Workspace', () => {
 
   it('resolves images from dropped files for local documents', () => {
     mount(fakeCurrentDoc({ baseDir: 'docs', assets: new Map([['docs/img/a.png', 'blob:mock/a']]) }));
-    const resolve = hoisted.resolvers.at(-1)!;
+    const resolve = buildResolver(hoisted.resolvers.at(-1)!)!;
     expect(resolve('img/a.png', 'image')).toBe('blob:mock/a');
     expect(resolve('img/missing.png', 'image')).toBeNull();
     expect(resolve('https://example.com/x.png', 'image')).toBeUndefined();
@@ -156,7 +157,7 @@ describe('Workspace', () => {
 
   it('resolves images from raw.githubusercontent.com for GitHub documents', () => {
     mount(fakeCurrentDoc({ source: { kind: 'github', owner: 'octo', repo: 'hello', ref: 'main', path: 'docs/README.md' } }));
-    const resolve = hoisted.resolvers.at(-1)!;
+    const resolve = buildResolver(hoisted.resolvers.at(-1)!)!;
     expect(resolve('shot.png', 'image')).toBe('https://raw.githubusercontent.com/octo/hello/main/docs/shot.png');
     expect(resolve('../LICENSE', 'link')).toBe('https://github.com/octo/hello/blob/main/LICENSE');
   });

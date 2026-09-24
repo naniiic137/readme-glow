@@ -33,6 +33,9 @@ export default defineConfig({
     target: 'es2022',
     chunkSizeWarningLimit: 1500,
   },
+  // ES module worker, so the renderer's heavy extras (highlighting, KaTeX,
+  // emoji) stay separate lazy chunks inside the worker too.
+  worker: { format: 'es' },
   test: {
     environment: 'node',
     include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],

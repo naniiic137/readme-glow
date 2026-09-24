@@ -1,7 +1,9 @@
 import { unified } from 'unified';
 import rehypeKatex from 'rehype-katex';
 import type { Root } from 'hast';
-import 'katex/dist/katex.min.css';
+
+// KaTeX's stylesheet is loaded on the main thread (see app/useRender.ts), so
+// this module also works inside the rendering Web Worker.
 
 /**
  * KaTeX rendering, lazy-loaded only for documents that contain math.
