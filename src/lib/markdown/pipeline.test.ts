@@ -52,6 +52,12 @@ describe('markdown pipeline: headings', () => {
     expect(r.html).toContain('class="rg-anchor" href="#install"');
   });
 
+  it('builds anchors from the source text like GitHub (shortcodes, emoji)', async () => {
+    const r = await renderMarkdown('## :sparkles: Features\n\n## 📦 Install\n');
+    expect(r.toc.map((t) => t.id)).toEqual(['sparkles-features', '-install']);
+    expect(r.toc[0]!.text).toBe('✨ Features');
+  });
+
   it('records the source line of each heading', async () => {
     const r = await renderMarkdown('intro\n\n## One\n\ntext\n\n## Two\n');
     expect(r.toc.map((t) => t.line)).toEqual([3, 7]);
