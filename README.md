@@ -172,6 +172,10 @@ GitHub shows a README with its own stylesheet: no custom CSS, no fonts, no scrip
 
 Text in scripts the theme font does not cover (Arabic, Chinese, emoji…) is written with the reader's system font instead of outlines, so it always reads correctly.
 
+This README on github.com, with the reader's system set to light and to dark:
+
+![This README on github.com in light mode and in dark mode, side by side: the Aurora header image in its light and dark versions, the themed badges, the violet table-of-contents pills and the first section title](docs/screenshots/github-readme.png)
+
 <!-- readmeglow:begin h2
 ## Links, badge and bookmarklet
 -->
