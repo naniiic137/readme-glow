@@ -105,7 +105,7 @@ export async function renderMarkdown(markdown: string, options: RenderOptions = 
       readingMinutes: Math.max(1, Math.round(words / 230 + result.counts.codeBlocks * 0.15 + result.counts.images * 0.08)),
       ...result.counts,
     },
-    features: { math: result.math, mermaid: result.mermaid, code: result.counts.codeBlocks > 0, emoji },
+    features: { math: result.math, mermaid: result.mermaid, code: result.counts.codeBlocks > 0, emoji, rtl: isMostlyRtl(markdown) },
     ms: Math.round(t1 - t0),
   };
 }
@@ -115,8 +115,16 @@ export function htmlFor(tree: HastRoot, mode: SectionMode): string {
   return toHtml(sectionize(tree, mode));
 }
 
+/** True when right-to-left letters (Arabic, Hebrew…) outnumber Latin letters outside code. */
+export function isMostlyRtl(markdown: string): boolean {
+  const prose = markdown.replace(/```[\s\S]*?```/g, ' ').replace(/<[^>]*>|\]\([^)]*\)/g, ' ');
+  const rtl = prose.match(/[\u0590-\u08ff\ufb1d-\ufdff\ufe70-\ufefc]/g)?.length ?? 0;
+  const latin = prose.match(/[A-Za-z]/g)?.length ?? 0;
+  return rtl > latin;
+}
+
 const SKIP_WORDS = new Set(['pre', 'code', 'svg', 'figcaption', 'button', 'script', 'style']);
-const CJK = /[぀-ヿ㐀-䶿一-鿿가-힯]/g;
+const CJK = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uac00-\ud7af]/g;
 
 export function countWords(tree: HastRoot): number {
   let words = 0;

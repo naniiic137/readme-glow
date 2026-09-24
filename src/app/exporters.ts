@@ -124,7 +124,7 @@ export async function exportHtml(): Promise<void> {
     const data = await urlToDataUrl(img.src);
     if (data) img.setAttribute('src', data);
   }
-  const hasArabic = /[؀-ۿ]/.test(doc.text);
+  const hasArabic = /[\u0600-\u06ff]/.test(doc.text);
   const fontUrls = new Map<string, string>();
   const keys = [...theme.fontKeys, ...(hasArabic ? ARABIC_FONTS : [])];
   const subsets: Array<'latin' | 'arabic'> = hasArabic ? ['latin', 'arabic'] : ['latin'];

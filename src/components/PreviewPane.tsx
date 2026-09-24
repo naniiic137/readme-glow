@@ -388,7 +388,7 @@ export function PreviewPane({ result, editorVisible }: Props) {
         if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(e.clientY - start.y) * 1.5) go(dx < 0 ? 1 : -1);
       }}
     >
-      <div className={p.className} style={docStyle} dir={s.dir === 'auto' ? undefined : s.dir} data-ready={themeReady ? 'true' : 'false'}>
+      <div className={p.className} style={docStyle} dir={s.dir === 'auto' ? (result?.features.rtl ? 'rtl' : undefined) : s.dir} data-ready={themeReady ? 'true' : 'false'}>
         <div className="rg-backdrop">
           <div className="rg-backdrop-inner">{s.background === 'particles' && <Particles colors={particleColors} />}</div>
         </div>

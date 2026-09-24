@@ -36,6 +36,8 @@ export interface DocFeatures {
   mermaid: boolean;
   code: boolean;
   emoji: boolean;
+  /** Mostly right-to-left text (Arabic, Hebrew…). */
+  rtl: boolean;
 }
 
 export interface DocMeta {

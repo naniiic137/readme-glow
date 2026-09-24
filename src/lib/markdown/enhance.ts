@@ -453,7 +453,7 @@ function toAlert(node: Element, source: string): Element | null {
   const empty = first.children.every((c) => c.type === 'text' && c.value.trim() === '');
   const rest = empty ? node.children.filter((_, i) => i !== firstIndex) : node.children;
   // Right-to-left alerts get their title in Arabic, so the callout reads naturally.
-  const arabic = /[؀-ۿ]/.test(hastToString(node));
+  const arabic = /[\u0600-\u06ff]/.test(hastToString(node));
   const title = el('p', { className: ['markdown-alert-title'], dir: 'auto' }, [iconElement(def.icon), text(arabic ? ARABIC_TITLES[type]! : def.title)]);
   const alert = el('div', { className: ['markdown-alert', `markdown-alert-${type.toLowerCase()}`], dataAlert: type.toLowerCase() }, [
     title,

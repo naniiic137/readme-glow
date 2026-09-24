@@ -36,6 +36,8 @@ function configure(mermaid: MermaidApi, t: MermaidTheme): string {
     securityLevel: 'strict',
     theme: 'base',
     fontFamily: t.font,
+    // SVG text labels (no <foreignObject>), so the sanitised SVG keeps every label.
+    htmlLabels: false,
     flowchart: { htmlLabels: false, curve: 'basis', useMaxWidth: true },
     sequence: { useMaxWidth: true },
     themeVariables: {

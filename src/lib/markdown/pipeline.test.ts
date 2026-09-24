@@ -231,6 +231,13 @@ describe('sectionize', () => {
   });
 });
 
+describe('direction', () => {
+  it('flags mostly right-to-left documents', async () => {
+    expect((await renderMarkdown('# مرحبا\n\nهذا مشروع رائع جداً.\n\n```js\nconst englishCode = true;\n```\n')).features.rtl).toBe(true);
+    expect((await renderMarkdown('# Hello\n\nA section with one word: مرحبا.\n')).features.rtl).toBe(false);
+  });
+});
+
 describe('stats', () => {
   it('counts words outside code', async () => {
     const r = await renderMarkdown('# Hello there\n\nOne two three.\n\n```\nnot counted at all\n```\n');
