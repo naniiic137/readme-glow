@@ -123,6 +123,8 @@ const LABELS: Record<string, string> = {
   matlab: 'MATLAB',
   vim: 'Vim script',
   prisma: 'Prisma',
+  gdscript: 'GDScript',
+  gd: 'GDScript',
 };
 
 /** Aliases for highlight.js grammar names (lowlight "common" set + a few). */
@@ -176,6 +178,8 @@ const HLJS_ALIASES: Record<string, string> = {
   proto: 'protobuf',
   tf: 'hcl',
   terraform: 'hcl',
+  gdscript: 'python',
+  gd: 'python',
 };
 
 export function languageLabel(lang: string | null | undefined): string | null {

@@ -53,6 +53,14 @@ const ALERTS: Record<string, { icon: IconName; title: string }> = {
   CAUTION: { icon: 'caution', title: 'Caution' },
 };
 
+const ARABIC_TITLES: Record<string, string> = {
+  NOTE: 'ملاحظة',
+  TIP: 'نصيحة',
+  IMPORTANT: 'مهم',
+  WARNING: 'تحذير',
+  CAUTION: 'تنبيه',
+};
+
 export function el(tagName: string, properties: Properties = {}, children: ElementContent[] = []): Element {
   return { type: 'element', tagName, properties, children };
 }
@@ -62,7 +70,7 @@ export function text(value: string): Text {
 }
 
 function classes(node: Element): string[] {
-  const c = node.properties.className;
+  const c: unknown = node.properties.className;
   if (Array.isArray(c)) return c.map(String);
   if (typeof c === 'string') return c.split(/\s+/).filter(Boolean);
   return [];
@@ -83,7 +91,7 @@ function isBlank(node: RootContent | ElementContent): boolean {
 }
 
 function elementChildren(node: ParentNode): Element[] {
-  return node.children.filter((c): c is Element => c.type === 'element');
+  return (node.children as Array<RootContent | ElementContent>).filter((c): c is Element => c.type === 'element');
 }
 
 export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
@@ -314,7 +322,7 @@ export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
     if (typeof node.properties.ariaDescribedBy === 'string' || Array.isArray(node.properties.ariaDescribedBy)) {
       const v = Array.isArray(node.properties.ariaDescribedBy) ? node.properties.ariaDescribedBy.join(' ') : node.properties.ariaDescribedBy;
       const match = findId(ids, v.replace(/^user-content-/, ''));
-      if (match) node.properties.ariaDescribedBy = match;
+      if (match) node.properties.ariaDescribedBy = [match];
     }
   });
 
@@ -440,7 +448,9 @@ function toAlert(node: Element, source: string): Element | null {
   }
   const empty = first.children.every((c) => c.type === 'text' && c.value.trim() === '');
   const rest = empty ? node.children.filter((_, i) => i !== firstIndex) : node.children;
-  const title = el('p', { className: ['markdown-alert-title'], dir: 'auto' }, [iconElement(def.icon), text(def.title)]);
+  // Right-to-left alerts get their title in Arabic, so the callout reads naturally.
+  const arabic = /[؀-ۿ]/.test(hastToString(node));
+  const title = el('p', { className: ['markdown-alert-title'], dir: 'auto' }, [iconElement(def.icon), text(arabic ? ARABIC_TITLES[type]! : def.title)]);
   const alert = el('div', { className: ['markdown-alert', `markdown-alert-${type.toLowerCase()}`], dataAlert: type.toLowerCase() }, [
     title,
     ...(rest as ElementContent[]),

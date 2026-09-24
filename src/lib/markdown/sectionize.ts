@@ -81,7 +81,7 @@ export function sectionize(tree: Root, mode: SectionMode): Root {
     else {
       const h = g[0] as Element;
       const id = typeof h.properties?.id === 'string' ? h.properties.id : undefined;
-      out.push(wrap('section', ['rg-section'], g, id ? { ariaLabelledBy: id, dataSection: i } : { dataSection: i }));
+      out.push(wrap('section', ['rg-section'], g, id ? { ariaLabelledBy: [id], dataSection: i } : { dataSection: i }));
     }
   });
   if (footnotes.length) out.push(...footnotes);
