@@ -135,11 +135,6 @@
     cursor: pointer;
   }
 }
-/* Inside the app preview the docs drawer is positioned against the pane. */
-.rg-doc.in-pane.layout-docs .rg-toc-toggle,
-.rg-doc.in-pane.layout-docs .rg-toc {
-  position: fixed;
-}
 
 /* ------------------------------------------------------------ Landing */
 .rg-doc.layout-landing {

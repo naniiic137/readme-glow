@@ -1,7 +1,7 @@
 /* Aurora — a slowly drifting gradient mesh behind frosted-glass content. */
 
 .t-aurora {
-  --au-glass: rgba(20, 21, 48, 0.58);
+  --au-glass: rgba(20, 21, 48, 0.62);
   --au-glass-border: rgba(255, 255, 255, 0.09);
   --au-glow-1: #2dd4bf;
   --au-glow-2: #8b5cf6;
@@ -23,26 +23,27 @@
     radial-gradient(120% 60% at 50% -10%, color-mix(in srgb, var(--au-glow-2) 22%, transparent), transparent 60%),
     var(--rg-bg);
 }
+/* The blobs are soft radial gradients already, so no blur filter: a 70px blur
+   re-applied to two drifting viewport-sized layers every frame is costly. */
 .t-aurora.bg-theme .rg-backdrop-inner::before,
 .t-aurora.bg-theme .rg-backdrop-inner::after {
   content: '';
   position: absolute;
   inset: -20%;
-  filter: blur(70px) saturate(130%);
   opacity: 0.75;
   will-change: transform;
 }
 .t-aurora.bg-theme .rg-backdrop-inner::before {
   background:
-    radial-gradient(28% 32% at 18% 22%, var(--au-glow-1), transparent 70%),
-    radial-gradient(30% 34% at 82% 18%, var(--au-glow-2), transparent 70%),
-    radial-gradient(26% 30% at 60% 78%, var(--au-glow-3), transparent 70%);
+    radial-gradient(30% 34% at 18% 22%, var(--au-glow-1), transparent 72%),
+    radial-gradient(32% 36% at 82% 18%, var(--au-glow-2), transparent 72%),
+    radial-gradient(28% 32% at 60% 78%, var(--au-glow-3), transparent 72%);
   animation: au-drift 26s ease-in-out infinite alternate;
 }
 .t-aurora.bg-theme .rg-backdrop-inner::after {
   background:
-    radial-gradient(24% 28% at 30% 70%, var(--au-glow-4), transparent 70%),
-    radial-gradient(22% 26% at 88% 62%, var(--au-glow-1), transparent 70%);
+    radial-gradient(26% 30% at 30% 70%, var(--au-glow-4), transparent 72%),
+    radial-gradient(24% 28% at 88% 62%, var(--au-glow-1), transparent 72%);
   opacity: 0.5;
   animation: au-drift-2 34s ease-in-out infinite alternate;
 }
@@ -76,14 +77,15 @@
 .t-aurora .rg-body {
   position: relative;
 }
+/* Tinted glass without backdrop-filter: the mesh behind is all soft gradients
+   (a blur would look the same) and it moves, so a backdrop blur would be
+   recomputed on every frame. */
 .t-aurora.layout-document .rg-body,
 .t-aurora.layout-docs .rg-body {
   margin-block: clamp(12px, 4vw, 48px);
   background: var(--au-glass);
   border: 1px solid var(--au-glass-border);
   border-radius: 28px;
-  backdrop-filter: blur(22px) saturate(150%);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 40px 120px -40px rgba(0, 0, 0, 0.55);
 }
 .t-aurora.mode-light.layout-document .rg-body,
@@ -101,8 +103,6 @@
 .t-aurora.layout-magazine .rg-body {
   background: var(--au-glass);
   border-color: var(--au-glass-border);
-  backdrop-filter: blur(22px) saturate(150%);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
 }
 .t-aurora.layout-magazine .rg-body {
   border: 1px solid var(--au-glass-border);

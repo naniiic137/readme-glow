@@ -7,7 +7,7 @@
   --sy-yellow: #ffe66d;
   --sy-violet: #8b2fc9;
   --sy-horizon: 64%;
-  --sy-panel: rgba(21, 10, 48, 0.86);
+  --sy-panel: rgba(21, 10, 48, 0.97);
   --sy-panel-deep: rgba(13, 6, 32, 0.72);
   --sy-line: color-mix(in srgb, var(--rg-accent) 40%, transparent);
   --sy-neon: 0 0 3px rgba(255, 255, 255, 0.45), 0 0 12px color-mix(in srgb, var(--rg-accent) 85%, transparent),
@@ -43,7 +43,9 @@
   mask: linear-gradient(180deg, #000 0 48%, transparent 48% 51%, #000 51% 59%, transparent 59% 63%, #000 63% 70%, transparent 70% 75%, #000 75% 81%, transparent 81% 87%, #000 87% 92%, transparent 92%);
   opacity: 0.92;
 }
-/* The floor: an opaque ground plane in perspective, with neon grid lines. */
+/* The floor: an opaque ground plane in perspective, with neon grid lines. It
+   rolls towards you by sliding the whole plane one grid cell (a compositor-only
+   transform, no repaint); the horizon haze below hides the seam. */
 .t-synthwave.bg-theme .rg-backdrop-inner::after {
   content: '';
   position: absolute;
@@ -54,23 +56,44 @@
   transform-origin: 50% 0;
   transform: perspective(520px) rotateX(60deg);
   background:
-    linear-gradient(180deg, #1a0838 0%, rgba(26, 8, 56, 0) 34%),
     linear-gradient(90deg, rgba(255, 46, 151, 0.75) 2px, transparent 2px) 50% 0 / 48px 48px,
     linear-gradient(180deg, rgba(255, 46, 151, 0.75) 2px, transparent 2px) 0 0 / 48px 48px,
     linear-gradient(180deg, #1a0838, #12062a 60%, #0d0620);
   animation: sy-floor 3.2s linear infinite;
 }
 @keyframes sy-floor {
-  to {
-    background-position: 0 0, 50% 0, 0 48px, 0 0;
+  from {
+    transform: perspective(520px) rotateX(60deg) translateY(0);
   }
+  to {
+    transform: perspective(520px) rotateX(60deg) translateY(48px);
+  }
+}
+/* Horizon haze, pinned to the viewport above the floor (a sibling layer so it
+   stays still while the floor moves). */
+.t-synthwave.bg-theme .rg-backdrop::after {
+  content: '';
+  position: sticky;
+  top: 0;
+  display: block;
+  height: var(--rg-viewport, 100vh);
+  margin-top: calc(-1 * var(--rg-viewport, 100vh));
+  background: linear-gradient(
+    180deg,
+    transparent var(--sy-horizon),
+    #1a0838 var(--sy-horizon),
+    #1a0838 calc(var(--sy-horizon) + 28px),
+    rgba(26, 8, 56, 0.45) calc(var(--sy-horizon) + 62px),
+    rgba(26, 8, 56, 0) calc(var(--sy-horizon) + 128px)
+  );
+  pointer-events: none;
 }
 
 /* ---------------------------------------------------------------- panels */
 .t-synthwave:is(.layout-document, .layout-docs, .layout-magazine) .rg-body,
 .t-synthwave.layout-landing .rg-section {
   position: relative;
-  background: linear-gradient(180deg, var(--sy-panel), rgba(15, 7, 36, 0.9));
+  background: linear-gradient(180deg, var(--sy-panel), rgba(15, 7, 36, 0.97));
   border: 1px solid var(--sy-line);
   box-shadow: inset 0 0 0 1px rgba(45, 226, 230, 0.08), 0 0 34px -6px color-mix(in srgb, var(--rg-accent) 42%, transparent),
     0 0 120px -30px rgba(45, 226, 230, 0.3);

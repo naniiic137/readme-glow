@@ -42,7 +42,9 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  overflow: hidden;
+  /* clip, not hidden: `hidden` would make this box the sticky container and
+     the viewport-sized .rg-backdrop-inner would never follow the scroll. */
+  overflow: clip;
   pointer-events: none;
   contain: strict;
 }
@@ -128,13 +130,21 @@
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+/* The anchor is a masked icon painted with its own colour. Theme link styles
+   (underlines, gradient backgrounds, borders, brackets) must never reach it,
+   hence the !important guards. */
 .rg-anchor {
   display: inline-block;
   inline-size: 0.7em;
   block-size: 0.7em;
   margin-inline-start: 0.35em;
+  padding: 0 !important;
   vertical-align: middle;
-  background: currentColor;
+  background: currentColor !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
   color: var(--rg-muted);
   opacity: 0;
   border-radius: 2px;
@@ -292,13 +302,18 @@
   font-variant-numeric: tabular-nums;
   font-weight: 600;
 }
-.rg-body ul.contains-task-list {
-  list-style: none;
+/* Only checkbox items lose their marker: a list that mixes plain items and
+   tasks keeps bullets (and the room for them) on the plain ones. */
+.rg-body ul.contains-task-list:not(:has(> li:not(.task-list-item))) {
   padding-inline-start: 0.2em;
 }
 .rg-body .task-list-item {
   position: relative;
   padding-inline-start: 1.75em;
+  list-style: none;
+}
+.rg-body .task-list-item::marker {
+  content: none;
 }
 .rg-body .task-list-item > input[type='checkbox'],
 .rg-body .task-list-item > p > input[type='checkbox'] {
@@ -639,11 +654,13 @@
   vertical-align: top;
   border-bottom: 1px solid var(--rg-border);
 }
+/* Headers may wrap (balanced): forcing them onto one line starves the body
+   columns in narrow measures and pushes the last column out of view. */
 .rg-body th {
   font-weight: 700;
   color: var(--rg-heading);
   background: var(--rg-bg-alt);
-  white-space: nowrap;
+  text-wrap: balance;
 }
 .rg-body tr:last-child > td {
   border-bottom: 0;
@@ -857,9 +874,16 @@
   border: 1px solid var(--rg-border);
   border-radius: var(--rg-radius);
 }
+.rg-body .rg-mermaid-svg {
+  flex: 1 1 auto;
+  min-width: 0;
+}
 .rg-body .rg-mermaid svg {
+  display: block;
+  width: 100%;
   max-width: 100%;
   height: auto;
+  margin-inline: auto;
 }
 .rg-body .rg-mermaid[data-mermaid='done'] .rg-mermaid-source {
   display: none;
@@ -886,6 +910,16 @@
 }
 .rg-body .katex {
   font-size: 1.08em;
+}
+/* Inline formulas only break between KaTeX's .base groups (as KaTeX intends),
+   never inside one: the document's overflow-wrap would otherwise split a
+   superscript onto a new line. */
+.rg-body .katex {
+  overflow-wrap: normal;
+}
+.rg-body .katex .base {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 /* ------------------------------------------------------------ source highlight (editor sync, find) */

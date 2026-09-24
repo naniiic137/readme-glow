@@ -118,7 +118,7 @@
   position: absolute;
   z-index: -1;
   inset-inline-start: -0.42em;
-  top: 50%;
+  top: 0.52lh;
   width: 1.7em;
   height: 1.7em;
   margin-top: -0.85em;
@@ -128,24 +128,38 @@
   -webkit-mask: var(--zn-enso) center / contain no-repeat;
   mask: var(--zn-enso) center / contain no-repeat;
 }
+/* The hanko seal is stamped at the end of the title, sitting on the baseline. */
 .t-zen.hs-theme .rg-body h1::after {
   content: '';
   display: inline-block;
-  width: 0.46em;
-  height: 0.46em;
-  margin-inline-start: 0.4em;
-  vertical-align: 0.34em;
+  width: 0.4em;
+  height: 0.4em;
+  margin-inline-start: 0.32em;
+  vertical-align: 0.04em;
   background: var(--zn-hanko) center / contain no-repeat;
   rotate: 7deg;
 }
-.t-zen.hs-theme .rg-body [align='center'] h1::before,
-.t-zen.hs-theme.layout-landing .rg-intro h1::before,
+.t-zen.hs-theme .rg-body h1 > .rg-anchor {
+  display: none;
+}
+/* Centred titles: the ensō becomes a faint brush circle centred above the
+   title, so it never floats beside a wrapped line or crosses the words. */
+.t-zen.hs-theme .rg-body [align='center'] > h1,
+.t-zen.hs-theme .rg-body h1[align='center'],
+.t-zen.hs-theme.layout-landing .rg-intro > h1,
+.t-zen.hs-theme.layout-slides .rg-slide-title h1 {
+  padding-top: 0.9em;
+}
+.t-zen.hs-theme .rg-body [align='center'] > h1::before,
+.t-zen.hs-theme .rg-body h1[align='center']::before,
+.t-zen.hs-theme.layout-landing .rg-intro > h1::before,
 .t-zen.hs-theme.layout-slides .rg-slide-title h1::before {
   inset-inline: 0;
-  width: 2.4em;
-  height: 2.4em;
-  margin: -1.2em auto 0;
-  opacity: 0.13;
+  top: 0;
+  width: 1.1em;
+  height: 1.1em;
+  margin: 0 auto;
+  opacity: 0.55;
 }
 .t-zen.hs-theme .rg-body h2 {
   padding-bottom: 0.5em;

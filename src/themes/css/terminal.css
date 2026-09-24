@@ -14,22 +14,28 @@
   background: radial-gradient(120% 60% at 50% 0%, color-mix(in srgb, var(--rg-accent) 5%, transparent), transparent 70%);
 }
 .t-terminal.bg-theme .rg-backdrop-inner {
-  background: radial-gradient(85% 75% at 50% 45%, color-mix(in srgb, var(--rg-accent) 7%, transparent), transparent 75%);
+  background:
+    radial-gradient(110% 95% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.72) 100%),
+    radial-gradient(85% 75% at 50% 45%, color-mix(in srgb, var(--rg-accent) 7%, transparent), transparent 75%);
 }
+/* Static scanlines that flicker (opacity only, so it stays on the compositor). */
 .t-terminal.bg-theme .rg-backdrop-inner::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(180deg, color-mix(in srgb, var(--rg-accent) 6%, transparent) 0 1px, transparent 1px 3px),
-    linear-gradient(180deg, transparent, color-mix(in srgb, var(--rg-accent) 7%, transparent) 50%, transparent) 0 -50% / 100% 30% no-repeat;
-  animation: tm-flicker 9s linear infinite, tm-roll 11s linear infinite;
+  background: repeating-linear-gradient(180deg, color-mix(in srgb, var(--rg-accent) 6%, transparent) 0 1px, transparent 1px 3px);
+  animation: tm-flicker 9s linear infinite;
 }
+/* The slow refresh band rolling down the tube: a transform, never a repaint. */
 .t-terminal.bg-theme .rg-backdrop-inner::after {
   content: '';
   position: absolute;
-  inset: 0;
-  background: radial-gradient(110% 95% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.72) 100%);
+  inset-inline: 0;
+  top: 0;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--rg-accent) 7%, transparent) 50%, transparent);
+  transform: translateY(-100%);
+  animation: tm-roll 11s linear infinite;
 }
 /* A whisper of scanlines over the content itself sells the glass. */
 .t-terminal.bg-theme .rg-frame::after {
@@ -57,8 +63,11 @@
   }
 }
 @keyframes tm-roll {
+  from {
+    transform: translateY(-100%);
+  }
   to {
-    background-position: 0 0, 0 150%;
+    transform: translateY(340%);
   }
 }
 @keyframes tm-blink {
@@ -124,13 +133,13 @@
   content: '$';
 }
 .t-terminal.hs-theme .rg-body h2::before {
-  content: '#';
-}
-.t-terminal.hs-theme .rg-body h3::before {
   content: '##';
 }
-.t-terminal.hs-theme .rg-body h4::before {
+.t-terminal.hs-theme .rg-body h3::before {
   content: '###';
+}
+.t-terminal.hs-theme .rg-body h4::before {
+  content: '####';
 }
 .t-terminal.hs-theme .rg-body h1::after {
   content: '';
@@ -340,11 +349,6 @@
   font-size: 0.92em;
   text-shadow: 0 0 7px color-mix(in srgb, var(--rg-code-text) 30%, transparent);
 }
-.t-terminal:not(.lines-on) .rg-body .rg-code:is([data-lang='bash'], [data-lang='sh'], [data-lang='shell'], [data-lang='zsh']) .rg-line::before {
-  content: '$\00a0';
-  color: var(--rg-muted);
-  user-select: none;
-}
 .t-terminal .rg-body :not(pre) > code {
   padding: 0.1em 0.45em;
   font-size: 0.92em;
@@ -387,7 +391,7 @@
   border-radius: 0;
   background: var(--rg-bg-alt);
   box-shadow: 0 0 30px -6px color-mix(in srgb, var(--rg-accent) 28%, transparent);
-  filter: sepia(0.22) hue-rotate(55deg) saturate(1.1) brightness(0.93);
+  filter: saturate(0.8) brightness(0.9) contrast(1.04);
   transition: filter 0.4s ease;
 }
 .t-terminal .rg-body .rg-figure img:hover {

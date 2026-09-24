@@ -72,8 +72,34 @@
     radial-gradient(70% 50% at 70% -12%, rgba(227, 192, 122, 0.07), transparent 72%),
     radial-gradient(55% 45% at 4% 108%, rgba(139, 120, 255, 0.11), transparent 70%);
 }
+/* A crescent moon with a soft halo; the shadowed side keeps a hint of earthshine. */
+.t-midnight.bg-theme .rg-backdrop-inner {
+  container-type: size;
+}
 .t-midnight.bg-theme .rg-backdrop-inner::after {
-  background: radial-gradient(circle at 88% 9%, rgba(255, 247, 228, 0.5) 0 9px, rgba(255, 240, 205, 0.16) 11px, rgba(227, 192, 122, 0.06) 48px, transparent 130px);
+  inset: auto;
+  top: clamp(16px, 5%, 56px);
+  inset-inline-end: clamp(16px, 6%, 96px);
+  width: 160px;
+  height: 160px;
+  background:
+    radial-gradient(circle at 50% 50%, #fffaf0 0 18px, #f6e7c4 21px, rgba(255, 236, 196, 0.34) 22.5px, rgba(255, 228, 176, 0.13) 38px, rgba(227, 192, 122, 0.05) 58px, transparent 80px);
+  /* Shadow = (offset circle AND disc), removed from everything else so the halo
+     stays whole; 12 % of the disc survives as earthshine. */
+  -webkit-mask-image: linear-gradient(#000, #000), radial-gradient(circle at 57.5% 45%, rgba(0, 0, 0, 0.88) 0 19px, transparent 20.5px),
+    radial-gradient(circle at 50% 50%, #000 0 21px, transparent 22px);
+  -webkit-mask-composite: xor, source-in, source-over;
+  mask-image: linear-gradient(#000, #000), radial-gradient(circle at 57.5% 45%, rgba(0, 0, 0, 0.88) 0 19px, transparent 20.5px),
+    radial-gradient(circle at 50% 50%, #000 0 21px, transparent 22px);
+  mask-composite: exclude, intersect, add;
+}
+/* When the text column reaches the corner, the moon steps back so it never
+   sits brightly behind words. */
+@container (max-width: 1180px) {
+  .t-midnight.bg-theme .rg-backdrop-inner::after {
+    scale: 0.72;
+    opacity: 0.55;
+  }
 }
 
 /* ---------------------------------------------------------------- headings */
@@ -616,6 +642,9 @@
     padding-inline-start: 1.2em;
   }
   .t-midnight.bg-theme .rg-backdrop-inner::after {
-    display: none;
+    top: 6px;
+    inset-inline-end: 0;
+    scale: 0.5;
+    opacity: 0.5;
   }
 }

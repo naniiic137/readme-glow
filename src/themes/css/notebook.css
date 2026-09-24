@@ -328,6 +328,8 @@
   font-family: var(--rg-font-heading);
   font-weight: 700;
   font-size: 1.1em;
+  /* room for the handwriting's overhanging last stroke (the label clips) */
+  padding-inline-end: 0.25em;
 }
 .t-notebook .rg-body .rg-code-file .rg-icon {
   display: none;

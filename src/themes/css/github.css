@@ -98,6 +98,9 @@
   padding: 6px 13px;
   border: 1px solid var(--rg-border);
 }
+.t-github .rg-body tr:last-child > td {
+  border-bottom: 1px solid var(--rg-border);
+}
 .t-github .rg-body th {
   background: none;
   font-weight: 600;
