@@ -31,6 +31,7 @@ export function PreviewPane({ result, editorVisible }: Props) {
   const [slideCount, setSlideCount] = useState(0);
   const [activeHeading, setActiveHeading] = useState<string | null>(null);
   const [tocOpen, setTocOpen] = useState(false);
+  const [rendered, setRendered] = useState(0);
   const [viewport, setViewport] = useState(800);
   const scrollRef = useRef<HTMLDivElement>(null);
   const articleRef = useRef<HTMLElement>(null);
@@ -78,6 +79,7 @@ export function PreviewPane({ result, editorVisible }: Props) {
       article.innerHTML = markup;
       anchorsRef.current = null;
       afterRender(article, p.mode);
+      setRendered((n) => n + 1);
       const slides = article.querySelectorAll('.rg-slide');
       setSlideCount(slides.length);
       if (firstRender.current && markup) {
@@ -448,7 +450,7 @@ export function PreviewPane({ result, editorVisible }: Props) {
           </>
         )}
       </div>
-      {visualEdit && <VisualEditor articleRef={articleRef} scrollRef={scrollRef} editingRef={editingRef} onEditEnd={flushPending} />}
+      {visualEdit && <VisualEditor articleRef={articleRef} scrollRef={scrollRef} editingRef={editingRef} onEditEnd={flushPending} rendered={rendered} />}
     </div>
   );
 }

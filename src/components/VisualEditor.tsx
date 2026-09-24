@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
 import { doc, ui, toast } from '../app/state';
-import { useStore } from '../app/store';
 import { sync } from '../app/sync';
 import { Icon } from './Icon';
 import { detectStyle, serializeBlock, codeText, type InlineStyle } from '../lib/visual/serialize';
@@ -15,6 +14,8 @@ interface Props {
   scrollRef: RefObject<HTMLDivElement>;
   editingRef: React.MutableRefObject<HTMLElement | null>;
   onEditEnd: () => void;
+  /** Bumped by the preview each time it writes new HTML. */
+  rendered: number;
 }
 
 interface Editing {
@@ -50,7 +51,7 @@ const INSERTS: Array<{ id: string; label: string; icon: string; md: () => string
  * (see lib/visual), so everything you didn't touch stays byte-identical, and
  * the same undo history as the code editor applies.
  */
-export function VisualEditor({ articleRef, scrollRef, editingRef, onEditEnd }: Props) {
+export function VisualEditor({ articleRef, scrollRef, editingRef, onEditEnd, rendered }: Props) {
   const [hover, setHover] = useState<{ el: HTMLElement; top: number; left: number; height: number } | null>(null);
   const [menuFor, setMenuFor] = useState<HTMLElement | null>(null);
   const [toolbar, setToolbar] = useState<{ top: number; left: number } | null>(null);
@@ -61,7 +62,6 @@ export function VisualEditor({ articleRef, scrollRef, editingRef, onEditEnd }: P
   const commitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const style = useRef<InlineStyle>({ emphasis: '_', strong: '**' });
   const focusAfterRender = useRef<{ offset: number; select?: boolean } | null>(null);
-  const version = useStore(ui, (s) => s.render);
 
   useEffect(() => {
     style.current = detectStyle(doc.text);
@@ -180,7 +180,7 @@ export function VisualEditor({ articleRef, scrollRef, editingRef, onEditEnd }: P
       focusAfterRender.current = null;
       requestAnimationFrame(() => startEditing(target, !want.select, want.select));
     }
-  }, [version, articleRef, startEditing]);
+  }, [rendered, articleRef, startEditing]);
 
   const applySource = (next: string, focus?: { offset: number; select?: boolean }) => {
     stopEditing();
