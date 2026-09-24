@@ -27,7 +27,7 @@ export function useDialogFocus(ref: RefObject<HTMLElement>, onClose: () => void,
       if (!items.length) return;
       const firstEl = items[0]!;
       const lastEl = items[items.length - 1]!;
-      if (e.shiftKey && document.activeElement === firstEl) {
+      if (e.shiftKey && (document.activeElement === firstEl || document.activeElement === root)) {
         e.preventDefault();
         lastEl.focus();
       } else if (!e.shiftKey && document.activeElement === lastEl) {

@@ -79,6 +79,13 @@ describe('find in document', () => {
     expect(cross[0]!.toString()).toBe('world');
   });
 
+  it('never matches across two blocks', () => {
+    const root = document.createElement('div');
+    root.innerHTML = '<h1>Alpha project</h1><p>alpha release</p>';
+    expect(findRanges(root, 'alpha', { wholeWord: true })).toHaveLength(2);
+    expect(findRanges(root, 'projectalpha')).toHaveLength(0);
+  });
+
   it('supports case-sensitive and whole-word search', () => {
     const root = document.createElement('div');
     root.innerHTML = '<p>Cat catalog cat.</p>';

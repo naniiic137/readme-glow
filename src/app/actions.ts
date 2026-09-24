@@ -183,7 +183,7 @@ export async function openFiles(files: LocalFile[]): Promise<void> {
     return;
   }
   const markdown = await bundle.readme.file.text();
-  const isFolder = files.length > 1 || bundle.readme.path.includes('/');
+  const isFolder = files.every((f) => f.path.includes('/'));
   const name = isFolder ? (files[0]!.path.split('/')[0] ?? bundle.readme.file.name) : bundle.readme.file.name;
   await createAndOpen(markdown, {
     source: isFolder ? { kind: 'folder', name } : { kind: 'file', name: bundle.readme.file.name },
@@ -281,8 +281,20 @@ export async function addImagesToDoc(files: File[]): Promise<string[]> {
 
 // ------------------------------------------------------------------ startup
 
-/** Deep links (?repo=, ?sample=, #md=), otherwise the last open document. */
-export async function startup(): Promise<void> {
+let started: Promise<void> | null = null;
+
+/** Deep links (?repo=, ?sample=, #md=), otherwise the last open document. Runs once. */
+export function startup(): Promise<void> {
+  started ??= runStartup();
+  return started;
+}
+
+/** For tests: allow startup to run again. */
+export function resetStartup(): void {
+  started = null;
+}
+
+async function runStartup(): Promise<void> {
   const url = new URL(window.location.href);
   const params = url.searchParams;
   const { settingsFromParams } = await import('../lib/settings');

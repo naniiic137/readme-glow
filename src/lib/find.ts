@@ -4,6 +4,7 @@
  * Highlight API — the document's DOM is never modified.
  */
 const SKIP = 'svg, button, .rg-anchor, .rg-code-head, script, style, .katex-mathml, .rg-mermaid-source';
+const BLOCKS = 'p, li, h1, h2, h3, h4, h5, h6, td, th, pre, blockquote, dt, dd, summary, figcaption, caption, div, section, header';
 
 export interface FindOptions {
   caseSensitive?: boolean;
@@ -24,7 +25,12 @@ export function findRanges(root: Node, query: string, options: FindOptions = {})
   const nodes: Text[] = [];
   const starts: number[] = [];
   let full = '';
+  let lastBlock: Element | null = null;
   for (let n = walker.nextNode() as Text | null; n; n = walker.nextNode() as Text | null) {
+    // A line break between blocks, so matches never run from one paragraph into the next.
+    const block = n.parentElement?.closest(BLOCKS) ?? null;
+    if (nodes.length && block !== lastBlock) full += '\n';
+    lastBlock = block;
     nodes.push(n);
     starts.push(full.length);
     full += n.nodeValue ?? '';

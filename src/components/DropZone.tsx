@@ -1,6 +1,7 @@
 import { useRef, useState, type DragEvent } from 'react';
 import { Icon } from './Icon';
 import { filesFromDataTransfer, filesFromInput, type LocalFile } from '../lib/localFiles';
+import { toast } from '../app/state';
 
 export interface DropZoneProps {
   onFiles: (files: LocalFile[]) => void | Promise<void>;
@@ -25,6 +26,8 @@ export function DropZone({ onFiles, onPaste, compact, children }: DropZoneProps)
     setBusy(true);
     try {
       await onFiles(files);
+    } catch {
+      toast('Those files could not be opened. Try again, or paste the Markdown instead.', 'error');
     } finally {
       setBusy(false);
     }

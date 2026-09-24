@@ -195,13 +195,15 @@ export default function CodeEditor({ className }: CodeEditorProps) {
         if (update.docChanged && !update.transactions.some((tr) => tr.annotation(external))) {
           const before = update.startState.selection.main;
           const after = update.state.selection.main;
+          // Formatting, paste and cut are undo steps of their own; typing is grouped.
+          const standalone = update.transactions.some((tr) => tr.isUserEvent('input.format') || tr.isUserEvent('input.paste') || tr.isUserEvent('delete.cut'));
+          if (standalone) doc.breakGroup();
           doc.commit(update.state.doc.toString(), {
             origin: 'editor',
-            group: 'typing',
+            group: standalone ? undefined : 'typing',
             selection: { anchor: after.anchor, head: after.head },
             selectionBefore: { anchor: before.anchor, head: before.head },
           });
-          if (update.transactions.some((tr) => tr.isUserEvent('input.format') || tr.isUserEvent('input.paste') || tr.isUserEvent('delete.cut'))) doc.breakGroup();
         }
         if (update.selectionSet || update.docChanged) {
           if (cursorTimer) clearTimeout(cursorTimer);

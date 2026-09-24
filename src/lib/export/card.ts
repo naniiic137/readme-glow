@@ -300,6 +300,12 @@ export function paintCard(canvas: HTMLCanvasElement, input: CardInput): void {
     desc = input.description && maxDesc ? wrapText(ctx, input.description, maxTitleWidth, maxDesc) : [];
     if (fits && (maxDesc >= 2 || !input.description || size <= 56)) break;
   }
+  if (size < 40) {
+    // Nothing fitted: use the smallest size, with the title cut to two lines.
+    size = 40;
+    ctx.font = `700 ${size}px ${input.fonts.heading}`;
+    lines = wrapText(ctx, title, maxTitleWidth, 2);
+  }
   ctx.fillStyle = t.heading;
   ctx.textBaseline = 'alphabetic';
   ctx.font = `700 ${size}px ${input.fonts.heading}`;
