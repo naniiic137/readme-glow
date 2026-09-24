@@ -95,6 +95,7 @@
 @media (max-width: 640px) {
   .t-aurora.layout-document .rg-body,
   .t-aurora.layout-docs .rg-body {
+    width: auto;
     margin: 10px;
     border-radius: 20px;
   }

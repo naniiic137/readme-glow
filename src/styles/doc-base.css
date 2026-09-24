@@ -450,6 +450,26 @@
   border: 0;
   padding-inline-start: 0.6em;
 }
+/* In narrow columns (phones, split view, magazine columns) the floating label
+   would cover the first line of code, so the header joins the flow. */
+.rg-body .rg-code {
+  container: rg-code / inline-size;
+}
+@container rg-code (max-width: 520px) {
+  .rg-body .rg-code.no-file .rg-code-head {
+    position: static;
+    justify-content: flex-end;
+    min-height: 2.1em;
+    border-bottom: 1px solid color-mix(in srgb, var(--rg-code-text) 12%, transparent);
+  }
+  .rg-body .rg-code.no-file .rg-code-lang,
+  .rg-body .rg-code.no-file .rg-copy {
+    opacity: 1;
+  }
+  .rg-body .rg-code.no-file pre {
+    padding-top: 0.9em;
+  }
+}
 .rg-body .rg-code-file {
   display: inline-flex;
   align-items: center;
