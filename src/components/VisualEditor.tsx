@@ -79,7 +79,7 @@ export function VisualEditor({ articleRef, scrollRef, editingRef, onEditEnd, ren
       if (!root) return null;
       const r = el.getBoundingClientRect();
       const base = root.getBoundingClientRect();
-      return { el, top: r.top - base.top + root.scrollTop, left: Math.max(4, r.left - base.left - 40), height: r.height };
+      return { el, top: r.top - base.top + root.scrollTop, left: Math.max(4, r.left - base.left - 50), height: r.height };
     },
     [scrollRef],
   );
@@ -324,8 +324,10 @@ export function VisualEditor({ articleRef, scrollRef, editingRef, onEditEnd, ren
     }
     const range = sel.getRangeAt(0);
     const rect = range.collapsed ? e.el.getBoundingClientRect() : range.getBoundingClientRect();
+    const block = e.el.getBoundingClientRect();
     const base = root.getBoundingClientRect();
-    setToolbar({ top: rect.top - base.top + root.scrollTop - 52, left: Math.max(8, Math.min(rect.left - base.left, base.width - 420)) });
+    // Above the block being edited, so the toolbar never covers its text.
+    setToolbar({ top: block.top - base.top + root.scrollTop - 54, left: Math.max(8, Math.min(rect.left - base.left, base.width - 430)) });
   };
 
   // ------------------------------------------------------------ structure edits

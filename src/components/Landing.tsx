@@ -67,8 +67,8 @@ export function Landing() {
             <Icon name="github" size={16} /> <span>GitHub</span>
           </a>
         </nav>
-        <button type="button" className="btn btn-sm" onClick={() => openDialog('templates')}>
-          <Icon name="edit" size={15} /> Start writing
+        <button type="button" className="btn btn-sm" onClick={() => openDialog('templates')} aria-label="Start writing a new README">
+          <Icon name="edit" size={15} /> <span className="hide-xs">Start writing</span>
         </button>
       </header>
 

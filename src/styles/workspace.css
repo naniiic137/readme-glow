@@ -1251,14 +1251,15 @@ button.export-card:hover:not(:disabled) {
   border-radius: 999px;
 }
 .beautify-diff {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  align-content: start;
   max-height: 62vh;
   overflow: auto;
   padding-right: 4px;
 }
 .hunk {
+  flex: none;
   overflow: hidden;
   border: 1px solid var(--ui-border);
   border-radius: 12px;
