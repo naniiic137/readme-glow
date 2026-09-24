@@ -223,6 +223,7 @@ export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
           if (href.startsWith('#')) hashLinks.push(node);
           else {
             const resolved = /^[a-z][a-z0-9+.-]*:/i.test(href) ? href : resolveUrl(href, 'link');
+            if (resolved !== href) node.properties.dataOrig = href;
             if (resolved === null) delete node.properties.href;
             else {
               node.properties.href = resolved;
@@ -238,6 +239,7 @@ export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
       if (tag === 'img') {
         const src = typeof node.properties.src === 'string' ? node.properties.src : '';
         const resolved = src ? resolveUrl(src, 'image') : null;
+        if (resolved !== src) node.properties.dataOrig = src;
         if (resolved === null) {
           node.properties.dataMissing = src || 'empty';
           delete node.properties.src;
@@ -248,6 +250,7 @@ export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
           node.properties.dataBadge = 'true';
         } else {
           counts.images++;
+          if (!(parent.type === 'element' && parent.tagName === 'a')) node.properties.dataZoom = 'true';
         }
       }
 
@@ -281,12 +284,31 @@ export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
   };
   visit(tree, false);
 
+  // Short, flat top-level bullet lists can be shown as a grid of cards (Landing layout).
+  for (const node of tree.children) {
+    if (!isElement(node, 'ul') || classes(node).includes('contains-task-list')) continue;
+    const items = elementChildren(node);
+    const simple =
+      items.length >= 2 &&
+      items.length <= 12 &&
+      items.every(
+        (li) =>
+          li.tagName === 'li' &&
+          !li.children.some((c) => isElement(c) && ['ul', 'ol', 'pre', 'figure', 'blockquote', 'div', 'table'].includes(c.tagName)) &&
+          hastToString(li).trim().length <= 180,
+      );
+    if (simple) addClass(node, 'rg-simple-list');
+  }
+
   // ---------------------------------------------------------------- pass 3: in-document links
   for (const a of hashLinks) {
     const target = safeDecode(String(a.properties.href).slice(1));
     if (!target) continue;
     const match = findId(ids, target);
-    if (match && match !== target) a.properties.href = `#${match}`;
+    if (match && match !== target) {
+      a.properties.dataOrig = String(a.properties.href);
+      a.properties.href = `#${match}`;
+    }
   }
   walkElements(tree, (node) => {
     if (typeof node.properties.ariaDescribedBy === 'string' || Array.isArray(node.properties.ariaDescribedBy)) {
