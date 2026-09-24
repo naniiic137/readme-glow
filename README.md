@@ -1,48 +1,63 @@
-<div align="center">
-
+<!-- readmeglow theme="aurora" layout="landing" -->
 <a id="readme-top"></a>
 
-<img src="public/favicon.svg" alt="ReadmeGlow logo: a glowing sparkle" width="88" height="88">
-
+<!-- readmeglow:begin hero
 # ReadmeGlow
 
-**Drop any README.md and it becomes a stunning, designed web page.**<br>
-Edit it on the page or in a real editor, beautify it, summarise it and export it. Nothing leaves your browser.
+Drop any README.md and it becomes a stunning, designed web page.
 
-[![Open ReadmeGlow](https://img.shields.io/badge/Open-ReadmeGlow-8B5CF6?style=for-the-badge&logo=markdown&logoColor=white)](https://naniiic137.github.io/readme-glow/)
-[![CI](https://github.com/naniiic137/readme-glow/actions/workflows/ci.yml/badge.svg)](https://github.com/naniiic137/readme-glow/actions/workflows/ci.yml)
-[![Deploy](https://github.com/naniiic137/readme-glow/actions/workflows/pages.yml/badge.svg)](https://github.com/naniiic137/readme-glow/actions/workflows/pages.yml)
-![Tests](https://img.shields.io/badge/tests-1251%20passing-22C55E)
-![Themes](https://img.shields.io/badge/themes-15-EC4899)
-![Privacy](https://img.shields.io/badge/uploads-none-0EA5E9)
+[![Open ReadmeGlow](https://img.shields.io/badge/Open-ReadmeGlow-8B5CF6?style=for-the-badge&logo=markdown&logoColor=white)](https://naniiic137.github.io/readme-glow/) [![CI](https://github.com/naniiic137/readme-glow/actions/workflows/ci.yml/badge.svg)](https://github.com/naniiic137/readme-glow/actions/workflows/ci.yml) [![Deploy](https://github.com/naniiic137/readme-glow/actions/workflows/pages.yml/badge.svg)](https://github.com/naniiic137/readme-glow/actions/workflows/pages.yml) ![Tests](https://img.shields.io/badge/tests-1,379%20passing-22C55E) ![Themes](https://img.shields.io/badge/themes-15-EC4899) ![Uploads](https://img.shields.io/badge/uploads-none-0EA5E9)
+-->
+<h1 align="center"><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/hero-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/hero-light.svg"><img alt="ReadmeGlow — Drop any README.md and it becomes a stunning, designed web page." src=".github/readmeglow/hero-light.svg"></picture></h1>
+<p align="center">
+  <a href="https://naniiic137.github.io/readme-glow/"><img alt="Open ReadmeGlow" src="https://img.shields.io/badge/Open-ReadmeGlow-8B5CF6?style=for-the-badge&amp;logo=markdown&amp;logoColor=white&amp;labelColor=070713"></a>
+  <a href="https://github.com/naniiic137/readme-glow/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/naniiic137/readme-glow/actions/workflows/ci.yml/badge.svg"></a>
+  <a href="https://github.com/naniiic137/readme-glow/actions/workflows/pages.yml"><img alt="Deploy" src="https://github.com/naniiic137/readme-glow/actions/workflows/pages.yml/badge.svg"></a>
+  <img alt="Tests" src="https://img.shields.io/badge/tests-1,379%20passing-22C55E?style=for-the-badge&amp;labelColor=070713">
+  <img alt="Themes" src="https://img.shields.io/badge/themes-15-EC4899?style=for-the-badge&amp;labelColor=070713">
+  <img alt="Uploads" src="https://img.shields.io/badge/uploads-none-0EA5E9?style=for-the-badge&amp;labelColor=070713">
+</p>
+<!-- readmeglow:end hero -->
 
-**Live:** https://naniiic137.github.io/readme-glow/
-
-</div>
+<p align="center">Edit it on the page or in a real editor, beautify it, summarise it, export it, or carry its theme onto GitHub. Nothing leaves your browser.<br><b>Live:</b> <a href="https://naniiic137.github.io/readme-glow/">naniiic137.github.io/readme-glow</a> · <b>This README:</b> <a href="https://naniiic137.github.io/readme-glow/naniiic137/readme-glow">open it in ReadmeGlow</a></p>
 
 ![ReadmeGlow's start page: a large drop zone for README files, a GitHub box and sample READMEs, on a dark background with violet and pink light](docs/screenshots/hero.png)
 
-## Contents
+> [!TIP]
+> The header, the section titles and the dividers of this README are SVG images made by ReadmeGlow's own [GitHub export](#your-theme-on-github), in the Aurora theme, for light and dark mode.
 
-- [Why](#why)
-- [15 themes](#15-themes)
-- [5 layouts](#5-layouts)
-- [Features](#features)
-- [Add a “View with ReadmeGlow” badge](#add-a-view-with-readmeglow-badge)
-- [How it works](#how-it-works)
-- [Privacy and security](#privacy-and-security)
-- [Keyboard shortcuts](#keyboard-shortcuts)
-- [Tech stack](#tech-stack)
-- [Run it locally](#run-it-locally)
-- [Tests](#tests)
+<!-- readmeglow:begin toc -->
+<p align="center">
+  <a href="#why"><img alt="Why" src="https://img.shields.io/badge/Why-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#15-themes"><img alt="15 themes" src="https://img.shields.io/badge/15%20themes-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#5-layouts"><img alt="5 layouts" src="https://img.shields.io/badge/5%20layouts-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#features"><img alt="Features" src="https://img.shields.io/badge/Features-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#your-theme-on-github"><img alt="Your theme on GitHub" src="https://img.shields.io/badge/Your%20theme%20on%20GitHub-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#links-badge-and-bookmarklet"><img alt="Links, badge and bookmarklet" src="https://img.shields.io/badge/Links%2C%20badge%20and%20bookmarklet-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#how-it-works"><img alt="How it works" src="https://img.shields.io/badge/How%20it%20works-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#privacy-and-security"><img alt="Privacy and security" src="https://img.shields.io/badge/Privacy%20and%20security-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#keyboard-shortcuts"><img alt="Keyboard shortcuts" src="https://img.shields.io/badge/Keyboard%20shortcuts-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#tech-stack"><img alt="Tech stack" src="https://img.shields.io/badge/Tech%20stack-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#run-it-locally"><img alt="Run it locally" src="https://img.shields.io/badge/Run%20it%20locally-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+  <a href="#tests"><img alt="Tests" src="https://img.shields.io/badge/Tests-7c3aed?style=for-the-badge&amp;labelColor=070713"></a>
+</p>
+<!-- readmeglow:end toc -->
 
+<!-- readmeglow:begin h2
 ## Why
+-->
+## <a id="why"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-01-why-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-01-why-light.svg"><img alt="Why" src=".github/readmeglow/section-01-why-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 Every README on GitHub looks the same: the same white page, the same grey code blocks. A README is often the first thing people see of a project, and it deserves better.
 
 ReadmeGlow turns any README into a page that feels designed: pick one of 15 hand-crafted themes and 5 layouts, fix it up with one click, edit it right on the page, and share or export the result. It is a single-page app with no server; your files never leave your browser.
 
+<!-- readmeglow:begin h2
 ## 15 themes
+-->
+## <a id="15-themes"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-02-15-themes-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-02-15-themes-light.svg"><img alt="15 themes" src=".github/readmeglow/section-02-15-themes-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 Each theme has its own fonts, palette, headings, links, callouts, tables, code blocks, image frames, list markers, rules and background. Every one is checked by tests for WCAG AA contrast (4.5:1 for body text, links, callouts and code).
 
@@ -56,7 +71,11 @@ Each theme has its own fonts, palette, headings, links, callouts, tables, code b
 
 Themes that make sense in both have light and dark variants (GitHub, Aurora, Editorial, Pixel Arcade as a Game Boy, Blueprint as a whiteprint, Notebook as a chalkboard, Swiss, Neo-Brutalist, Zen, Frost). With *prefers-reduced-motion*, every animation stops and the page still looks finished.
 
+<!-- readmeglow:begin h2
 ## 5 layouts
+-->
+## <a id="5-layouts"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-03-5-layouts-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-03-5-layouts-light.svg"><img alt="5 layouts" src=".github/readmeglow/section-03-5-layouts-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 | Layout | What it does |
 |---|---|
@@ -72,7 +91,11 @@ Themes that make sense in both have light and dark variants (GitHub, Aurora, Edi
 | **Slides (Synthwave)** | **Magazine (Swiss)** |
 | ![A slide from the Nebula Board sample in the Synthwave theme, with the progress bar and slide controls](docs/screenshots/layout-slides.png) | ![The Quanta sample in the Swiss theme with the Magazine layout: huge title and two columns](docs/screenshots/layout-magazine.png) |
 
+<!-- readmeglow:begin h2
 ## Features
+-->
+## <a id="features"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-04-features-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-04-features-light.svg"><img alt="Features" src=".github/readmeglow/section-04-features-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 ### Bring your README
 - **Drop** a `.md`, `.markdown` or `.txt` file anywhere, or click the drop zone to pick one.
@@ -80,7 +103,7 @@ Themes that make sense in both have light and dark variants (GitHub, Aurora, Edi
 - **Paste** Markdown anywhere on the start page, or in the paste box.
 - **Load from GitHub**: `owner/repo`, any github.com link (`/tree/…`, `/blob/…`), `git@github.com:…` or a raw URL. Relative images point to raw.githubusercontent.com and links to github.com. Missing repositories and the API rate limit get friendly messages.
 - **Samples** that use every feature: Nebula Board (web app), Quanta (library with maths), Pixel Quest (game, with an Arabic section) and a fully Arabic README.
-- **Deep links**: `?repo=owner/repo&theme=aurora&layout=docs` opens straight into a README; `#md=…` links carry a small README inside the URL.
+- **Pretty links**: `naniiic137.github.io/readme-glow/owner/repo` (or `…/readme-glow/github.com/owner/repo`) opens any public repository's README. `?repo=owner/repo&theme=aurora&layout=docs` still works, and `#md=…` links carry a small README inside the URL.
 
 ### Edit it, both ways
 ![Split view: the Markdown editor with its toolbar on the left, and the Quanta README in the Editorial theme on the right with a paragraph being edited on the page](docs/screenshots/editor.png)
@@ -117,7 +140,8 @@ Theme gallery with live thumbnails of *your* README, light/dark variant, accent 
 - **Standalone HTML**: one file with this exact design; the theme’s CSS is inlined, its fonts are embedded (latin subset, woff2, base64) and local images become data URIs, so it works offline. Documents with maths link KaTeX’s stylesheet from jsDelivr, because its twenty font files would triple the size.
 - **Print / PDF** with a real print stylesheet: no app chrome, sensible page breaks, link addresses shown, slides one per page. Dark themes print on white by default; tick “keep the theme background” to print exactly what you see.
 - **Social card**: a 1200×630 PNG drawn in the theme’s colours and fonts (title, description, badges), ideal as your GitHub social preview.
-- **README.md**, **copy Markdown**, and a **.zip** with `README.md` plus your images in `images/` (paths rewritten).
+- **README.md**, **copy Markdown**, and a **.zip** with `README.md` plus your images in `images/` (paths rewritten). Each carries an invisible `<!-- readmeglow theme="…" layout="…" -->` comment, so the README reopens in the look you chose.
+- **GitHub export**: your theme on github.com itself (see [below](#your-theme-on-github)).
 - **Share link**: small READMEs are compressed into the link itself (lz-string); for long ones ReadmeGlow explains why and suggests sharing the GitHub link instead.
 
 ### Built for everyone
@@ -128,9 +152,39 @@ Theme gallery with live thumbnails of *your* README, light/dark variant, accent 
 
 <p align="center"><img src="docs/screenshots/phones.png" alt="Three phone screenshots: the start page, the Pixel Arcade theme and the editor with Edit and Preview tabs" width="820"></p>
 
-## Add a “View with ReadmeGlow” badge
+<!-- readmeglow:begin h2
+## Your theme on GitHub
+-->
+## <a id="your-theme-on-github"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-05-your-theme-on-github-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-05-your-theme-on-github-light.svg"><img alt="Your theme on GitHub" src=".github/readmeglow/section-05-your-theme-on-github-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
-Let visitors open your README in your favourite look. In the app, open **⋯ → “View with ReadmeGlow” badge**, or copy this and replace `owner/repo`:
+GitHub shows a README with its own stylesheet: no custom CSS, no fonts, no scripts. The **GitHub export** (Export → GitHub export) carries the theme over using only what GitHub allows, and this README is the proof.
+
+![The GitHub export dialog: options on the left, and on the right a preview of the Nebula Board README in GitHub's own style, with an Aurora header image, themed badges and a section title image](docs/screenshots/github-export.png)
+
+- **Header image**: the title and tagline drawn as an SVG in the theme's fonts (the letters are turned into outlines, because web fonts never load inside a README image), on the theme's background art: Aurora's glow, Synthwave's sun and grid, Blueprint's grid and dimension line, Notebook's ruled paper… An optional, gentle animation stops for readers who ask for reduced motion.
+- **Section titles** for every `##` heading, and **dividers** instead of `---` lines. Each has a light and a dark version, switched with `<picture>` and `prefers-color-scheme`. Anchors keep working: links like `#installation` still land on the right section.
+- **Badges** restyled in the theme's colours (shields.io style and label colour; a green “passing” keeps its meaning), `> **Note**` quotes turned into real GitHub alerts, an optional table of contents (a list, or pills in the theme's colours) and long changelogs folded into `<details>`.
+- **Safe images**: plain SVG shapes and gradients only. No external requests, no fonts, no scripts; a header is about 20 KB and a section title 2 to 8 KB.
+- **A GitHub preview** before you download: the same HTML allow-list as github.com and GitHub's own stylesheet, in light and dark, desktop and phone width. It is close to github.com, not identical (code colours, Mermaid and maths can differ).
+- **Download .zip** gives you `README.md` and the `.github/readmeglow/` folder: unzip it at the root of your repository and commit both. **Copy README** copies only the text, so you still need the images from the zip.
+- **Reversible**: everything the export changes sits between invisible markers that keep your original Markdown. Opening the exported README in ReadmeGlow shows the Markdown behind the images, and exporting again never stacks a second header.
+
+Text in scripts the theme font does not cover (Arabic, Chinese, emoji…) is written with the reader's system font instead of outlines, so it always reads correctly.
+
+<!-- readmeglow:begin h2
+## Links, badge and bookmarklet
+-->
+## <a id="links-badge-and-bookmarklet"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-06-links-badge-and-bookmarklet-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-06-links-badge-and-bookmarklet-light.svg"><img alt="Links, badge and bookmarklet" src=".github/readmeglow/section-06-links-badge-and-bookmarklet-light.svg"></picture>
+<!-- readmeglow:end h2 -->
+
+Everything is in **⋯ → Share & access**.
+
+- **Pretty links**: put the ReadmeGlow address in front of any repository, `https://naniiic137.github.io/readme-glow/owner/repo`, or in front of a GitHub link, `…/readme-glow/github.com/owner/repo`. `/tree/branch/folder` and `/blob/branch/file.md` work too. (GitHub Pages answers unknown paths with the app's `404.html`, which is the app itself.)
+- **Your repository's Website link**: on GitHub, click the gear next to **About**, paste the pretty link into **Website**, and press **Save changes**. The link under the description then opens the README in ReadmeGlow. This repository's Website is the app itself: https://naniiic137.github.io/readme-glow/.
+- **A redirect page**: download a tiny `index.html` for your own repository, publish it with GitHub Pages (`docs/` folder), and `owner.github.io/repo/` opens the README in ReadmeGlow. It uses a meta refresh, a script that keeps the `#section`, and a plain link as a fallback.
+- **A bookmarklet**: drag it to your bookmarks bar and click it on any github.com repository page. It refuses to run anywhere else.
+- **The “View with ReadmeGlow” badge**:
 
 ```markdown
 [![View with ReadmeGlow](https://naniiic137.github.io/readme-glow/badge.svg)](https://naniiic137.github.io/readme-glow/?repo=owner/repo&theme=aurora&layout=landing)
@@ -138,7 +192,13 @@ Let visitors open your README in your favourite look. In the app, open **⋯ →
 
 [![View with ReadmeGlow](https://naniiic137.github.io/readme-glow/badge.svg)](https://naniiic137.github.io/readme-glow/?repo=naniiic137/readme-glow&theme=aurora&layout=landing)
 
+A browser extension that adds a button to GitHub itself is a possible future addition; ReadmeGlow does not ship one today.
+
+<!-- readmeglow:begin h2
 ## How it works
+-->
+## <a id="how-it-works"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-07-how-it-works-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-07-how-it-works-light.svg"><img alt="How it works" src=".github/readmeglow/section-07-how-it-works-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 ```mermaid
 flowchart LR
@@ -149,6 +209,7 @@ flowchart LR
   E --> F[lazy extras<br/>highlight.js · KaTeX]
   F --> G[themed page<br/>15 themes × 5 layouts]
   G --> H[exports<br/>HTML · PDF · PNG · zip · link]
+  B --> I[GitHub export<br/>SVG header and sections<br/>opentype.js outlines]
 ```
 
 1. **Parse once, keep positions.** The Markdown is parsed with remark (GFM, footnotes, maths) in a Web Worker. Every rendered block remembers the exact source range it came from; that is what makes on-page editing, click-to-source and scroll sync possible.
@@ -156,13 +217,21 @@ flowchart LR
 3. **Load heavy extras on demand.** Syntax highlighting, KaTeX, Mermaid, the emoji table, the code editor and each theme’s fonts are separate chunks, loaded only when a document or a theme needs them.
 4. **Edit the source, never re-serialise it.** Every edit — typed, on the page, from Beautify or a fix — becomes a splice into the Markdown with one shared undo history, so untouched text stays byte-identical.
 
+<!-- readmeglow:begin h2
 ## Privacy and security
+-->
+## <a id="privacy-and-security"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-08-privacy-and-security-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-08-privacy-and-security-light.svg"><img alt="Privacy and security" src=".github/readmeglow/section-08-privacy-and-security-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 - **No server, no uploads.** Files are read and rendered in your browser and saved in its own storage (IndexedDB). The only network requests are the ones you ask for: a public README from the GitHub API, the images your README links to, and — only if you enable it with your own key — an AI summary.
 - **XSS-proof rendering.** All README HTML goes through rehype-sanitize; scripts, event handlers, `javascript:`/`vbscript:`/`data:` links, frames, objects, SVG, forms and style attributes are removed, and ids are prefixed so they cannot clobber globals. 37 classic attack vectors are covered by tests. Mermaid runs with `securityLevel: 'strict'` and its SVG is sanitised again with DOMPurify.
 - **Strict Content-Security-Policy** in the built page: scripts only from the site itself (no inline scripts, no `eval`), images from `https:`/`data:`/`blob:`, network access only to the GitHub API, raw.githubusercontent.com and the optional AI providers. Inline styles are allowed because KaTeX and Mermaid output needs them; user-supplied styles are stripped by the sanitiser.
 
+<!-- readmeglow:begin h2
 ## Keyboard shortcuts
+-->
+## <a id="keyboard-shortcuts"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-09-keyboard-shortcuts-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-09-keyboard-shortcuts-light.svg"><img alt="Keyboard shortcuts" src=".github/readmeglow/section-09-keyboard-shortcuts-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 | Shortcut | Action |
 |---|---|
@@ -181,15 +250,23 @@ flowchart LR
 | <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>8</kbd> / <kbd>7</kbd> / <kbd>9</kbd> | Bullet / numbered / task list |
 | <kbd>→</kbd> <kbd>←</kbd> <kbd>F</kbd> | Slides: next, previous, full screen |
 
+<!-- readmeglow:begin h2
 ## Tech stack
+-->
+## <a id="tech-stack"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-10-tech-stack-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-10-tech-stack-light.svg"><img alt="Tech stack" src=".github/readmeglow/section-10-tech-stack-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 - **React 18**, **TypeScript** (strict) and **Vite**, deployed to GitHub Pages by GitHub Actions.
 - **unified / remark / rehype**: remark-gfm, remark-math, rehype-raw, **rehype-sanitize**, rehype-katex, lowlight (highlight.js grammars), github-slugger, gemoji.
 - **CodeMirror 6** for the editor, **Mermaid** + **DOMPurify** for diagrams, **KaTeX** for maths.
-- **@fontsource** for 32 self-hosted font families (loaded only when a theme uses them), **lz-string** for share links, **fflate** for zip files, **zod** to validate AI answers.
+- **@fontsource** for 32 self-hosted font families (loaded only when a theme uses them), **opentype.js** to turn them into SVG outlines for the GitHub export, **github-markdown-css** for the GitHub preview, **lz-string** for share links, **fflate** for zip files, **zod** to validate AI answers.
 - **Vitest**, Testing Library, jsdom and fake-indexeddb for tests.
 
+<!-- readmeglow:begin h2
 ## Run it locally
+-->
+## <a id="run-it-locally"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-11-run-it-locally-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-11-run-it-locally-light.svg"><img alt="Run it locally" src=".github/readmeglow/section-11-run-it-locally-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
 ```bash
 git clone https://github.com/naniiic137/readme-glow.git
@@ -200,18 +277,26 @@ npm test           # the whole test suite
 npm run build      # typecheck + production build in dist/
 ```
 
+<!-- readmeglow:begin h2
 ## Tests
+-->
+## <a id="tests"></a><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/section-12-tests-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/section-12-tests-light.svg"><img alt="Tests" src=".github/readmeglow/section-12-tests-light.svg"></picture>
+<!-- readmeglow:end h2 -->
 
-1,251 tests in 40 files (Vitest), run on every push by CI. They cover:
+1,379 tests in 48 files (Vitest), run on every push by CI. They cover:
 
 - **Markdown pipeline**: GFM, alerts, footnotes, headings and GitHub-compatible slugs, code blocks, maths, badges, source mapping.
 - **Sanitisation**: 37 XSS vectors (script tags, `onerror`, `javascript:` URLs, SVG `onload`, iframes, style injection, mXSS, DOM clobbering…).
 - **GitHub**: every URL form, relative link and image resolution, rate-limit and 404 handling.
 - **Editing**: formatting commands, table and badge builders, templates, zip path rewriting, the shared undo history, autosave and restore, the visual editor’s block operations — including a fuzz test over the sample READMEs proving that editing one block leaves every other byte untouched.
 - **Beautify** (idempotence over randomised READMEs), **health check** rules and fixes, **summary and facts** extractors, the **AI client** (with a fake fetch), **share links**, **settings persistence**, and the **theme registry** (every theme defines every token and passes the contrast rules).
-- **Components**: drop zone and file input, command palette, dialogs and focus trapping, the editor, Beautify, table builder, find bar, global shortcuts, landing page and workspace.
+- **GitHub export**: every theme's header, section and divider SVGs are valid XML with no external references, stay small and are deterministic; animations live only inside a reduced-motion media query; text outlines, emoji and missing-script fallbacks; the Markdown transform (anchors, badges, alerts, table of contents, folding, CRLF) round-trips back to the original and exporting twice changes nothing; the GitHub preview sanitiser; zip paths; the config comment.
+- **Links**: pretty paths (owner/repo, github.com/…, /tree/, /blob/), the redirect page (escaping) and the bookmarklet, which is run against real and hostile page addresses.
+- **Components**: drop zone and file input, command palette, dialogs and focus trapping, the editor, Beautify, table builder, GitHub export and Share & access dialogs, find bar, global shortcuts, landing page and workspace.
 
----
+<!-- readmeglow:begin divider b64:LS0t -->
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset=".github/readmeglow/divider-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/readmeglow/divider-light.svg"><img alt="" src=".github/readmeglow/divider-light.svg"></picture></p>
+<!-- readmeglow:end divider -->
 
 <p align="center">© 2026 Hamza Ben Ismail. All rights reserved.</p>
 <p align="center"><a href="#readme-top">Back to top ↑</a></p>
