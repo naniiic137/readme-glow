@@ -14,7 +14,7 @@ export interface AssetRef {
   name: string;
 }
 
-interface RawRef {
+export interface RawRef {
   /** URL text exactly as written in the source. */
   raw: string;
   /** The URL as a renderer reads it (escapes and character references decoded). */
@@ -184,7 +184,7 @@ function lineAt(starts: number[], offset: number): number {
   return lo + 1;
 }
 
-function findImageRefs(markdown: string): RawRef[] {
+export function findImageRefs(markdown: string): RawRef[] {
   const tree = parseMarkdown(markdown);
   const starts = lineStarts(markdown);
   const found = new Map<number, RawRef>();
