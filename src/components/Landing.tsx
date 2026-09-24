@@ -57,7 +57,7 @@ export function Landing() {
       </div>
 
       <header className="landing-nav">
-        <a className="brand" href="./" aria-label="ReadmeGlow home">
+        <a className="brand" href={import.meta.env.BASE_URL} aria-label="ReadmeGlow home">
           <span className="brand-mark" aria-hidden="true">
             <Icon name="sparkles" size={18} />
           </span>
