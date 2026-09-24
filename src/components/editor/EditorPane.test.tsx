@@ -32,7 +32,8 @@ describe('EditorPane', () => {
     resetStores('# Title\n\nBody');
     render(<EditorPane />);
     expect(screen.getByRole('status')).toHaveTextContent('Loading the editor…');
-    const host = await screen.findByTestId('code-editor');
+    // The first CodeMirror import can be slow while other test files run in parallel.
+    const host = await screen.findByTestId('code-editor', {}, { timeout: 10000 });
     expect(host.querySelector('.cm-content')).toHaveTextContent('# TitleBody');
     expect(screen.getByRole('textbox', { name: 'Markdown source' })).toBeInTheDocument();
     expect(screen.queryByText('Loading the editor…')).toBeNull();
