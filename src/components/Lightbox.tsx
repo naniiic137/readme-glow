@@ -26,7 +26,7 @@ export default function Lightbox() {
 
   if (!box || !item) return null;
   return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={item.alt || 'Image'} ref={ref} onClick={(e) => e.target === e.currentTarget && close()}>
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label={item.alt || 'Image'} ref={ref} tabIndex={-1} onClick={(e) => e.target === e.currentTarget && close()}>
       <figure>
         <img src={item.src} alt={item.alt} />
         {item.alt && <figcaption>{item.alt}</figcaption>}

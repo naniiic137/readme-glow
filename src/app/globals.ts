@@ -6,9 +6,8 @@ import { LAYOUTS, VIEWS } from '../lib/settings';
 import { sync } from './sync';
 
 function inEditable(t: EventTarget | null): boolean {
-  const el = t as HTMLElement | null;
-  if (!el) return false;
-  return !!el.closest('input, textarea, select, [contenteditable="true"], [contenteditable="plaintext-only"], .cm-editor');
+  if (!(t instanceof Element)) return false;
+  return !!t.closest('input, textarea, select, [contenteditable="true"], [contenteditable="plaintext-only"], .cm-editor');
 }
 
 export function cycleTheme(delta: number): void {
