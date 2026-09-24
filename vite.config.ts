@@ -1,4 +1,6 @@
 /// <reference types="vitest/config" />
+import { copyFileSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { contentSecurityPolicy } from './src/lib/csp.ts';
@@ -23,10 +25,31 @@ function cspMeta(): Plugin {
   };
 }
 
+/**
+ * Pretty links (/readme-glow/owner/repo): GitHub Pages answers any unknown
+ * path with 404.html, so 404.html is the app itself. Its asset URLs are
+ * absolute (base /readme-glow/), the address keeps its query and hash, and
+ * the app reads the repository from the path.
+ */
+function spaFallback(): Plugin {
+  let outDir = 'dist';
+  return {
+    name: 'readme-glow-404',
+    apply: 'build',
+    configResolved(config) {
+      outDir = resolve(config.root, config.build.outDir);
+    },
+    closeBundle() {
+      const index = resolve(outDir, 'index.html');
+      if (existsSync(index)) copyFileSync(index, resolve(outDir, '404.html'));
+    },
+  };
+}
+
 // Served from https://naniiic137.github.io/readme-glow/ on GitHub Pages.
 export default defineConfig({
   base: '/readme-glow/',
-  plugins: [react(), cspMeta()],
+  plugins: [react(), cspMeta(), spaFallback()],
   server: { port: 3751, strictPort: true },
   preview: { port: 3752, strictPort: true },
   build: {

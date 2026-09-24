@@ -3,7 +3,10 @@ import { Library, createAutosaver, titleFromMarkdown, type DocRecord, type DocSo
 import { bundleFromFiles, isImageFile, isMarkdownName, MAX_MARKDOWN_BYTES, uniqueImagePath, type LocalFile } from '../lib/localFiles';
 import { fetchReadme, GitHubError, parseGitHubInput, type RepoRef } from '../lib/github';
 import { getSample } from '../samples';
-import { safeLocalStorage } from '../lib/settings';
+import { LAYOUT_INFO, safeLocalStorage, type Settings } from '../lib/settings';
+import { readConfig, settingsFromConfig } from '../lib/ghexport/config';
+import { parsePrettyPath } from '../lib/access';
+import { getTheme } from '../themes/registry';
 
 const LAST_DOC_KEY = 'readme-glow:last-doc';
 
@@ -95,7 +98,57 @@ async function activate(record: DocRecord, extra: Partial<CurrentDoc> = {}): Pro
   doc.reset(record.markdown);
   ui.set({ doc: current, render: null, loading: null, visualEdit: false, findOpen: false, saveState: 'saved', mobileTab: 'preview' });
   rememberLastDoc(record.id);
+  syncPrettyPath(record.source);
   document.title = `${record.title} — ReadmeGlow`;
+}
+
+/**
+ * A pretty address (/readme-glow/owner/repo) belongs to that repository: once
+ * something else is open, the address goes back to the app's own.
+ */
+function syncPrettyPath(source: DocSource | null): void {
+  const base = import.meta.env.BASE_URL;
+  if (window.location.pathname === base) return;
+  const pretty = parsePrettyPath(window.location.pathname, base);
+  if (!pretty) return;
+  const same = source?.kind === 'github' && source.owner.toLowerCase() === pretty.owner.toLowerCase() && source.repo.toLowerCase() === pretty.repo.toLowerCase();
+  if (!same) history.replaceState(null, '', `${base}${window.location.search}${window.location.hash}`);
+}
+
+// ------------------------------------------------------------------ incoming Markdown
+
+/** Look settings fixed by the address while startup opens a document (URL beats the README's own config). */
+let urlLocks: ReadonlySet<string> = new Set();
+
+/**
+ * A README made with the GitHub export carries images instead of its title
+ * and headings. ReadmeGlow draws those itself, so it shows the Markdown the
+ * export kept (and exporting again gives the same file).
+ */
+async function incoming(markdown: string): Promise<{ markdown: string; exported: boolean }> {
+  if (!markdown.includes('readmeglow:begin')) return { markdown, exported: false };
+  const { isExported, unexport } = await import('../lib/ghexport/markers');
+  return isExported(markdown) ? { markdown: unexport(markdown), exported: true } : { markdown, exported: false };
+}
+
+/** Applies the README's own look (<!-- readmeglow theme="…" … -->), with an easy way back. */
+function applyReadmeConfig(markdown: string, exported: boolean): void {
+  const config = readConfig(markdown);
+  const before = settings.get();
+  const patch = config ? settingsFromConfig(config, before, urlLocks) : {};
+  const keys = Object.keys(patch) as Array<keyof Settings>;
+  if (!keys.length) {
+    if (exported) toast('This README was made with the GitHub export: showing the Markdown behind its images.', 'info');
+    return;
+  }
+  const previous: Partial<Settings> = {};
+  for (const k of keys) (previous as Record<string, unknown>)[k] = before[k];
+  setSettings(patch);
+  const now = settings.get();
+  toast(`Opened in its author's look: ${getTheme(now.theme).name} · ${LAYOUT_INFO[now.layout].name}.`, 'info', {
+    action: { label: 'Use my look', run: () => setSettings(previous) },
+    timeout: 8000,
+  });
 }
 
 export interface OpenOptions {
@@ -107,7 +160,13 @@ export interface OpenOptions {
 }
 
 /** Opens Markdown as a document (saved to the library). */
-export async function openMarkdown(markdown: string, options: OpenOptions): Promise<void> {
+export async function openMarkdown(raw: string, options: OpenOptions): Promise<void> {
+  const { markdown, exported } = await incoming(raw);
+  await openMarkdownAs(markdown, options);
+  applyReadmeConfig(markdown, exported);
+}
+
+async function openMarkdownAs(markdown: string, options: OpenOptions): Promise<void> {
   const lib = await library();
   const existing = await lib.findBySource(options.source);
   let record: DocRecord;
@@ -136,7 +195,8 @@ export async function openMarkdown(markdown: string, options: OpenOptions): Prom
   await activate(record, { meta: options.meta ?? null });
 }
 
-async function createAndOpen(markdown: string, options: OpenOptions): Promise<void> {
+async function createAndOpen(raw: string, options: OpenOptions): Promise<void> {
+  const { markdown, exported } = await incoming(raw);
   const lib = await library();
   let record = await lib.create({ markdown, source: options.source, title: options.title, baseDir: options.baseDir });
   if (options.images?.length) {
@@ -144,6 +204,7 @@ async function createAndOpen(markdown: string, options: OpenOptions): Promise<vo
     record = (await lib.get(record.id)) ?? record;
   }
   await activate(record, { meta: options.meta ?? null });
+  applyReadmeConfig(markdown, exported);
 }
 
 export async function openFromLibrary(id: string): Promise<boolean> {
@@ -242,6 +303,7 @@ export async function closeDocument(): Promise<void> {
   ui.set({ doc: null, render: null, panel: null, visualEdit: false, focusMode: false, findOpen: false });
   doc.reset('');
   rememberLastDoc(null);
+  syncPrettyPath(null);
   document.title = 'ReadmeGlow — make any README beautiful';
 }
 
@@ -301,6 +363,23 @@ async function runStartup(): Promise<void> {
   const { settingsFromParams } = await import('../lib/settings');
   const fromUrl = settingsFromParams(params, settings.get());
   if (fromUrl !== settings.get()) setSettings(fromUrl);
+  urlLocks = new Set(['theme', 'mode', 'layout', 'accent'].filter((k) => params.has(k)));
+  try {
+    await openFromAddress(url);
+  } finally {
+    urlLocks = new Set();
+  }
+}
+
+async function openFromAddress(url: URL): Promise<void> {
+  const params = url.searchParams;
+  // Pretty links: /readme-glow/owner/repo and /readme-glow/github.com/owner/repo
+  // (GitHub Pages answers unknown paths with 404.html, a copy of the app).
+  const pretty = parsePrettyPath(url.pathname, import.meta.env.BASE_URL);
+  if (pretty) {
+    await openGitHub(pretty);
+    return;
+  }
 
   if (url.hash.includes('md=')) {
     const { markdownFromHash } = await import('../lib/share');

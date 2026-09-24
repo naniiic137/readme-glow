@@ -11,6 +11,7 @@ import { planZip } from '../lib/editor/zip';
 import { buildShareUrl } from '../lib/share';
 import { ensureFonts } from './themeStyles';
 import { flushSave, library } from './actions';
+import { configFromSettings, writeConfig } from '../lib/ghexport/config';
 
 export type ExportKind = 'html' | 'pdf' | 'png' | 'md' | 'copy' | 'zip' | 'share';
 
@@ -55,14 +56,19 @@ async function urlToDataUrl(url: string): Promise<string | null> {
 
 // ------------------------------------------------------------------ Markdown, copy, zip
 
+/** The Markdown as exported: with an invisible comment that remembers the look (theme, layout, accent). */
+export function markdownForExport(): string {
+  return writeConfig(doc.text, configFromSettings(settings.get()));
+}
+
 export function downloadMarkdown(): void {
-  download('README.md', new Blob([doc.text], { type: 'text/markdown;charset=utf-8' }));
+  download('README.md', new Blob([markdownForExport()], { type: 'text/markdown;charset=utf-8' }));
   toast('README.md downloaded.', 'success');
 }
 
 export async function copyMarkdown(): Promise<void> {
   try {
-    await navigator.clipboard.writeText(doc.text);
+    await navigator.clipboard.writeText(markdownForExport());
     toast('Markdown copied to the clipboard.', 'success');
   } catch {
     toast('Your browser blocked clipboard access.', 'error');
@@ -78,7 +84,7 @@ export async function exportZip(): Promise<void> {
   for (const [path, blob] of current.blobs) {
     if (!base || path.startsWith(base)) local.set(path.slice(base.length), blob);
   }
-  const plan = planZip(doc.text, [...local.keys()]);
+  const plan = planZip(markdownForExport(), [...local.keys()]);
   const files: Record<string, Uint8Array> = { 'README.md': strToU8(plan.markdown) };
   for (const f of plan.files) {
     const blob = local.get(f.from);

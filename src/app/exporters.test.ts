@@ -11,6 +11,7 @@ import { library, openMarkdown, openPasted } from './actions';
 import { doc, settings, ui } from './state';
 import { sync } from './sync';
 import { markdownFromHash } from '../lib/share';
+import { configFromSettings, formatConfig } from '../lib/ghexport/config';
 import { fakeCurrentDoc, fakeRender, resetStores, toastMessages } from '../test/helpers';
 
 // ------------------------------------------------------------------ helpers
@@ -251,7 +252,8 @@ describe('downloads and clipboard', () => {
     doc.reset('# Hello\n');
     downloadMarkdown();
     expect(names).toEqual(['README.md']);
-    expect(await blobs[0]!.text()).toBe('# Hello\n');
+    // The exported file remembers the look in an invisible comment.
+    expect(await blobs[0]!.text()).toBe(`${formatConfig(configFromSettings(settings.get()))}\n# Hello\n`);
     expect(blobs[0]!.type).toContain('text/markdown');
     expect(toastMessages()).toContain('README.md downloaded.');
   });
@@ -260,7 +262,7 @@ describe('downloads and clipboard', () => {
     doc.reset('# Copy me');
     const writeText = mockClipboard();
     await copyMarkdown();
-    expect(writeText).toHaveBeenCalledWith('# Copy me');
+    expect(writeText).toHaveBeenCalledWith(`${formatConfig(configFromSettings(settings.get()))}\n# Copy me`);
     expect(toastMessages().at(-1)).toBe('Markdown copied to the clipboard.');
 
     mockClipboard(vi.fn(async (_text: string) => Promise.reject(new Error('denied'))));

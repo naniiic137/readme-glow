@@ -312,3 +312,83 @@ describe('startup', () => {
     expect(ui.get().doc).toBeNull();
   });
 });
+
+describe('pretty links, the README config comment and exported READMEs', () => {
+  // The app's base path (/readme-glow/ in production, / under the test runner).
+  const BASE = import.meta.env.BASE_URL;
+
+  function stubRepo(md: string): ReturnType<typeof vi.fn> {
+    const fetchMock = vi.fn(async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === 'https://api.github.com/repos/octo/hello/readme') {
+        return jsonResponse({ content: base64(md), encoding: 'base64', path: 'README.md', type: 'file', size: md.length });
+      }
+      if (url === 'https://api.github.com/repos/octo/hello') return jsonResponse({ default_branch: 'main' });
+      return jsonResponse({ message: 'Not Found' }, 404);
+    });
+    vi.stubGlobal('fetch', fetchMock);
+    return fetchMock;
+  }
+
+  it('opens /readme-glow/owner/repo and keeps that address', async () => {
+    stubRepo('# Pretty\n');
+    setUrl(`${BASE}octo/hello`);
+    await startup();
+    expect(ui.get().doc?.source).toMatchObject({ kind: 'github', owner: 'octo', repo: 'hello' });
+    expect(doc.text).toBe('# Pretty\n');
+    expect(window.location.pathname).toBe(`${BASE}octo/hello`);
+  });
+
+  it('opens /readme-glow/github.com/owner/repo with its query parameters', async () => {
+    stubRepo('# Pretty\n');
+    setUrl(`${BASE}github.com/octo/hello?theme=zen#usage`);
+    await startup();
+    expect(ui.get().doc?.source).toMatchObject({ kind: 'github', owner: 'octo', repo: 'hello' });
+    expect(settings.get().theme).toBe('zen');
+    expect(window.location.hash).toBe('#usage');
+  });
+
+  it('gives the address back when something else is opened', async () => {
+    stubRepo('# Pretty\n');
+    setUrl(`${BASE}octo/hello?theme=zen`);
+    await startup();
+    await openPasted('# Other\n');
+    expect(window.location.pathname).toBe(BASE);
+    expect(window.location.search).toBe('?theme=zen');
+  });
+
+  it("opens a README in its author's look, with a way back; the URL wins", async () => {
+    settings.set({ ...settings.get(), theme: 'github', layout: 'document' });
+    stubRepo('<!-- readmeglow theme="synthwave" layout="landing" accent="#ff2e97" -->\n# Look\n');
+    setUrl(`${BASE}octo/hello?layout=docs`);
+    await startup();
+    expect(settings.get()).toMatchObject({ theme: 'synthwave', layout: 'docs', accent: '#ff2e97' });
+    const offer = ui.get().toasts.at(-1)!;
+    expect(offer.message).toBe("Opened in its author's look: Synthwave · Docs.");
+    offer.action!.run();
+    expect(settings.get()).toMatchObject({ theme: 'github', layout: 'docs', accent: null });
+  });
+
+  it('applies the look of pasted and dropped READMEs too', async () => {
+    await openPasted('<!-- readmeglow theme="pixel" -->\n# Arcade\n');
+    expect(settings.get().theme).toBe('pixel');
+    expect(ui.get().doc?.title).toBe('Arcade');
+  });
+
+  it('shows the Markdown behind a README made with the GitHub export', async () => {
+    const { exportForGitHub, DEFAULT_GH_OPTIONS } = await import('../lib/ghexport/transform');
+    const original = '# Nebula\n\nA calm board.\n\n## Usage\n\nRun it.\n';
+    const renderer = {
+      variants: ['only' as const],
+      hero: () => '<svg/>',
+      section: () => '<svg/>',
+      divider: () => '<svg/>',
+      badgeColors: { accent: '#7c5cff', label: '#000000' },
+    };
+    const exported = exportForGitHub(original, { ...DEFAULT_GH_OPTIONS, config: { theme: 'aurora', layout: 'landing' } }, renderer).markdown;
+    expect(exported).toContain('readmeglow:begin hero');
+    await openPasted(exported);
+    expect(doc.text).toBe(`<!-- readmeglow theme="aurora" layout="landing" -->\n${original}`);
+    expect(settings.get()).toMatchObject({ theme: 'aurora', layout: 'landing' });
+  });
+});
