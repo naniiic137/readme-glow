@@ -1,4 +1,8 @@
-import { lazy, Suspense, useRef } from 'react';
+import { lazy, Suspense, useRef, type CSSProperties } from 'react';
+import { getTheme, resolveMode, tokensFor } from '../../themes/registry';
+import { withAlpha } from '../../themes/color';
+import { usePrefersDark } from '../../app/presentation';
+import type { Settings } from '../../lib/settings';
 import { Icon } from '../Icon';
 import { Menu } from '../Menu';
 import { useStore } from '../../app/store';
@@ -18,11 +22,50 @@ function run(c: Command) {
   sync.editor?.run(c);
 }
 
+/** Editor colours: the page theme's own code palette (always readable), or the app's light/dark. */
+function editorVars(themeId: string, mode: Settings['mode'], editorTheme: Settings['editorTheme'], prefersDark: boolean): CSSProperties | undefined {
+  if (editorTheme !== 'match') return undefined;
+  const theme = getTheme(themeId);
+  const t = tokensFor(theme, resolveMode(theme, mode, prefersDark));
+  const s = t.syntax;
+  const vars: Record<string, string> = {
+    '--ed-bg': t.codeBg,
+    '--ed-text': t.codeText,
+    '--ed-gutter': s.comment,
+    '--ed-active': withAlpha(t.codeText, 0.06),
+    '--ed-selection': withAlpha(s.keyword, 0.28),
+    '--ed-match': withAlpha(s.number, 0.25),
+    '--ed-flash': withAlpha(s.function, 0.22),
+    '--ed-accent': s.keyword,
+    '--ed-heading': s.function,
+    '--ed-strong': t.codeText,
+    '--ed-em': t.codeText,
+    '--ed-muted': s.comment,
+    '--ed-link': s.string,
+    '--ed-code': s.tag,
+    '--ed-quote': s.comment,
+    '--ed-tag': s.tag,
+    '--ed-attr': s.attr,
+    '--ed-string': s.string,
+    '--ed-keyword': s.keyword,
+    '--ed-number': s.number,
+    '--ed-fn': s.function,
+    '--ed-type': s.type,
+    '--ed-mono': theme.fonts.mono,
+  };
+  return vars as CSSProperties;
+}
+
 export function EditorPane() {
   const wrap = useStore(settings, (s) => s.wrap);
   const lines = useStore(settings, (s) => s.editorLineNumbers);
   const syncScroll = useStore(settings, (s) => s.syncScroll);
+  const themeId = useStore(settings, (s) => s.theme);
+  const mode = useStore(settings, (s) => s.mode);
+  const editorTheme = useStore(settings, (s) => s.editorTheme);
+  const prefersDark = usePrefersDark();
   const imageInput = useRef<HTMLInputElement>(null);
+  const style = editorVars(themeId, mode, editorTheme, prefersDark);
 
   const tb = (icon: string, label: string, c: Command, key?: string) => (
     <button type="button" className="icon-btn sm" aria-label={label} data-tip={key ? `${label} · ${shortcutLabel(key)}` : label} onClick={() => run(c)} onMouseDown={(e) => e.preventDefault()}>
@@ -31,7 +74,7 @@ export function EditorPane() {
   );
 
   return (
-    <section className="editor-pane" aria-label="Markdown editor">
+    <section className={`editor-pane ed-${editorTheme}`} aria-label="Markdown editor" style={style}>
       <div className="editor-toolbar" role="toolbar" aria-label="Formatting">
         <div className="tb-group">
           <button type="button" className="icon-btn sm" aria-label="Undo" data-tip={`Undo · ${shortcutLabel('Mod-Z')}`} onClick={() => doc.undo()} onMouseDown={(e) => e.preventDefault()}>
@@ -123,6 +166,18 @@ export function EditorPane() {
           <button type="button" className={`icon-btn sm${syncScroll ? ' is-on' : ''}`} aria-pressed={syncScroll} aria-label="Sync scrolling" data-tip="Sync scrolling" onClick={() => setSettings({ syncScroll: !syncScroll })}>
             <Icon name="link" size={16} />
           </button>
+          <Menu
+            label="Editor colours"
+            tip="Editor colours"
+            className="icon-btn sm"
+            align="end"
+            button={<Icon name="palette" size={16} />}
+            items={[
+              { id: 'match', label: 'Match the page theme', hint: editorTheme === 'match' ? '✓' : undefined, onSelect: () => setSettings({ editorTheme: 'match' }) },
+              { id: 'dark', label: 'Dark', hint: editorTheme === 'dark' ? '✓' : undefined, onSelect: () => setSettings({ editorTheme: 'dark' }) },
+              { id: 'light', label: 'Light', hint: editorTheme === 'light' ? '✓' : undefined, onSelect: () => setSettings({ editorTheme: 'light' }) },
+            ]}
+          />
         </div>
       </div>
       <div className="editor-body">
