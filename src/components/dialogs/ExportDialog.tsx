@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Dialog } from './Dialog';
 import { Icon } from '../Icon';
-import { closeDialog, doc, settings, ui } from '../../app/state';
+import { closeDialog, doc, openDialog, settings, ui } from '../../app/state';
 import { useStore } from '../../app/store';
 import * as ex from '../../app/exporters';
 import { MAX_HASH_CHARS, encodeMarkdown } from '../../lib/share';
@@ -48,6 +48,13 @@ export default function ExportDialog() {
           </button>
         </section>
         <div className="export-list">
+          <button type="button" className="export-card is-featured" onClick={() => openDialog('githubExport')}>
+            <Icon name="github" />
+            <div>
+              <h3>GitHub export</h3>
+              <p>Your theme on github.com: a header and section images for light and dark mode, themed badges and alerts. README plus images, ready to commit.</p>
+            </div>
+          </button>
           <button type="button" className="export-card" disabled={busy === 'html'} onClick={() => void run('html', ex.exportHtml)}>
             <Icon name="fileCode" />
             <div>
@@ -80,7 +87,7 @@ export default function ExportDialog() {
             <Icon name="download" />
             <div>
               <h3>README.md</h3>
-              <p>The Markdown, including every edit you made.</p>
+              <p>The Markdown with every edit, plus an invisible comment that remembers this look.</p>
             </div>
           </button>
           <button type="button" className="export-card" onClick={() => void ex.copyMarkdown()}>
@@ -108,6 +115,13 @@ export default function ExportDialog() {
                     ? 'Too long to fit in a link. Share it from GitHub (?repo=owner/repo) or export HTML instead.'
                     : 'The README is compressed into the link itself — nothing is uploaded.'}
               </p>
+            </div>
+          </button>
+          <button type="button" className="export-card" onClick={() => openDialog('share')}>
+            <Icon name="globe" />
+            <div>
+              <h3>Share & access</h3>
+              <p>Pretty links, the “View with ReadmeGlow” badge, your repo's Website field, a redirect page and a bookmarklet.</p>
             </div>
           </button>
         </div>

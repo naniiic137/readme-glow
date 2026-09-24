@@ -17,6 +17,10 @@ const FEATURES: Array<{ icon: string; title: string; text: string }> = [
   { icon: 'lightbulb', title: 'Summary & insights', text: 'An offline summary plus the tech stack, install commands, links and licence, each one clickable.' },
   { icon: 'health', title: 'README health check', text: 'A score with friendly suggestions and one-click fixes for missing sections and alt text.' },
   { icon: 'download', title: 'Export anything', text: 'Standalone HTML, print-ready PDF, a 1200×630 social card, a .zip with images, or a share link.' },
+  { icon: 'github', title: 'Your theme on GitHub', text: 'The GitHub export draws the header and section titles as light and dark SVG images, themes the badges and adds alerts.' },
+  { icon: 'link', title: 'Pretty links', text: 'Put the ReadmeGlow address in front of any repository: /readme-glow/owner/repo. Plus a badge and a bookmarklet.' },
+  { icon: 'palette', title: 'Remembers the look', text: 'Exports carry an invisible comment with the theme and layout, so the README opens the way its author styled it.' },
+  { icon: 'type', title: 'Right-to-left ready', text: 'Arabic and Hebrew READMEs flip to right-to-left automatically, and Arabic gets fonts made for it.' },
   { icon: 'shield', title: 'Private by design', text: 'Your README is rendered in your browser and saved on your device. Nothing is uploaded.' },
 ];
 

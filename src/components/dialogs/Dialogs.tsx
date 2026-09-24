@@ -7,7 +7,8 @@ const GitHubDialog = lazy(() => import('./GitHubDialog'));
 const PasteDialog = lazy(() => import('./PasteDialog'));
 const ExportDialog = lazy(() => import('./ExportDialog'));
 const BeautifyDialog = lazy(() => import('./BeautifyDialog'));
-const ViewBadgeDialog = lazy(() => import('./ViewBadgeDialog'));
+const ShareAccessDialog = lazy(() => import('./ShareAccessDialog'));
+const GitHubExportDialog = lazy(() => import('./GitHubExportDialog'));
 const TableDialog = lazy(() => import('./TableDialog'));
 const BadgeBuilderDialog = lazy(() => import('./BadgeBuilderDialog'));
 const TemplatesDialog = lazy(() => import('./TemplatesDialog'));
@@ -24,7 +25,8 @@ export default function Dialogs({ dialog }: { dialog: Exclude<DialogId, null> })
       {dialog === 'paste' && <PasteDialog />}
       {dialog === 'export' && <ExportDialog />}
       {dialog === 'beautify' && <BeautifyDialog />}
-      {dialog === 'viewBadge' && <ViewBadgeDialog />}
+      {dialog === 'share' && <ShareAccessDialog />}
+      {dialog === 'githubExport' && <GitHubExportDialog />}
       {dialog === 'table' && <TableDialog />}
       {dialog === 'badgeBuilder' && <BadgeBuilderDialog />}
       {dialog === 'templates' && <TemplatesDialog />}
