@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 160 90" shape-rendering="crispEdges" role="img" aria-label="Pixel art: a harbour village at sunset with lit windows, a market stall, lantern strings, boats and a dark lighthouse">
+  <title>Harbour Village</title>
+  <defs>
+    <g id="hero">
+      <path d="M8 3h5v8H8z M7 4h7v6H7z" fill="#FFD166" opacity="0.14"/>
+      <path d="M3 0h4v1H3z M2 1h6v1H2z M1 2h7v1H1z M1 3h2v1H1z M7 3h1v1H7z M1 4h1v2H1z" fill="#2A9D8F"/>
+      <path d="M8 2h1v4H8z M1 6h1v1H1z M8 6h1v1H8z" fill="#1F7A70"/>
+      <path d="M3 3h4v1H3z M2 4h1v1H2z M4 4h2v1H4z M7 4h1v1H7z M2 5h6v1H2z M8 7h1v1H8z" fill="#F4C7A1"/>
+      <path d="M3 4h1v1H3z M6 4h1v1H6z" fill="#1B1B3A"/>
+      <path d="M2 6h6v1H2z" fill="#E9C46A"/>
+      <path d="M2 7h6v1H2z M2 8h5v1H2z M2 10h5v1H2z" fill="#E76F51"/>
+      <path d="M7 8h1v1H7z M7 10h1v1H7z M1 7h1v2H1z" fill="#C4553A"/>
+      <path d="M2 9h6v1H2z M9 7h3v1H9z M9 10h3v1H9z M10 6h1v1h-1z" fill="#6B3E26"/>
+      <path d="M9 8h1v2H9z M11 8h1v2h-1z" fill="#FFD166"/>
+      <path d="M10 8h1v2h-1z" fill="#FFF3C4"/>
+      <path d="M3 11h4v1H3z M2 12h2v1H2z M6 12h2v1H6z" fill="#264653"/>
+      <path d="M1 13h3v1H1z M6 13h3v1H6z" fill="#3B2417"/>
+    </g>
+    <path id="heart" d="M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z"/>
+    <path id="gear" d="M3 0h1v1H3zM1 1h5v1H1zM1 2h2v1H1zM4 2h2v1H4zM0 3h2v1H0zM5 3h2v1H5zM1 4h2v1H1zM4 4h2v1H4zM1 5h5v1H1zM3 6h1v1H3z"/>
+    <path id="glow" d="M0 0h3v3H0z" fill="#FFD166" opacity="0.3"/>
+    <pattern id="d1" width="2" height="2" patternUnits="userSpaceOnUse"><path d="M0 0h1v1H0zM1 1h1v1H1z" fill="#6C5B7B"/></pattern>
+    <pattern id="d2" width="2" height="2" patternUnits="userSpaceOnUse"><path d="M0 0h1v1H0zM1 1h1v1H1z" fill="#C06C84"/></pattern>
+    <pattern id="d3" width="2" height="2" patternUnits="userSpaceOnUse"><path d="M0 0h1v1H0zM1 1h1v1H1z" fill="#F67280"/></pattern>
+    <pattern id="d4" width="2" height="2" patternUnits="userSpaceOnUse"><path d="M0 0h1v1H0zM1 1h1v1H1z" fill="#F8B195"/></pattern>
+    <pattern id="waves" width="12" height="4" patternUnits="userSpaceOnUse"><path d="M1 1h4v1H1zM7 3h3v1H7z" fill="#274B73"/></pattern>
+  </defs>
+
+  <rect width="160" height="14" fill="#355C7D"/>
+  <rect y="14" width="160" height="12" fill="#6C5B7B"/>
+  <rect y="26" width="160" height="10" fill="#C06C84"/>
+  <rect y="36" width="160" height="8" fill="#F67280"/>
+  <rect y="44" width="160" height="14" fill="#F8B195"/>
+  <rect y="12" width="160" height="2" fill="url(#d1)"/>
+  <rect y="24" width="160" height="2" fill="url(#d2)"/>
+  <rect y="34" width="160" height="2" fill="url(#d3)"/>
+  <rect y="42" width="160" height="2" fill="url(#d4)"/>
+
+  <path d="M20 18h14v2H20z M23 16h8v2h-8z M100 9h18v2h-18z M104 7h9v2h-9z M60 28h12v2H60z M63 26h5v2h-5z" fill="#FBD3C1" opacity="0.8"/>
+  <path d="M30 8h1v1h-1z M31 9h1v1h-1z M32 8h1v1h-1z M44 12h1v1h-1z M45 13h1v1h-1z M46 12h1v1h-1z M84 20h1v1h-1z M85 21h1v1h-1z M86 20h1v1h-1z" fill="#F1FAEE"/>
+
+  <path d="M115 48h10v1h-10z M113 49h14v2h-14z M112 51h16v7h-16z" fill="#FFE8A3"/>
+  <path d="M60 58V53H70V51H80V49H90V51H98V54H106V58Z" fill="#6C5B7B" opacity="0.6"/>
+
+  <rect y="58" width="160" height="32" fill="#1D3557"/>
+  <rect y="58" width="160" height="32" fill="url(#waves)"/>
+  <path d="M114 60h12v1h-12z M116 63h8v1h-8z M113 66h14v1h-14z M117 69h6v1h-6z M115 73h10v1h-10z M118 77h4v1h-4z" fill="#F8B195"/>
+  <path d="M112 58h16v1h-16z" fill="#FFE8A3"/>
+
+  <path d="M140 54h20v16h-20z M143 52h14v2h-14z" fill="#2B2D42"/>
+  <path d="M146 22h8v30h-8z" fill="#F1FAEE"/>
+  <path d="M146 26h8v4h-8z M146 36h8v4h-8z M146 46h8v4h-8z" fill="#E63946"/>
+  <path d="M145 15h10v7h-10z" fill="#22223F"/>
+  <path d="M144 14h12v1h-12z M145 12h10v2h-10z M147 10h6v2h-6z M149 9h2v1h-2z" fill="#6B3E26"/>
+  <path d="M147 16h6v5h-6z" fill="#355C7D"/>
+
+  <path d="M0 62h84v12H0z" fill="#4A4E69"/>
+  <path d="M0 62h84v1H0z" fill="#8D99AE"/>
+  <path d="M4 66h6v1H4z M18 69h7v1h-7z M33 65h5v1h-5z M47 70h6v1h-6z M61 67h5v1h-5z M74 71h6v1h-6z" fill="#3B3E57"/>
+
+  <path d="M4 44h20v18H4z" fill="#F1E3D3"/>
+  <path d="M13 34h2v1h-2z M11 35h6v2h-6z M9 37h10v2H9z M7 39h14v2H7z M5 41h18v2H5z M3 43h22v1H3z" fill="#C06C84"/>
+  <path d="M8 50h3v3H8z M17 50h3v3h-3z" fill="#FFD166"/>
+  <path d="M13 56h3v6h-3z" fill="#6B3E26"/>
+
+  <path d="M26 38h16v24H26z" fill="#E9D8A6"/>
+  <path d="M33 29h2v1h-2z M31 30h6v2h-6z M29 32h10v2H29z M27 34h14v2H27z M25 36h18v2H25z" fill="#457B9D"/>
+  <path d="M29 42h3v3h-3z M36 42h3v3h-3z M29 48h3v3h-3z M36 48h3v3h-3z" fill="#FFD166"/>
+
+  <path d="M44 48h16v14H44z" fill="#F1E3D3"/>
+  <path d="M51 41h2v1h-2z M49 42h6v2h-6z M47 44h10v2H47z M45 46h14v1H45z M43 47h18v1H43z" fill="#E76F51"/>
+  <path d="M47 52h3v3h-3z M54 52h3v3h-3z" fill="#FFD166"/>
+  <path d="M8 50h3v1H8z M17 50h3v1h-3z M29 42h3v1h-3z M36 42h3v1h-3z M47 52h3v1h-3z M54 52h3v1h-3z" fill="#FFF3C4"/>
+
+  <path d="M28 56h2v1h-2z M32 56h2v1h-2z M36 56h2v1h-2z M29 57h2v1h-2z M33 57h2v1h-2z M37 57h2v1h-2z" fill="#E63946"/>
+  <path d="M30 56h2v1h-2z M34 56h2v1h-2z M38 56h2v1h-2z M27 57h2v1h-2z M31 57h2v1h-2z M35 57h2v1h-2z" fill="#F1FAEE"/>
+  <path d="M28 58h1v4h-1z M39 58h1v4h-1z" fill="#6B3E26"/>
+  <path d="M28 60h12v2H28z" fill="#8B5A2B"/>
+  <path d="M30 59h1v1h-1z M32 59h2v1h-2z M35 59h1v1h-1z M37 59h1v1h-1z" fill="#F4A261"/>
+  <path d="M31 59h1v1h-1z M34 59h1v1h-1z M36 59h1v1h-1z" fill="#5FAD56"/>
+
+  <path d="M68 36h2v26h-2z" fill="#6B3E26"/>
+  <path d="M42 35h1v1h-1z M43 36h2v1h-2z M45 37h3v1h-3z M48 38h4v1h-4z M52 39h6v1h-6z M58 38h4v1h-4z M62 37h3v1h-3z M65 36h3v1h-3z" fill="#3B2417"/>
+  <g>
+    <use href="#glow" x="44" y="36"/><use href="#glow" x="49" y="38"/><use href="#glow" x="54" y="39"/>
+    <use href="#glow" x="59" y="38"/><use href="#glow" x="64" y="36"/>
+  </g>
+  <path d="M45 37h1v1h-1z M50 39h1v1h-1z M55 40h1v1h-1z M60 39h1v1h-1z M65 37h1v1h-1z" fill="#FFD166"/>
+
+  <path d="M50 60h1v1h-1z M53 60h1v1h-1z M50 61h4v1h-4z M49 62h6v1h-6z M55 61h1v1h-1z" fill="#2B2D42"/>
+
+  <path d="M60 64h52v2H60z" fill="#8B5A2B"/>
+  <path d="M60 64h52v1H60z" fill="#A0663A"/>
+  <path d="M64 66h2v8h-2z M80 66h2v8h-2z M96 66h2v8h-2z M110 66h2v8h-2z" fill="#5C3A21"/>
+
+  <path d="M96 56h1v14h-1z" fill="#6B3E26"/>
+  <path d="M97 57h1v2h1v2h1v2h1v2h1v2h1v2h1v1h-7z" fill="#F1FAEE"/>
+  <path d="M88 70h18v1h-18z M89 71h16v1h-16z M90 72h14v1h-14z" fill="#A0663A"/>
+  <path d="M88 70h18v1h-18z" fill="#C98A55"/>
+  <path d="M91 74h12v1h-12z M93 76h8v1h-8z" fill="#2A4A6B"/>
+
+  <path d="M126 64h8v1h-8z M127 65h6v1h-6z M129 58h1v6h-1z M130 59h1v1h1v1h1v1h1v1h-4z" fill="#2B2D42"/>
+
+  <use href="#hero" x="74" y="50"/>
+
+  <rect x="1" y="1" width="27" height="10" fill="#000000" opacity="0.35"/>
+  <use href="#heart" x="3" y="3" fill="#E63946"/>
+  <use href="#heart" x="11" y="3" fill="#E63946"/>
+  <use href="#heart" x="19" y="3" fill="#E63946"/>
+  <path d="M4 4h1v1H4z M12 4h1v1h-1z M20 4h1v1h-1z" fill="#F1FAEE"/>
+  <rect x="115" y="1" width="44" height="11" fill="#000000" opacity="0.35"/>
+  <use href="#gear" x="117" y="3" fill="#FFD166"/>
+  <use href="#gear" x="125" y="3" fill="#FFD166"/>
+  <use href="#gear" x="133" y="3" fill="#FFD166"/>
+  <use href="#gear" x="141" y="3" fill="#4A4E69"/>
+  <use href="#gear" x="149" y="3" fill="#4A4E69"/>
+</svg>

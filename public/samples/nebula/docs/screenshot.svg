@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" font-family="Inter, 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif" role="img" aria-label="Nebula Board: a kanban frame, a mind map and three live cursors on one canvas">
+  <title>Nebula Board screenshot</title>
+  <defs>
+    <linearGradient id="backdrop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1E1B4B"/>
+      <stop offset="0.5" stop-color="#5B21B6"/>
+      <stop offset="1" stop-color="#BE185D"/>
+    </linearGradient>
+    <radialGradient id="haloA" cx="0.85" cy="0.1" r="0.5">
+      <stop offset="0" stop-color="#F9A8D4" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#F9A8D4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloB" cx="0.08" cy="0.95" r="0.5">
+      <stop offset="0" stop-color="#FCD34D" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FCD34D" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7C3AED"/>
+      <stop offset="1" stop-color="#DB2777"/>
+    </linearGradient>
+    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="12" cy="12" r="1.2" fill="#D4D8E4"/>
+    </pattern>
+    <filter id="win" x="-6%" y="-6%" width="112%" height="120%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#0B0620" flood-opacity="0.5"/>
+    </filter>
+    <filter id="lift" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0F172A" flood-opacity="0.14"/>
+    </filter>
+    <clipPath id="window">
+      <rect x="40" y="36" width="1200" height="648" rx="16"/>
+    </clipPath>
+    <path id="cursor" d="M0 0v22l6-5.5 4.5 9.5 3.5-1.5-4.2-9.3H17z"/>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#backdrop)"/>
+  <rect width="1280" height="720" fill="url(#haloA)"/>
+  <rect width="1280" height="720" fill="url(#haloB)"/>
+
+  <rect x="40" y="36" width="1200" height="648" rx="16" fill="#FFFFFF" filter="url(#win)"/>
+  <g clip-path="url(#window)">
+    <!-- browser chrome -->
+    <rect x="40" y="36" width="1200" height="44" fill="#EEF1F6"/>
+    <circle cx="66" cy="58" r="6" fill="#FF5F57"/>
+    <circle cx="86" cy="58" r="6" fill="#FEBC2E"/>
+    <circle cx="106" cy="58" r="6" fill="#28C840"/>
+    <rect x="460" y="46" width="360" height="24" rx="12" fill="#FFFFFF" stroke="#DDE3EC"/>
+    <path d="M520 55.5v-2a3 3 0 0 1 6 0v2" fill="none" stroke="#64748B" stroke-width="1.5"/>
+    <rect x="518" y="55.5" width="10" height="7.5" rx="1.5" fill="#64748B"/>
+    <text x="648" y="62.5" font-size="12.5" fill="#475569" text-anchor="middle">nebula-board.app/b/q3-launch-plan</text>
+
+    <!-- app toolbar -->
+    <rect x="40" y="80" width="1200" height="52" fill="#FFFFFF"/>
+    <rect x="40" y="131" width="1200" height="1" fill="#E2E8F0"/>
+    <rect x="60" y="92" width="28" height="28" rx="8" fill="url(#brand)"/>
+    <path d="M66 112c4-7 8-11 11-10s1 6 4 6 4-6 5-9" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/>
+    <text x="100" y="103" font-size="15" font-weight="700" fill="#0F172A">Q3 launch plan</text>
+    <text x="100" y="121" font-size="11.5" fill="#64748B">Saved · edited just now</text>
+    <g font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+      <circle cx="980" cy="106" r="15" fill="#DB2777" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="980" y="110.5">A</text>
+      <circle cx="1004" cy="106" r="15" fill="#7C3AED" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="1004" y="110.5">H</text>
+      <circle cx="1028" cy="106" r="15" fill="#0D9488" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="1028" y="110.5">L</text>
+      <circle cx="1052" cy="106" r="15" fill="#E2E8F0" stroke="#FFFFFF" stroke-width="3"/>
+      <text x="1052" y="110.5" fill="#475569">+2</text>
+    </g>
+    <rect x="1082" y="92" width="72" height="28" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text x="1118" y="110.5" font-size="13" fill="#334155" text-anchor="middle">Present</text>
+    <rect x="1162" y="92" width="62" height="28" rx="8" fill="#7C3AED"/>
+    <text x="1193" y="110.5" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Share</text>
+
+    <!-- canvas -->
+    <rect x="40" y="132" width="1200" height="552" fill="#FAFAFD"/>
+    <rect x="40" y="132" width="1200" height="552" fill="url(#dots)"/>
+
+    <!-- tool rail -->
+    <rect x="60" y="176" width="48" height="316" rx="14" fill="#FFFFFF" filter="url(#lift)"/>
+    <rect x="68" y="184" width="32" height="30" rx="8" fill="#EDE9FE"/>
+    <use href="#cursor" transform="translate(78 189) scale(0.8)" fill="#6D28D9"/>
+    <g fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="76" y="228" width="16" height="16" rx="2.5" fill="#FDE68A" stroke="#B45309"/>
+      <circle cx="84" cy="274" r="8"/>
+      <path d="M76 320l16-16m-8 0h8v8"/>
+      <path d="M77 359l2.5-8 10-10 5.5 5.5-10 10z"/>
+      <path d="M76 380h16m-8 0v16"/>
+      <rect x="76" y="419" width="16" height="14" rx="2"/>
+      <path d="M77 431l5-5 3 3 3-4 4 5"/>
+    </g>
+    <g fill="#475569">
+      <circle cx="78" cy="466" r="1.8"/>
+      <circle cx="84" cy="466" r="1.8"/>
+      <circle cx="90" cy="466" r="1.8"/>
+    </g>
+
+    <!-- kanban frame -->
+    <text x="162" y="168" font-size="12.5" font-weight="600" fill="#64748B"># Launch plan</text>
+    <rect x="160" y="176" width="570" height="340" rx="14" fill="#FFFFFF" stroke="#E2E8F0" filter="url(#lift)"/>
+    <g font-size="13" font-weight="700" fill="#334155">
+      <rect x="176" y="188" width="170" height="316" rx="10" fill="#F8FAFC"/>
+      <circle cx="190" cy="204" r="4" fill="#94A3B8"/>
+      <text x="200" y="208.5">To do</text>
+      <rect x="362" y="188" width="170" height="316" rx="10" fill="#F8FAFC"/>
+      <circle cx="376" cy="204" r="4" fill="#F59E0B"/>
+      <text x="386" y="208.5">Doing</text>
+      <rect x="548" y="188" width="170" height="316" rx="10" fill="#F8FAFC"/>
+      <circle cx="562" cy="204" r="4" fill="#22C55E"/>
+      <text x="572" y="208.5">Done</text>
+    </g>
+
+    <g font-size="14" font-weight="500" fill="#1F2937">
+      <g transform="rotate(-1.2 261 260)">
+        <rect x="186" y="218" width="150" height="84" rx="6" fill="#FEF08A" filter="url(#lift)"/>
+        <text x="198" y="244">Write release</text>
+        <text x="198" y="263">notes</text>
+        <text x="198" y="290" font-size="11" fill="#854D0E">Docs</text>
+        <circle cx="322" cy="286" r="7" fill="#DB2777"/>
+      </g>
+      <g transform="rotate(1 261 358)">
+        <rect x="186" y="316" width="150" height="84" rx="6" fill="#FBCFE8" filter="url(#lift)"/>
+        <text x="198" y="342">Record the</text>
+        <text x="198" y="361">demo video</text>
+        <text x="198" y="388" font-size="11" fill="#9D174D">Marketing</text>
+        <circle cx="322" cy="384" r="7" fill="#7C3AED"/>
+      </g>
+      <g transform="rotate(1.4 447 260)">
+        <rect x="372" y="218" width="150" height="84" rx="6" fill="#BBF7D0" filter="url(#lift)"/>
+        <text x="384" y="244">Pricing page</text>
+        <text x="384" y="263">copy</text>
+        <text x="384" y="290" font-size="11" fill="#166534">Web</text>
+        <circle cx="508" cy="286" r="7" fill="#0D9488"/>
+      </g>
+      <g transform="rotate(-0.8 447 358)">
+        <rect x="372" y="316" width="150" height="84" rx="6" fill="#BFDBFE" filter="url(#lift)"/>
+        <text x="384" y="342">Send beta</text>
+        <text x="384" y="361">invites</text>
+        <text x="384" y="388" font-size="11" fill="#1E40AF">Growth</text>
+        <circle cx="508" cy="384" r="7" fill="#DB2777"/>
+      </g>
+      <g transform="rotate(-1.5 633 260)">
+        <rect x="558" y="218" width="150" height="84" rx="6" fill="#DDD6FE" filter="url(#lift)"/>
+        <text x="570" y="244">Onboarding</text>
+        <text x="570" y="263">flow</text>
+        <text x="570" y="290" font-size="11" fill="#5B21B6">Product</text>
+        <path d="M686 280l5 5 9-10" fill="none" stroke="#5B21B6" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g transform="rotate(0.9 633 358)">
+        <rect x="558" y="316" width="150" height="84" rx="6" fill="#FED7AA" filter="url(#lift)"/>
+        <text x="570" y="342">Fix offline</text>
+        <text x="570" y="361">sync bug</text>
+        <text x="570" y="388" font-size="11" fill="#9A3412">Core</text>
+        <path d="M686 378l5 5 9-10" fill="none" stroke="#9A3412" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+    </g>
+    <text x="198" y="436" font-size="13" fill="#94A3B8">+ Add card</text>
+
+    <!-- freehand ink -->
+    <path d="M362 352c0-44 172-52 176-4 3 46-160 58-178 10" fill="none" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M452 410c10 58 30 118 62 142" fill="none" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M499 551l16 2-6-15" fill="none" stroke="#EC4899" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- comment -->
+    <rect x="528" y="540" width="256" height="64" rx="12" fill="#FFFFFF" filter="url(#lift)"/>
+    <circle cx="552" cy="566" r="12" fill="#DB2777"/>
+    <text x="552" y="570.5" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">A</text>
+    <text x="574" y="562" font-size="12.5" font-weight="700" fill="#0F172A">Amira <tspan font-weight="400" fill="#94A3B8">· 2 min</tspan></text>
+    <text x="574" y="583" font-size="13" fill="#334155">Can we send these by Friday?</text>
+
+    <!-- mind map -->
+    <text x="800" y="168" font-size="12.5" font-weight="600" fill="#64748B"># Channels</text>
+    <g fill="none" stroke="#C4B5FD" stroke-width="2.5">
+      <path d="M990 330c-60 0-80-100-140-100"/>
+      <path d="M990 330c60 0 80-100 140-100"/>
+      <path d="M990 330c-60 0-100 90-160 90"/>
+      <path d="M990 330c60 0 100 90 160 90"/>
+      <path d="M990 330v150"/>
+    </g>
+    <rect x="930" y="306" width="120" height="48" rx="24" fill="url(#brand)" filter="url(#lift)"/>
+    <text x="990" y="336" font-size="17" font-weight="700" fill="#FFFFFF" text-anchor="middle">Launch</text>
+    <g font-size="14" fill="#334155" text-anchor="middle">
+      <rect x="794" y="212" width="112" height="36" rx="18" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.5" filter="url(#lift)"/>
+      <text x="850" y="235">Press kit</text>
+      <rect x="1074" y="212" width="112" height="36" rx="18" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.5" filter="url(#lift)"/>
+      <text x="1130" y="235">Social posts</text>
+      <rect x="774" y="402" width="112" height="36" rx="18" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.5" filter="url(#lift)"/>
+      <text x="830" y="425">Community</text>
+      <rect x="1094" y="402" width="112" height="36" rx="18" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.5" filter="url(#lift)"/>
+      <text x="1150" y="425">Docs update</text>
+      <rect x="934" y="462" width="112" height="36" rx="18" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="1.5" filter="url(#lift)"/>
+      <text x="990" y="485">Webinar</text>
+    </g>
+
+    <!-- live cursors -->
+    <g font-size="12.5" font-weight="700" fill="#FFFFFF">
+      <g transform="translate(1086 250)">
+        <use href="#cursor" fill="#7C3AED" stroke="#FFFFFF" stroke-width="1.5"/>
+        <rect x="14" y="24" width="58" height="22" rx="11" fill="#7C3AED"/>
+        <text x="43" y="39.5" text-anchor="middle">Hamza</text>
+      </g>
+      <g transform="translate(536 360)">
+        <use href="#cursor" fill="#DB2777" stroke="#FFFFFF" stroke-width="1.5"/>
+        <rect x="14" y="24" width="54" height="22" rx="11" fill="#DB2777"/>
+        <text x="41" y="39.5" text-anchor="middle">Amira</text>
+      </g>
+      <g transform="translate(290 424)">
+        <use href="#cursor" fill="#0D9488" stroke="#FFFFFF" stroke-width="1.5"/>
+        <rect x="14" y="24" width="40" height="22" rx="11" fill="#0D9488"/>
+        <text x="34" y="39.5" text-anchor="middle">Leo</text>
+      </g>
+    </g>
+
+    <!-- minimap and zoom -->
+    <rect x="1080" y="540" width="140" height="84" rx="10" fill="#FFFFFF" filter="url(#lift)"/>
+    <g fill="#E2E8F0">
+      <rect x="1092" y="556" width="50" height="30" rx="3"/>
+      <rect x="1150" y="560" width="26" height="22" rx="11"/>
+      <rect x="1184" y="570" width="22" height="10" rx="5"/>
+      <rect x="1100" y="594" width="30" height="16" rx="3"/>
+    </g>
+    <rect x="1088" y="550" width="96" height="52" rx="4" fill="#7C3AED" fill-opacity="0.08" stroke="#7C3AED" stroke-width="1.5"/>
+    <rect x="1080" y="636" width="140" height="34" rx="10" fill="#FFFFFF" filter="url(#lift)"/>
+    <g font-size="14" fill="#334155" text-anchor="middle">
+      <text x="1102" y="658">−</text>
+      <text x="1150" y="658" font-weight="600">100%</text>
+      <text x="1198" y="658">+</text>
+    </g>
+    <rect x="60" y="636" width="84" height="34" rx="10" fill="#FFFFFF" filter="url(#lift)"/>
+    <g fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M80 647l-5 5 5 5m-5-5h12a5 5 0 0 1 0 10h-3"/>
+      <path d="M124 647l5 5-5 5m5-5h-12a5 5 0 0 0 0 10h3"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160" role="img" aria-label="Nebula Board logo">
+  <title>Nebula Board</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1E1B4B"/>
+      <stop offset="0.6" stop-color="#312E81"/>
+      <stop offset="1" stop-color="#581C87"/>
+    </linearGradient>
+    <radialGradient id="cloudPink" cx="0.32" cy="0.36" r="0.46">
+      <stop offset="0" stop-color="#F472B6" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#C026D3" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#C026D3" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cloudAmber" cx="0.72" cy="0.7" r="0.42">
+      <stop offset="0" stop-color="#FBBF24" stop-opacity="0.75"/>
+      <stop offset="0.6" stop-color="#F97316" stop-opacity="0.2"/>
+      <stop offset="1" stop-color="#F97316" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ink" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#A78BFA"/>
+      <stop offset="0.5" stop-color="#F472B6"/>
+      <stop offset="1" stop-color="#FCD34D"/>
+    </linearGradient>
+    <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="160" height="160" rx="38" fill="url(#bg)"/>
+  <rect width="160" height="160" rx="38" fill="url(#cloudPink)"/>
+  <rect width="160" height="160" rx="38" fill="url(#cloudAmber)"/>
+  <g fill="#FFFFFF">
+    <circle cx="34" cy="30" r="1.6" opacity="0.9"/>
+    <circle cx="126" cy="26" r="1.2" opacity="0.7"/>
+    <circle cx="136" cy="62" r="1.8" opacity="0.8"/>
+    <circle cx="24" cy="92" r="1.2" opacity="0.6"/>
+    <circle cx="58" cy="136" r="1.5" opacity="0.7"/>
+    <circle cx="118" cy="132" r="1.1" opacity="0.6"/>
+    <circle cx="96" cy="44" r="1" opacity="0.8"/>
+  </g>
+  <ellipse cx="80" cy="82" rx="58" ry="21" transform="rotate(-22 80 82)" fill="none" stroke="#E9D5FF" stroke-opacity="0.45" stroke-width="2"/>
+  <path d="M38 108c14-26 28-42 42-40 13 2 4 24 17 26 12 2 16-24 25-44" fill="none" stroke="url(#ink)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="122" cy="50" r="6" fill="#FDE68A"/>
+  <circle cx="122" cy="50" r="12" fill="#FDE68A" opacity="0.25"/>
+  <g transform="translate(96 96)">
+    <path d="M0 0l30 12-13 4-5 13z" fill="#0F0A2A" opacity="0.35" transform="translate(2 3)"/>
+    <path d="M0 0l30 12-13 4-5 13z" fill="#FFFFFF" stroke="#1E1B4B" stroke-width="2" stroke-linejoin="round"/>
+  </g>
+  <path d="M40 22l2.4 6.6L49 31l-6.6 2.4L40 40l-2.4-6.6L31 31l6.6-2.4z" fill="#FFFFFF" opacity="0.95"/>
+  <rect width="160" height="160" rx="38" fill="url(#gloss)"/>
+</svg>

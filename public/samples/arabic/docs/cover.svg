@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-label="مِداد: زخرفة هندسية ذهبية على خلفية بلون الحبر">
+  <title>مِداد</title>
+  <defs>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1733"/>
+      <stop offset="0.55" stop-color="#132A4F"/>
+      <stop offset="1" stop-color="#0E3B43"/>
+    </linearGradient>
+    <radialGradient id="light" cx="0.5" cy="0.45" r="0.55">
+      <stop offset="0" stop-color="#F5D98B" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#F5D98B" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F3D27A"/>
+      <stop offset="0.5" stop-color="#D4AF37"/>
+      <stop offset="1" stop-color="#A67C1E"/>
+    </linearGradient>
+    <pattern id="khatam" width="80" height="80" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#D4AF37" stroke-width="1.4">
+        <rect x="21.6" y="21.6" width="36.8" height="36.8"/>
+        <path d="M40 14L66 40 40 66 14 40Z"/>
+        <path d="M40 0v14M80 40H66M40 80V66M0 40h14"/>
+        <path d="M0 -12L12 0 0 12 -12 0Z M80 -12L92 0 80 12 68 0Z M0 68L12 80 0 92 -12 80Z M80 68L92 80 80 92 68 80Z"/>
+        <circle cx="40" cy="40" r="6"/>
+      </g>
+    </pattern>
+  </defs>
+
+  <rect width="1280" height="420" fill="url(#ink)"/>
+  <rect width="1280" height="420" fill="url(#khatam)" opacity="0.32"/>
+  <rect width="1280" height="420" fill="url(#light)"/>
+
+  <path d="M470 340V200C470 128 560 86 640 62 720 86 810 128 810 200V340Z" fill="#0B1733" fill-opacity="0.92" stroke="url(#gold)" stroke-width="3"/>
+  <path d="M486 326V204C486 142 566 104 640 82 714 104 794 142 794 204V326Z" fill="none" stroke="#D4AF37" stroke-opacity="0.55" stroke-width="1.2"/>
+  <path d="M640 96l6 12 12 6-12 6-6 12-6-12-12-6 12-6z" fill="url(#gold)"/>
+
+  <text x="640" y="240" font-family="'Noto Naskh Arabic', Amiri, 'Traditional Arabic', 'Segoe UI', Tahoma, serif" font-size="92" font-weight="700" fill="#F5E6C8" text-anchor="middle" direction="rtl">مِداد</text>
+  <path d="M580 268h120" stroke="url(#gold)" stroke-width="2" stroke-linecap="round"/>
+  <text x="640" y="306" font-family="'Noto Naskh Arabic', Amiri, 'Traditional Arabic', 'Segoe UI', Tahoma, serif" font-size="26" fill="#E9C46A" text-anchor="middle" direction="rtl">اكتب بحرّية، واحفظ بأمان</text>
+
+  <rect x="0" y="0" width="1280" height="6" fill="url(#gold)" opacity="0.8"/>
+  <rect x="0" y="414" width="1280" height="6" fill="url(#gold)" opacity="0.8"/>
+</svg>

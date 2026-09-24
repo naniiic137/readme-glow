@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 32 32" shape-rendering="crispEdges" role="img" aria-label="Pixel Quest logo: Moss the lighthouse keeper holding a glowing lantern">
+  <title>Pixel Quest</title>
+  <defs>
+    <g id="hero">
+      <path d="M3 0h4v1H3z M2 1h6v1H2z M1 2h7v1H1z M1 3h2v1H1z M7 3h1v1H7z M1 4h1v2H1z" fill="#2A9D8F"/>
+      <path d="M8 2h1v4H8z M1 6h1v1H1z M8 6h1v1H8z" fill="#1F7A70"/>
+      <path d="M3 3h4v1H3z M2 4h1v1H2z M4 4h2v1H4z M7 4h1v1H7z M2 5h6v1H2z M8 7h1v1H8z" fill="#F4C7A1"/>
+      <path d="M3 4h1v1H3z M6 4h1v1H6z" fill="#1B1B3A"/>
+      <path d="M2 6h6v1H2z" fill="#E9C46A"/>
+      <path d="M2 7h6v1H2z M2 8h5v1H2z M2 10h5v1H2z" fill="#E76F51"/>
+      <path d="M7 8h1v1H7z M7 10h1v1H7z M1 7h1v2H1z" fill="#C4553A"/>
+      <path d="M2 9h6v1H2z M9 7h3v1H9z M9 10h3v1H9z M10 6h1v1h-1z" fill="#6B3E26"/>
+      <path d="M9 8h1v2H9z M11 8h1v2h-1z" fill="#FFD166"/>
+      <path d="M10 8h1v2h-1z" fill="#FFF3C4"/>
+      <path d="M3 11h4v1H3z M2 12h2v1H2z M6 12h2v1H6z" fill="#264653"/>
+      <path d="M1 13h3v1H1z M6 13h3v1H6z" fill="#3B2417"/>
+    </g>
+    <clipPath id="inside">
+      <path d="M4 1h24v1h1v1h1v1h1v24h-1v1h-1v1h-1v1H4v-1H3v-1H2v-1H1V4h1V3h1V2h1z"/>
+    </clipPath>
+  </defs>
+  <path d="M3 0h26v1h1v1h1v1h1v26h-1v1h-1v1h-1v1H3v-1H2v-1H1v-1H0V3h1V2h1V1h1z" fill="#7A4E7E"/>
+  <g clip-path="url(#inside)">
+    <rect width="32" height="32" fill="#1B1B3A"/>
+    <rect y="12" width="32" height="8" fill="#2E2A5A"/>
+    <rect y="20" width="32" height="9" fill="#4B3F72"/>
+    <path d="M0 29V25H5V23H9V21H12V23H16V25H20V22H23V20H26V22H29V25H32V29Z" fill="#3B2F5C"/>
+    <rect y="29" width="32" height="3" fill="#2F6B35"/>
+    <rect y="29" width="32" height="1" fill="#5FAD56"/>
+    <path d="M4 5h1v1H4z M11 4h1v1h-1z M27 5h1v1h-1z M6 11h1v1H6z M29 13h1v1h-1z M17 2h1v1h-1z" fill="#F1FAEE"/>
+    <path d="M20 14h10v12H20z M18 16h14v8H18z" fill="#FFD166" opacity="0.14"/>
+    <path d="M22 16h6v8h-6z M21 17h8v6h-8z" fill="#FFD166" opacity="0.22"/>
+    <use href="#hero" transform="translate(4 2) scale(2)"/>
+  </g>
+</svg>

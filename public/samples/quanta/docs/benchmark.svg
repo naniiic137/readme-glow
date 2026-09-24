@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" font-family="Inter, 'Segoe UI', system-ui, -apple-system, Helvetica, Arial, sans-serif" role="img" aria-label="Bar chart of throughput in millions of values per second: pure Python loop 4, vectorised baseline 180, Quanta with 1 thread 420, Quanta with 8 threads 2,900">
+  <title>Throughput on 100 million values</title>
+  <rect width="1200" height="560" rx="20" fill="#0F172A"/>
+
+  <text x="56" y="70" font-size="26" font-weight="700" fill="#F1F5F9">Throughput on 100 million values</text>
+  <text x="56" y="100" font-size="16" fill="#94A3B8">Millions of values per second · higher is better</text>
+  <rect x="936" y="50" width="208" height="36" rx="18" fill="#134E4A"/>
+  <text x="1040" y="73.5" font-size="15" font-weight="700" fill="#99F6E4" text-anchor="middle">Up to 725× faster</text>
+
+  <g stroke-width="1">
+    <path d="M580 146v338M840 146v338M1100 146v338" stroke="#1E293B"/>
+    <path d="M320 146v338" stroke="#475569"/>
+  </g>
+  <g font-size="14" fill="#94A3B8" text-anchor="middle">
+    <text x="320" y="510">0</text>
+    <text x="580" y="510">1,000</text>
+    <text x="840" y="510">2,000</text>
+    <text x="1100" y="510">3,000</text>
+  </g>
+
+  <g font-size="17" fill="#E2E8F0" text-anchor="end">
+    <text x="300" y="186">Pure Python loop</text>
+    <text x="300" y="276">Vectorised baseline</text>
+    <text x="300" y="366" font-weight="700">Quanta · 1 thread</text>
+    <text x="300" y="456" font-weight="700">Quanta · 8 threads</text>
+  </g>
+
+  <rect x="320" y="162" width="3" height="36" fill="#64748B"/>
+  <path d="M320 252h43a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4h-43z" fill="#64748B"/>
+  <path d="M320 342h105a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4h-105z" fill="#2DD4BF"/>
+  <path d="M320 432h750a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4h-750z" fill="#2DD4BF"/>
+
+  <g font-size="17" font-weight="700" fill="#F1F5F9">
+    <text x="335" y="186">4</text>
+    <text x="379" y="276">180</text>
+    <text x="441" y="366">420</text>
+    <text x="1086" y="456">2,900</text>
+  </g>
+
+  <text x="56" y="540" font-size="13" fill="#64748B">8-core laptop · float64 · median of five runs · illustrative numbers</text>
+</svg>

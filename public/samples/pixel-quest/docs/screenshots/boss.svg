@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 160 90" shape-rendering="crispEdges" role="img" aria-label="Pixel art: the Clockwork Warden, a giant brass machine with glowing eyes and a glowing chest cog, towers over Moss in a steam-filled hall">
+  <title>The Clockwork Warden</title>
+  <defs>
+    <g id="hero">
+      <path d="M8 3h5v8H8z M7 4h7v6H7z" fill="#FFD166" opacity="0.14"/>
+      <path d="M3 0h4v1H3z M2 1h6v1H2z M1 2h7v1H1z M1 3h2v1H1z M7 3h1v1H7z M1 4h1v2H1z" fill="#2A9D8F"/>
+      <path d="M8 2h1v4H8z M1 6h1v1H1z M8 6h1v1H8z" fill="#1F7A70"/>
+      <path d="M3 3h4v1H3z M2 4h1v1H2z M4 4h2v1H4z M7 4h1v1H7z M2 5h6v1H2z M8 7h1v1H8z" fill="#F4C7A1"/>
+      <path d="M3 4h1v1H3z M6 4h1v1H6z" fill="#1B1B3A"/>
+      <path d="M2 6h6v1H2z" fill="#E9C46A"/>
+      <path d="M2 7h6v1H2z M2 8h5v1H2z M2 10h5v1H2z" fill="#E76F51"/>
+      <path d="M7 8h1v1H7z M7 10h1v1H7z M1 7h1v2H1z" fill="#C4553A"/>
+      <path d="M2 9h6v1H2z M9 7h3v1H9z M9 10h3v1H9z M10 6h1v1h-1z" fill="#6B3E26"/>
+      <path d="M9 8h1v2H9z M11 8h1v2h-1z" fill="#FFD166"/>
+      <path d="M10 8h1v2h-1z" fill="#FFF3C4"/>
+      <path d="M3 11h4v1H3z M2 12h2v1H2z M6 12h2v1H6z" fill="#264653"/>
+      <path d="M1 13h3v1H1z M6 13h3v1H6z" fill="#3B2417"/>
+    </g>
+    <path id="heart" d="M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z"/>
+    <path id="gear" d="M3 0h1v1H3zM1 1h5v1H1zM1 2h2v1H1zM4 2h2v1H4zM0 3h2v1H0zM5 3h2v1H5zM1 4h2v1H1zM4 4h2v1H4zM1 5h5v1H1zM3 6h1v1H3z"/>
+    <path id="puff" d="M2 0h4v1h1v1h1v3H0V2h1V1h1z"/>
+  </defs>
+
+  <rect width="160" height="30" fill="#2B0F1E"/>
+  <rect y="30" width="160" height="24" fill="#3D1A2A"/>
+  <rect y="54" width="160" height="20" fill="#4A1C2C"/>
+  <use href="#gear" transform="translate(2 18) scale(6)" fill="#3A1626"/>
+  <use href="#gear" transform="translate(134 40) scale(4)" fill="#5A2436"/>
+  <use href="#gear" transform="translate(52 8) scale(3)" fill="#3A1626"/>
+
+  <path d="M0 74h160v16H0z" fill="#4A4E69"/>
+  <path d="M0 74h160v1H0z" fill="#8D99AE"/>
+  <path d="M20 75h1v15h-1z M60 75h1v15h-1z M100 75h1v15h-1z M140 75h1v15h-1z" fill="#3B3E57"/>
+  <path d="M3 77h1v1H3z M17 77h1v1h-1z M23 77h1v1h-1z M57 77h1v1h-1z M63 77h1v1h-1z M97 77h1v1h-1z M103 77h1v1h-1z M137 77h1v1h-1z M143 77h1v1h-1z M157 77h1v1h-1z" fill="#8D99AE"/>
+
+  <g fill="#F1FAEE" opacity="0.75">
+    <use href="#puff" x="75" y="11"/>
+    <use href="#puff" x="71" y="5"/>
+    <use href="#puff" x="119" y="11"/>
+    <use href="#puff" x="126" y="14"/>
+  </g>
+  <path d="M78 17h5v11h-5z M119 17h5v11h-5z" fill="#5C4033"/>
+  <path d="M77 16h7v2h-7z M118 16h7v2h-7z" fill="#7F5539"/>
+
+  <path d="M62 30h16v10H62z M124 30h16v10h-16z" fill="#7F5539"/>
+  <path d="M60 40h10v18H60z M132 40h10v18h-10z" fill="#B08D57"/>
+  <path d="M60 40h2v18h-2z M132 40h2v18h-2z" fill="#D4A373"/>
+  <path d="M68 40h2v18h-2z M140 40h2v18h-2z" fill="#7F5539"/>
+  <path d="M58 58h4v6h-4z M68 58h4v6h-4z M130 58h4v6h-4z M140 58h4v6h-4z" fill="#8D99AE"/>
+  <path d="M58 58h4v1h-4z M68 58h4v1h-4z M130 58h4v1h-4z M140 58h4v1h-4z" fill="#C9D1DC"/>
+
+  <path d="M82 60h10v14H82z M110 60h10v14h-10z" fill="#7F5539"/>
+  <path d="M82 60h2v14h-2z M110 60h2v14h-2z" fill="#B08D57"/>
+  <path d="M80 72h14v2H80z M108 72h14v2h-14z" fill="#5C4033"/>
+
+  <path d="M76 28h50v32H76z" fill="#B08D57"/>
+  <path d="M76 28h50v2H76z M76 28h2v32h-2z" fill="#D4A373"/>
+  <path d="M118 30h8v30h-8z M78 58h48v2H78z" fill="#7F5539"/>
+  <path d="M79 31h1v1h-1z M79 56h1v1h-1z M122 31h1v1h-1z M122 56h1v1h-1z M100 31h1v1h-1z" fill="#5C4033"/>
+
+  <path d="M88 32h26v26H88z M86 36h30v18H86z" fill="#FF9F1C" opacity="0.18"/>
+  <use href="#gear" transform="translate(91 34) scale(3)" fill="#FFB703"/>
+  <path d="M100 43h3v3h-3z" fill="#FFF3C4"/>
+  <path d="M94 37h3v3h-3z" fill="#FFE8A3"/>
+
+  <path d="M88 14h26v14H88z" fill="#B08D57"/>
+  <path d="M88 14h26v2H88z M88 14h2v14h-2z" fill="#D4A373"/>
+  <path d="M110 16h4v12h-4z" fill="#7F5539"/>
+  <path d="M100 10h2v4h-2z" fill="#7F5539"/>
+  <path d="M99 8h4v2h-4z" fill="#FF006E"/>
+  <path d="M91 18h8v6h-8z M103 18h8v6h-8z" fill="#FF006E" opacity="0.25"/>
+  <path d="M93 20h4v2h-4z M105 20h4v2h-4z" fill="#FF006E"/>
+  <path d="M93 20h1v1h-1z M105 20h1v1h-1z" fill="#FFC2DC"/>
+  <path d="M94 25h14v1H94z" fill="#5C4033"/>
+  <path d="M95 25h1v1h-1z M98 25h1v1h-1z M101 25h1v1h-1z M104 25h1v1h-1z" fill="#D4A373"/>
+
+  <path d="M52 50h1v1h-1z M55 46h1v1h-1z M147 52h1v1h-1z M150 48h1v1h-1z M86 64h1v1h-1z M116 66h1v1h-1z M74 44h1v1h-1z" fill="#FFD166"/>
+
+  <path d="M24 70h24v6H24z M27 68h18v10H27z" fill="#FFD166" opacity="0.1"/>
+  <use href="#hero" x="30" y="60"/>
+
+  <rect x="1" y="1" width="27" height="10" fill="#000000" opacity="0.35"/>
+  <use href="#heart" x="3" y="3" fill="#E63946"/>
+  <use href="#heart" x="11" y="3" fill="#E63946"/>
+  <use href="#heart" x="19" y="3" fill="#4A4E69"/>
+  <path d="M20 3h2v1h-2z M19 4h4v2h-4z M20 6h3v1h-3z M21 7h2v1h-2z M22 8h1v1h-1z" fill="#E63946"/>
+  <path d="M4 4h1v1H4z M12 4h1v1h-1z" fill="#F1FAEE"/>
+
+  <rect x="40" y="79" width="80" height="9" fill="#000000" opacity="0.45"/>
+  <use href="#gear" x="42" y="80" fill="#B08D57"/>
+  <path d="M51 80h67v7H51z" fill="#F1FAEE"/>
+  <path d="M52 81h65v5H52z" fill="#22223F"/>
+  <path d="M52 81h48v5H52z" fill="#E63946"/>
+  <path d="M52 81h48v1H52z" fill="#FF6B6B"/>
+
+  <rect x="115" y="1" width="44" height="10" fill="#000000" opacity="0.35"/>
+  <use href="#gear" x="117" y="3" fill="#FFD166"/>
+  <use href="#gear" x="125" y="3" fill="#FFD166"/>
+  <use href="#gear" x="133" y="3" fill="#FFD166"/>
+  <use href="#gear" x="141" y="3" fill="#FFD166"/>
+  <use href="#gear" x="149" y="3" fill="#4A4E69"/>
+</svg>
