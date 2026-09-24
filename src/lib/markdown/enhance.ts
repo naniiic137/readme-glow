@@ -26,6 +26,8 @@ export interface EnhanceContext {
   codeInfo: Map<number, CodeInfo>;
   /** Inline content range of editable blocks, keyed by `${kind}:${startOffset}`. */
   inner: Map<string, [number, number]>;
+  /** Heading source text (shortcodes intact) by start offset, for GitHub-compatible anchors. */
+  slugText?: Map<number, string>;
   resolve?: UrlResolver;
 }
 
@@ -206,8 +208,10 @@ export function enhance(tree: Root, ctx: EnhanceContext): EnhanceResult {
         counts.headings++;
         const isFootnoteLabel = classes(node).includes('sr-only');
         const label = hastToString(node).replace(/\s+/g, ' ').trim();
-        if (!node.properties.id) node.properties.id = slugger.slug(label);
-        else slugger.slug(label); // keep the counter in step with GitHub
+        const start = node.position?.start.offset;
+        const slugSource = (start !== undefined && !rawRangeAt(start) ? ctx.slugText?.get(start) : undefined) ?? label;
+        if (!node.properties.id) node.properties.id = slugger.slug(slugSource);
+        else slugger.slug(slugSource); // keep the counter in step with GitHub
         const id = String(node.properties.id);
         if (!isFootnoteLabel && label) {
           toc.push({ depth: Number(tag[1]), text: label, id, line: Number(node.properties.dataLine ?? 0) });

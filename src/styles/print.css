@@ -1,0 +1,141 @@
+/*
+ * Print / PDF: only the document, no application chrome. By default dark
+ * themes print on white with dark text (saves ink); "Keep the theme background"
+ * in the export dialog prints exactly what you see.
+ */
+@media print {
+  @page {
+    margin: 16mm 14mm;
+  }
+  html,
+  body,
+  #root {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+  .topbar,
+  .editor-pane,
+  .splitter,
+  .mobile-tabs,
+  .drawer,
+  .dialog,
+  .overlay,
+  .toasts,
+  .findbar,
+  .ve-ui,
+  .loading-bar,
+  .skip-link,
+  .focus-exit,
+  .rg-toc,
+  .rg-toc-toggle,
+  .rg-slides-ui,
+  .rg-slides-progress,
+  .rg-copy,
+  .rg-anchor,
+  .global-drop,
+  .lightbox {
+    display: none !important;
+  }
+  .ws,
+  .ws-main,
+  .preview-pane,
+  .pv-scroll {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .rg-doc {
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+    --rg-viewport: auto;
+  }
+  .rg-backdrop-inner {
+    position: static !important;
+    height: 100% !important;
+  }
+  .rg-doc .rg-body [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .rg-body {
+    max-width: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    backdrop-filter: none !important;
+    box-shadow: none !important;
+  }
+  .rg-frame {
+    display: block !important;
+  }
+  .rg-body :is(h1, h2, h3, h4) {
+    break-after: avoid;
+  }
+  .rg-body :is(pre, .rg-code, table, .rg-figure, img, .markdown-alert, blockquote, .rg-mermaid, details) {
+    break-inside: avoid;
+  }
+  .rg-body pre {
+    white-space: pre-wrap !important;
+    overflow: visible !important;
+  }
+  .rg-body .rg-table-wrap {
+    overflow: visible !important;
+  }
+  .rg-body details > * {
+    display: block !important;
+  }
+  .rg-body a[href^='http']:not(:has(img))::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: var(--rg-muted);
+    word-break: break-all;
+  }
+  .rg-doc.layout-slides {
+    height: auto !important;
+  }
+  .rg-doc.layout-slides .rg-slide {
+    position: static !important;
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    min-height: 95vh;
+    break-after: page;
+    overflow: visible !important;
+  }
+  .rg-doc.layout-landing .rg-section,
+  .rg-doc.layout-magazine .rg-section {
+    break-inside: auto;
+    box-shadow: none !important;
+  }
+  /* Ink-saving default: white paper, dark ink, keep the theme's fonts and accents. */
+  body:not(.print-exact) .rg-doc.mode-dark {
+    --rg-bg: #ffffff;
+    --rg-bg-alt: #f4f4f6;
+    --rg-surface: #f7f7f9;
+    --rg-text: #1b1b22;
+    --rg-muted: #50505a;
+    --rg-heading: #0e0e14;
+    --rg-border: #d8d8de;
+    --rg-link: #1d4ed8;
+    --rg-inline-code-bg: #f1f1f4;
+    --rg-inline-code-text: #1b1b22;
+    color-scheme: light;
+  }
+  body:not(.print-exact) .rg-backdrop {
+    display: none !important;
+  }
+  body:not(.print-exact) .rg-doc {
+    background: #fff !important;
+  }
+  body.print-exact .rg-doc,
+  body.print-exact .rg-doc * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .rg-body .rg-code {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

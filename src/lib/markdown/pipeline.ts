@@ -5,7 +5,7 @@ import rehypeSanitize from 'rehype-sanitize';
 import { toHtml } from 'hast-util-to-html';
 import type { Root as HastRoot, Element } from 'hast';
 import type { Root as MdastRoot, Text as MdText } from 'mdast';
-import { parseMarkdown, walk } from './parse';
+import { parseMarkdown, walk, mdText } from './parse';
 import { sanitizeSchema } from './schema';
 import { enhance, walkElements, type CodeInfo } from './enhance';
 import { splitCodeLines } from './codeLines';
@@ -31,6 +31,15 @@ const SHORTCODE = /:[a-z0-9_+-]+:/i;
 export async function renderMarkdown(markdown: string, options: RenderOptions = {}): Promise<RenderOutput> {
   const t0 = typeof performance !== 'undefined' ? performance.now() : Date.now();
   const mdast = parseMarkdown(markdown);
+
+  // GitHub builds heading anchors from the source text, so `## :sparkles: Why`
+  // becomes #sparkles-why. Remember that text before shortcodes turn into emoji.
+  const slugText = new Map<number, string>();
+  walk(mdast, (node) => {
+    if (node.type === 'heading' && node.position?.start.offset !== undefined) {
+      slugText.set(node.position.start.offset, mdText(node).replace(/\s+/g, ' ').trim());
+    }
+  });
 
   let emoji = false;
   if (SHORTCODE.test(markdown)) {
@@ -65,7 +74,7 @@ export async function renderMarkdown(markdown: string, options: RenderOptions = 
   rawRanges.sort((a, b) => a[0] - b[0]);
 
   const tree = toHast.runSync(mdast as MdastRoot) as HastRoot;
-  const result = enhance(tree, { source: markdown, rawRanges, codeInfo, inner, resolve: options.resolve });
+  const result = enhance(tree, { source: markdown, rawRanges, codeInfo, inner, slugText, resolve: options.resolve });
 
   if (result.counts.codeBlocks > 0) {
     const codes: Element[] = [];
